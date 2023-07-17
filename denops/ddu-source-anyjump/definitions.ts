@@ -1,5 +1,11 @@
 import { definitions } from "./langMap.ts";
-import { baseArgs, convertLanguageName, getRgIgnoreSpecifier } from "./base.ts";
+import {
+  baseArgs,
+  command,
+  convertLanguageName,
+  getRgIgnoreSpecifier,
+  REGEX_KEYWORD,
+} from "./base.ts";
 import {
   $array,
   $const,
@@ -8,12 +14,6 @@ import {
   $string,
   type Infer,
 } from "https://esm.sh/lizod@0.2.6";
-
-/** Word for replace ripgrep command */
-const REGEX_KEYWORD = "KEYWORD";
-
-/** ripgrep command name */
-const command = "rg";
 
 /**
  * Decode Uint8Array as string

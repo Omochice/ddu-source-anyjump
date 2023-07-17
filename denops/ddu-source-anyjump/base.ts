@@ -1,4 +1,9 @@
 import { Denops, fn } from "https://deno.land/x/ddu_vim@v3.4.2/deps.ts";
+
+/** Word for replace ripgrep command */
+export const REGEX_KEYWORD = "KEYWORD";
+
+/** ripgrep command name */
 export const command = "rg";
 
 export const baseArgs = ["-n", "--auto-hybrid-regex", "--json"] as const;
@@ -17,7 +22,7 @@ const langMap = new Map([
 ]);
 
 export function convertLanguageName(langage: string): string {
-  return langMap.get(langage) ?? langage
+  return langMap.get(langage) ?? langage;
 }
 
 const commentStringMap = new Map([
