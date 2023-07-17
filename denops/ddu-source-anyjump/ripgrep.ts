@@ -8,6 +8,44 @@ import {
 } from "https://esm.sh/lizod@0.2.6";
 import { commentMap } from "./commentMap.ts";
 
+/** Word for replace ripgrep command */
+export const REGEX_KEYWORD = "KEYWORD";
+
+/** ripgrep command name */
+export const COMMAND = "rg";
+
+/** ripgrep base args */
+export const baseArgs = ["-n", "--auto-hybrid-regex", "--json"] as const;
+
+type Option = {
+  disableVcsIgnore?: boolean;
+  ignoredFiles?: string[];
+};
+
+const defaultOption: Required<Option> = {
+  disableVcsIgnore: false,
+  ignoredFiles: ["*.tmp", "*.temp"],
+};
+
+/**
+ * Genrage ripgrep ignore arguments
+ *
+ * @param option
+ * @return ripgrep arguments
+ */
+export function getRgIgnoreSpecifier(option?: Option) {
+  const mergedOption = { ...option, ...defaultOption };
+  const result = [];
+  if (mergedOption.disableVcsIgnore) {
+    result.push("--no-ignore-vcs");
+  }
+  for (const glob of mergedOption.ignoredFiles ?? ["*.tmp", "*.temp"]) {
+    result.push("-g");
+    result.push(`!'${glob}'`);
+  }
+  return result;
+}
+
 /**
  * Validate is input ripgrep match object
  *

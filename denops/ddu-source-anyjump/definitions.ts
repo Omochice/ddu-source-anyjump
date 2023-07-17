@@ -1,13 +1,15 @@
-import { definitions } from "./langMap.ts";
+import { definitions } from "./grepDefinitions.ts";
 import {
   baseArgs,
-  command,
-  convertLanguageName,
+  COMMAND,
   getRgIgnoreSpecifier,
+  isMatchInComment,
+  type Match,
   REGEX_KEYWORD,
-} from "./base.ts";
+  validate,
+} from "./ripgrep.ts";
+import { convertLanguageName } from "./langMap.ts";
 import { decode } from "./decode.ts";
-import { isMatchInComment, type Match, validate } from "./ripgrepMatch.ts";
 
 /**
  * Search definitions by ripgrep
@@ -48,7 +50,7 @@ export async function search(
     ...getRgIgnoreSpecifier(),
     `(${regex})`,
   ];
-  const proc = new Deno.Command(command, {
+  const proc = new Deno.Command(COMMAND, {
     args,
     stdout: "piped",
     cwd: option.cwd,

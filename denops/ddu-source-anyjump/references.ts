@@ -1,11 +1,13 @@
 import {
   baseArgs,
-  command,
-  convertLanguageName,
+  COMMAND,
   getRgIgnoreSpecifier,
-} from "./base.ts";
+  isMatchInComment,
+  type Match,
+  validate,
+} from "./ripgrep.ts";
+import { convertLanguageName } from "./langMap.ts";
 import { decode } from "./decode.ts";
-import { isMatchInComment, type Match, validate } from "./ripgrepMatch.ts";
 
 export async function search(
   lang: string,
@@ -25,7 +27,7 @@ export async function search(
     option.onlyCurrentFiletype ? ["-t", convertLanguageName(lang)] : [],
   ].flat(2);
 
-  const proc = new Deno.Command(command, {
+  const proc = new Deno.Command(COMMAND, {
     args,
     stdout: "piped",
     cwd: option.cwd,
