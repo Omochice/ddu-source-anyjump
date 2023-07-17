@@ -8,12 +8,7 @@ import { Denops, fn, vars } from "https://deno.land/x/ddu_vim@v3.4.2/deps.ts";
 import { ActionData } from "https://deno.land/x/ddu_kind_file@v0.5.3/file.ts";
 import { search } from "../ddu-source-anyjump/definitions.ts";
 import { convertMatch } from "../ddu-source-anyjump/convert.ts";
-
-type HighlightGroup = {
-  path: string;
-  lineNr: string;
-  word: string;
-};
+import { HighlightGroup } from "../ddu-source-anyjump/params.ts";
 
 type Params = {
   highlights: HighlightGroup;
