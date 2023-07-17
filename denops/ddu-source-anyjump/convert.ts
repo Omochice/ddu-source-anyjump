@@ -33,7 +33,7 @@ export function convertMatch(match: Match, option: {
   const header = `${path}:${lineNr}:${col}`;
   const text = match.data.lines.text?.replace(/\r?\n/, "");
   return {
-    word: header + text,
+    word: `${header} ${text}`,
     action: {
       path: resolve(option.cwd, match.data.path.text),
       lineNr,
