@@ -7,7 +7,7 @@ import {
   REGEX_KEYWORD,
 } from "./base.ts";
 import { decode } from "./decode.ts";
-import { type Match, validate } from "./ripgrepMatch.ts";
+import { isMatchInComment, type Match, validate } from "./ripgrepMatch.ts";
 
 /**
  * Search definitions by ripgrep
@@ -23,6 +23,7 @@ export async function search(
   option: {
     isFish?: boolean;
     cwd: string;
+    checkInComment: boolean;
   },
 ): Promise<Match[]> {
   const regex = definitions.get(lang)
@@ -62,6 +63,7 @@ export async function search(
       }
     })
     .filter((e) => {
-      return validate(e);
+      return validate(e) &&
+        (!option.checkInComment || isMatchInComment(e, lang));
     });
 }

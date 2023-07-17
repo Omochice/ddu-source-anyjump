@@ -17,6 +17,7 @@ type HighlightGroup = {
 
 type Params = {
   highlights: HighlightGroup;
+  removeCommentsFromResults: boolean;
 };
 
 export class Source extends BaseSource<Params> {
@@ -44,6 +45,7 @@ export class Source extends BaseSource<Params> {
           {
             isFish: /fish/.test(Deno.env.get("SHELL") ?? ""),
             cwd,
+            checkInComment: args.sourceParams.removeCommentsFromResults,
           },
         );
 
@@ -73,6 +75,7 @@ export class Source extends BaseSource<Params> {
         lineNr: "Normal",
         word: "Search",
       },
+      removeCommentsFromResults: true,
     };
   }
 }
