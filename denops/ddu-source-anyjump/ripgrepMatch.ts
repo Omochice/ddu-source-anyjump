@@ -6,6 +6,7 @@ import {
   $string,
   type Infer,
 } from "https://esm.sh/lizod@0.2.6";
+import { commentMap } from "./commentMap.ts";
 
 /**
  * Validate is input ripgrep match object
@@ -31,3 +32,32 @@ export const validate = $object({
 });
 
 export type Match = Infer<typeof validate>;
+
+/**
+ * Test match point is included by comment
+ *
+ * @param match ripgrep match object
+ * @param lang language name
+ * @return whether is match point included by comment
+ * @example
+ * ```ts
+ * ```
+ */
+export function isMatchInComment(match: Match, lang: string): boolean {
+  // if comment map does not support the lang, cannot filter
+  if (!commentMap.has(lang)) {
+    return false;
+  }
+
+  const target = match.data.submatches.length === 0
+    ? match.data.lines.text
+    : match.data.lines.text.substring(
+      0,
+      match.data.submatches[0].start,
+    );
+
+  return commentMap.get(lang)!.some((comment) => {
+    const re = new RegExp(comment);
+    return re.test(target);
+  });
+}
