@@ -64,6 +64,6 @@ export async function search(
     })
     .filter((e) => {
       return validate(e) &&
-        (!option.checkInComment || isMatchInComment(e, lang));
+        !(option.checkInComment && isMatchInComment(e, lang));
     });
 }
