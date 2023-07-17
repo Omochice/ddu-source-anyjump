@@ -16,17 +16,6 @@ import {
 } from "https://esm.sh/lizod@0.2.6";
 
 /**
- * Decode Uint8Array as string
- *
- * @param raw target string
- * @return decoded one
- */
-const decode = (() => {
-  const decoder = new TextDecoder();
-  return (raw: Uint8Array): string => decoder.decode(raw);
-})();
-
-/**
  * Validate is input ripgrep match object
  *
  * @param input validation target
@@ -50,6 +39,7 @@ const validate = $object({
 });
 
 export type Match = Infer<typeof validate>;
+import { decode } from "./decode.ts";
 
 /**
  * Search definitions by ripgrep
