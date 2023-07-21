@@ -4,6 +4,9 @@
     "fmt:check": "deno fmt --check ./**/*.ts",
     "check": "deno check ./**/*.ts",
     "lint": "deno lint ./**/*.ts",
-    "udd": "deno run --allow-read=. --allow-write=. --allow-net https://deno.land/x/udd@0.8.2/main.ts ./**/*.ts"
+    "udd": "deno run --allow-read=. --allow-write=. --allow-net https://deno.land/x/udd@0.8.2/main.ts ./**/*.ts",
+    "docs": "deno task docs:vimdoc ; deno task docs:markdown",
+    "docs:vimdoc": "deno run -A https://pax.deno.dev/Omochice/podeno vimdoc --in README.pod --out doc/ddu-source-anyjump.txt",
+    "docs:markdown": "deno run -A https://pax.deno.dev/Omochice/podeno markdown --in README.pod --out README.md"
   }
 }
