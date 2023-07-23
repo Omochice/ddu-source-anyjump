@@ -7,7 +7,7 @@ description: anyjump source for ddu.vim
 
 =head1 ddu-source-anyjump X<ddu-source-anyjump>
 
-Source for un-LSP oriented definition|reference list.
+Source for non-LSP oriented definition|reference list.
 
 Based on https://github.com/pechorin/any-jump.vim.
 
@@ -38,6 +38,10 @@ ddu.vim and denops.vim are required.
 =item * https://github.com/Shougo/ddu.vim
 
 =item * https://github.com/vim-denops/denops.vim
+
+=item * https://github.com/BurntSushi/ripgrep
+
+Need to set C<rg> in your PATH.
 
 =back
 
