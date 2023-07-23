@@ -1,6 +1,6 @@
 # ddu-source-anyjump 
 
-Source for un-LSP oriented definition|reference list.
+Source for non-LSP oriented definition|reference list.
 
 Based on https://github.com/pechorin/any-jump.vim.
 
@@ -21,6 +21,9 @@ ddu.vim and denops.vim are required.
 
 - https://github.com/Shougo/ddu.vim
 - https://github.com/vim-denops/denops.vim
+- https://github.com/BurntSushi/ripgrep
+
+Need to set `rg` in your PATH.
 
 ## Examples 
 
