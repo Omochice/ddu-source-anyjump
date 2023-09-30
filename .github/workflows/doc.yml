@@ -15,7 +15,7 @@ jobs:
         with:
           deno-version: vx.x.x
       - name: Check out repository code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Generate readme
         run: deno task docs
       - name: Create commits
