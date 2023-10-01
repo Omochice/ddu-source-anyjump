@@ -136,7 +136,7 @@ see L<ddu-source-anyjump_definition-param-removeCommentsFromResults>.
 
 Search references only for current file type.
 
-Default C<false>
+Default: C<false>
 
 =back
 
