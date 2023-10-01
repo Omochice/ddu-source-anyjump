@@ -22,6 +22,7 @@ ddu.vim and denops.vim are required.
 - https://github.com/Shougo/ddu.vim
 - https://github.com/vim-denops/denops.vim
 - https://github.com/BurntSushi/ripgrep
+- https://github.com/Shougo/ddu-kind-file
 
 Need to set `rg` in your PATH.
 
@@ -101,5 +102,5 @@ see [ddu-source-anyjump_definition-param-removeCommentsFromResults](ddu-source-a
 
 Search references only for current file type.
 
-Default `false`
+Default: `false`
 
