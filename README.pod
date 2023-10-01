@@ -41,6 +41,8 @@ ddu.vim and denops.vim are required.
 
 =item * https://github.com/BurntSushi/ripgrep
 
+=item * https://github.com/Shougo/ddu-kind-file
+
 Need to set C<rg> in your PATH.
 
 =back
