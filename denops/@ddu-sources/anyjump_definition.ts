@@ -5,7 +5,7 @@ import {
   SourceOptions,
 } from "https://deno.land/x/ddu_vim@v3.6.0/types.ts";
 import { Denops, fn, vars } from "https://deno.land/x/ddu_vim@v3.6.0/deps.ts";
-import { ActionData } from "https://deno.land/x/ddu_kind_file@v0.5.3/file.ts";
+import { ActionData } from "https://deno.land/x/ddu_kind_file@v0.7.1/file.ts";
 import { search } from "../ddu-source-anyjump/definitions.ts";
 import { convertMatch } from "../ddu-source-anyjump/convert.ts";
 import { HighlightGroup } from "../ddu-source-anyjump/params.ts";
