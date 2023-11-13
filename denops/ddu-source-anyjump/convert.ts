@@ -1,6 +1,6 @@
 import { Item } from "https://deno.land/x/ddu_vim@v3.6.0/types.ts";
 import { ActionData } from "https://deno.land/x/ddu_kind_file@v0.5.3/file.ts";
-import { resolve } from "https://deno.land/std@0.205.0/path/mod.ts";
+import { resolve } from "https://deno.land/std@0.206.0/path/mod.ts";
 import { type Match } from "./ripgrep.ts";
 
 /**
