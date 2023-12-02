@@ -17,6 +17,15 @@ type Params = {
 
 export class Source extends BaseSource<Params> {
   kind = "file";
+  cword = "";
+  cwd = "";
+  filetype = "";
+
+  async onInit(args: { denops: Denops }): Promise<void> {
+    this.cword = await fn.expand(args.denops, "<cword>") as string;
+    this.cwd = await fn.getcwd(args.denops) as string;
+    this.filetype = await vars.lo.get(args.denops, "filetype");
+  }
 
   gather(args: {
     denops: Denops;
@@ -29,13 +38,14 @@ export class Source extends BaseSource<Params> {
     const hlGroupLineNr = args.sourceParams.highlights?.lineNr ?? "";
     const hlGroupWord = args.sourceParams.highlights?.word ?? "";
 
+    const cword = this.cword;
+    const cwd = this.cwd;
+    const filetype = this.filetype;
+
     return new ReadableStream({
       async start(controller) {
-        const cword = await fn.expand(args.denops, "<cword>") as string;
-        const cwd = await fn.getcwd(args.denops) as string;
-
         const matches = await search(
-          await vars.lo.get(args.denops, "filetype"),
+          filetype,
           cword,
           {
             isFish: /fish/.test(Deno.env.get("SHELL") ?? ""),
