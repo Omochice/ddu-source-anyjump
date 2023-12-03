@@ -43,7 +43,7 @@ call ddu#custom#patch_global(#{
     \     },
     \   },
     \   sourceParams: #{
-    \     anyjump_definition: #{
+    \     anyjump_reference: #{
     \       highlights: #{
     \         path: 'Normal',
     \         lineNr: 'Normal',
