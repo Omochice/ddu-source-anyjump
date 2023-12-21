@@ -6,6 +6,7 @@ import {
 } from "https://deno.land/x/ddu_vim@v3.8.1/types.ts";
 import { Denops, fn, vars } from "https://deno.land/x/ddu_vim@v3.8.1/deps.ts";
 import { ActionData } from "https://deno.land/x/ddu_kind_file@v0.7.1/file.ts";
+import { echoerr } from "https://deno.land/x/denops_std@v5.2.0/helper/mod.ts";
 import { search } from "../ddu-source-anyjump/definitions.ts";
 import { convertMatch } from "../ddu-source-anyjump/convert.ts";
 import { HighlightGroup } from "../ddu-source-anyjump/params.ts";
@@ -44,7 +45,7 @@ export class Source extends BaseSource<Params> {
 
     return new ReadableStream({
       async start(controller) {
-        const matches = await search(
+        await search(
           filetype,
           cword,
           {
@@ -52,22 +53,25 @@ export class Source extends BaseSource<Params> {
             cwd,
             checkInComment: args.sourceParams.removeCommentsFromResults,
           },
+        ).match(
+          async (matches) => {
+            if (matches.length === 0) {
+              return;
+            }
+            controller.enqueue(matches.map((m) =>
+              convertMatch(m, {
+                cwd,
+                hlGroupPath,
+                hlGroupWord,
+                hlGroupLineNr,
+              })
+            ));
+            await Promise.resolve(undefined);
+          },
+          async (err: Error) => {
+            await echoerr(args.denops, err.message);
+          },
         );
-
-        if (matches.length === 0) {
-          controller.close();
-          return;
-        }
-
-        controller.enqueue(matches.map((m) =>
-          convertMatch(m, {
-            cwd,
-            hlGroupPath,
-            hlGroupWord,
-            hlGroupLineNr,
-          })
-        ));
-
         controller.close();
       },
     });
