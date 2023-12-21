@@ -8,8 +8,9 @@ import {
 } from "./ripgrep.ts";
 import { convertLanguageName } from "./langMap.ts";
 import { decode } from "./decode.ts";
+import { okAsync, ResultAsync } from "npm:neverthrow@6.1.0";
 
-export async function search(
+export function search(
   lang: string,
   keyword: string,
   option: {
@@ -17,7 +18,7 @@ export async function search(
     cwd: string;
     checkInComment: boolean;
   },
-): Promise<Match[]> {
+): ResultAsync<Match[], Error> {
   const kw = keyword.replaceAll("\\-", "\\\\\\\\-"); // shell escape
   const args = [
     ...baseArgs,
@@ -33,17 +34,22 @@ export async function search(
     cwd: option.cwd,
   });
 
-  return decode((await proc.output()).stdout)
-    .split("\n")
-    .map((line: string) => {
-      try {
-        return JSON.parse(line);
-      } catch {
-        return {};
-      }
-    })
-    .filter((e) => {
-      return validate(e) &&
-        !(option.checkInComment && isMatchInComment(e, lang));
+  return ResultAsync.fromPromise(proc.output(), () => new Error())
+    .andThen((commandOutput) => {
+      return okAsync(
+        decode(commandOutput.stdout)
+          .split("\n")
+          .map((line: string) => {
+            try {
+              return JSON.parse(line);
+            } catch {
+              return {};
+            }
+          })
+          .filter((e) => {
+            return validate(e) &&
+              !(option.checkInComment && isMatchInComment(e, lang));
+          }),
+      );
     });
 }

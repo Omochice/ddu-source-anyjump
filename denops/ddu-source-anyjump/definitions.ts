@@ -10,6 +10,7 @@ import {
 } from "./ripgrep.ts";
 import { convertLanguageName } from "./langMap.ts";
 import { decode } from "./decode.ts";
+import { errAsync, okAsync, ResultAsync } from "npm:neverthrow@6.1.0";
 
 /**
  * Search definitions by ripgrep
@@ -19,7 +20,7 @@ import { decode } from "./decode.ts";
  * @param option search option
  * @return list of matches
  */
-export async function search(
+export function search(
   lang: string,
   keyword: string,
   option: {
@@ -27,7 +28,7 @@ export async function search(
     cwd: string;
     checkInComment: boolean;
   },
-): Promise<Match[]> {
+): ResultAsync<Match[], Error> {
   const regex = definitions.get(lang)
     ?.map((rule) => {
       const replaced = rule.pcre2Regexp.replaceAll(REGEX_KEYWORD, keyword);
@@ -40,7 +41,7 @@ export async function search(
     .join("|");
 
   if (regex === undefined) {
-    throw new Error("undefined");
+    return errAsync(new Error("undefined"));
   }
 
   const args = [
@@ -55,17 +56,23 @@ export async function search(
     stdout: "piped",
     cwd: option.cwd,
   });
-  return decode((await proc.output()).stdout)
-    .split("\n")
-    .map((line: string) => {
-      try {
-        return JSON.parse(line);
-      } catch {
-        return {};
-      }
-    })
-    .filter((e) => {
-      return validate(e) &&
-        !(option.checkInComment && isMatchInComment(e, lang));
-    });
+
+  return ResultAsync.fromPromise(proc.output(), () => new Error("hi"))
+    .andThen((commandOutput) =>
+      okAsync(
+        decode(commandOutput.stdout)
+          .split("\n")
+          .map((line: string) => {
+            try {
+              return JSON.parse(line);
+            } catch {
+              return {};
+            }
+          })
+          .filter((e) => {
+            return validate(e) &&
+              !(option.checkInComment && isMatchInComment(e, lang));
+          }),
+      )
+    );
 }
