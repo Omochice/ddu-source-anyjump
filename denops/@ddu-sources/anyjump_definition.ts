@@ -7,6 +7,7 @@ import {
 import { Denops, fn, vars } from "https://deno.land/x/ddu_vim@v3.8.1/deps.ts";
 import { ActionData } from "https://deno.land/x/ddu_kind_file@v0.7.1/file.ts";
 import { echoerr } from "https://deno.land/x/denops_std@v5.2.0/helper/mod.ts";
+import { ensure, is } from "https://deno.land/x/unknownutil@v3.11.0/mod.ts";
 import { search } from "../ddu-source-anyjump/definitions.ts";
 import { convertMatch } from "../ddu-source-anyjump/convert.ts";
 import { HighlightGroup } from "../ddu-source-anyjump/params.ts";
@@ -18,14 +19,14 @@ type Params = {
 
 export class Source extends BaseSource<Params> {
   kind = "file";
-  cword = "";
-  cwd = "";
-  filetype = "";
+  #cword = "";
+  #cwd = "";
+  #filetype = "";
 
   async onInit(args: { denops: Denops }): Promise<void> {
-    this.cword = await fn.expand(args.denops, "<cword>") as string;
-    this.cwd = await fn.getcwd(args.denops) as string;
-    this.filetype = await vars.lo.get(args.denops, "filetype");
+    this.#cword = ensure(await fn.expand(args.denops, "<cword>"), is.String);
+    this.#cwd = await fn.getcwd(args.denops);
+    this.#filetype = await vars.lo.get(args.denops, "filetype");
   }
 
   gather(args: {
@@ -39,9 +40,9 @@ export class Source extends BaseSource<Params> {
     const hlGroupLineNr = args.sourceParams.highlights?.lineNr ?? "";
     const hlGroupWord = args.sourceParams.highlights?.word ?? "";
 
-    const cword = this.cword;
-    const cwd = this.cwd;
-    const filetype = this.filetype;
+    const cword = this.#cword;
+    const cwd = this.#cwd;
+    const filetype = this.#filetype;
 
     return new ReadableStream({
       async start(controller) {
