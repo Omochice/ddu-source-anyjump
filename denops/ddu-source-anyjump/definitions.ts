@@ -41,7 +41,9 @@ export function search(
     .join("|");
 
   if (regex === undefined) {
-    return errAsync(new Error("undefined"));
+    return errAsync(
+      new Error(`Language '${lang}' is not supported for search definition`),
+    );
   }
 
   const args = [
