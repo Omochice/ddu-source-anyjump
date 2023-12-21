@@ -25,7 +25,7 @@ jobs:
         uses: peter-evans/create-pull-request@v5 
           trim-tail-dot-vim: true 
         with: 
-          title: ":robot: Update docs" 
+          title: "docs: Update docs" 
           body: | 
             This PR is created by [create-pull-request](https://github.com/peter-evans/create-pull-request). 
             The docs are generated automaticaly. 
