@@ -7,6 +7,7 @@ import {
 import { Denops, fn, vars } from "https://deno.land/x/ddu_vim@v3.8.1/deps.ts";
 import { ActionData } from "https://deno.land/x/ddu_kind_file@v0.7.1/file.ts";
 import { echoerr } from "https://deno.land/x/denops_std@v5.2.0/helper/mod.ts";
+import { ensure, is } from "https://deno.land/x/unknownutil@v3.11.0/mod.ts";
 import { search } from "../ddu-source-anyjump/definitions.ts";
 import { convertMatch } from "../ddu-source-anyjump/convert.ts";
 import { HighlightGroup } from "../ddu-source-anyjump/params.ts";
@@ -23,8 +24,8 @@ export class Source extends BaseSource<Params> {
   filetype = "";
 
   async onInit(args: { denops: Denops }): Promise<void> {
-    this.cword = await fn.expand(args.denops, "<cword>") as string;
-    this.cwd = await fn.getcwd(args.denops) as string;
+    this.cword = ensure(await fn.expand(args.denops, "<cword>"), is.String);
+    this.cwd = await fn.getcwd(args.denops);
     this.filetype = await vars.lo.get(args.denops, "filetype");
   }
 
