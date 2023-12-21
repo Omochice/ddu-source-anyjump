@@ -20,14 +20,14 @@ type Params = {
 
 export class Source extends BaseSource<Params> {
   kind = "file";
-  cword = "";
-  cwd = "";
-  filetype = "";
+  #cword = "";
+  #cwd = "";
+  #filetype = "";
 
   async onInit(args: { denops: Denops }): Promise<void> {
-    this.cword = ensure(await fn.expand(args.denops, "<cword>"), is.String);
-    this.cwd = await fn.getcwd(args.denops);
-    this.filetype = ensure(
+    this.#cword = ensure(await fn.expand(args.denops, "<cword>"), is.String);
+    this.#cwd = await fn.getcwd(args.denops);
+    this.#filetype = ensure(
       await vars.lo.get(args.denops, "filetype"),
       is.String,
     );
@@ -44,9 +44,9 @@ export class Source extends BaseSource<Params> {
     const hlGroupLineNr = args.sourceParams.highlights?.lineNr ?? "";
     const hlGroupWord = args.sourceParams.highlights?.word ?? "";
 
-    const cword = this.cword;
-    const cwd = this.cwd;
-    const filetype = this.filetype;
+    const cword = this.#cword;
+    const cwd = this.#cwd;
+    const filetype = this.#filetype;
 
     return new ReadableStream({
       async start(controller) {
