@@ -2625,13 +2625,13 @@ addDefinition("tex", {
   emacsRegexp: String.raw`\\\\.*newcommand\*?\s*\{\s*(\\\\)JJJ\s*}`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
-    "\\\\newcommand{\\\\test}",
-    "\\\\renewcommand{\\\\test}",
-    "\\\\renewcommand*{\\\\test}",
-    "\\\\newcommand*{\\\\test}",
-    "\\\\renewcommand{ \\\\test }",
+    String.raw`\\newcommand{\\test}`,
+    String.raw`\\renewcommand{\\test}`,
+    String.raw`\\renewcommand*{\\test}`,
+    String.raw`\\newcommand*{\\test}`,
+    String.raw`\\renewcommand{ \\test }`,
   ],
-  specFailed: ["\\\\test", "test"],
+  specFailed: [String.raw`\\test`, "test"],
 });
 
 addDefinition("tex", {
@@ -2641,11 +2641,11 @@ addDefinition("tex", {
   emacsRegexp: String.raw`\\\\.*newcommand\*?\s*(\\\\)JJJ\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
-    "\\\\newcommand\\\\test {}",
-    "\\\\renewcommand\\\\test{}",
-    "\\\\newcommand \\\\test",
+    String.raw`\\newcommand\\test {}`,
+    String.raw`\\renewcommand\\test{}`,
+    String.raw`\\newcommand \\test`,
   ],
-  specFailed: ["\\\\test", "test"],
+  specFailed: [String.raw`\\test`, "test"],
 });
 
 addDefinition("tex", {
@@ -2654,11 +2654,11 @@ addDefinition("tex", {
   emacsRegexp: String.raw`\\\\(s)etlength\s*\{\s*(\\\\)JJJ\s*}`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
-    "\\\\setlength { \\\\test}",
-    "\\\\setlength{\\\\test}",
-    "\\\\setlength{\\\\test}{morecommands}",
+    String.raw`\\setlength { \\test}`,
+    String.raw`\\setlength{\\test}`,
+    String.raw`\\setlength{\\test}{morecommands}`,
   ],
-  specFailed: ["\\\\test", "test"],
+  specFailed: [String.raw`\\test`, "test"],
 });
 
 addDefinition("tex", {
@@ -2666,8 +2666,8 @@ addDefinition("tex", {
   pcre2Regexp: String.raw`\\\\newcounter\{\s*KEYWORD\s*}`,
   emacsRegexp: String.raw`\\\\newcounter\{\s*JJJ\s*}`,
   supports: ["ag", "grep", "rg", "git-grep"],
-  specSuccess: ["\\\\newcounter{test}"],
-  specFailed: ["\\\\test", "test"],
+  specSuccess: [String.raw`\\newcounter{test}`],
+  specFailed: [String.raw`\\test`, "test"],
 });
 
 addDefinition("tex", {
@@ -2676,12 +2676,12 @@ addDefinition("tex", {
   emacsRegexp: String.raw`\\\\.*newenvironment\s*\{\s*JJJ\s*}`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
-    "\\\\newenvironment{test}",
-    "\\\\newenvironment {test}{morecommands}",
-    "\\\\lstnewenvironment{test}",
-    "\\\\newenvironment {test}",
+    String.raw`\\newenvironment{test}`,
+    String.raw`\\newenvironment {test}{morecommands}`,
+    String.raw`\\lstnewenvironment{test}`,
+    String.raw`\\newenvironment {test}`,
   ],
-  specFailed: ["\\\\test", "test"],
+  specFailed: [String.raw`\\test`, "test"],
 });
 
 addDefinition("pascal", {
