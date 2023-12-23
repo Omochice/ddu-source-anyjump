@@ -43,20 +43,20 @@ function addDefinition(lang: string, definition: Definition): void {
 
 addDefinition("elisp", {
   type: "function",
-  pcre2Regexp: `\\((defun|cl-defun)\\s+KEYWORD($|[^a-zA-Z0-9\\?\\*-])`,
-  emacsRegexp: `\\((defun|cl-defun)\\s+JJJ\\j`,
+  pcre2Regexp: String.raw`\((defun|cl-defun)\s+KEYWORD($|[^a-zA-Z0-9\?\*-])`,
+  emacsRegexp: String.raw`\((defun|cl-defun)\s+JJJ\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     `(defun test (blah)`,
-    `(defun test\\n`,
+    `(defun test\n`,
     `(cl-defun test (blah)`,
-    `(cl-defun test\\n`,
+    `(cl-defun test\n`,
   ],
   specFailed: [
     `(defun test-asdf (blah)`,
-    `(defun test-blah\\n`,
+    `(defun test-blah\n`,
     `(cl-defun test-asdf (blah)`,
-    `(cl-defun test-blah\\n`,
+    `(cl-defun test-blah\n`,
     `(defun tester (blah)`,
     `(defun test? (blah)`,
     `(defun test- (blah)`,
@@ -65,13 +65,13 @@ addDefinition("elisp", {
 
 addDefinition("elisp", {
   type: "function",
-  pcre2Regexp: `\\(defmacro\\s+KEYWORD($|[^a-zA-Z0-9\\?\\*-])`,
-  emacsRegexp: `\\(defmacro\\s+JJJ\\j`,
+  pcre2Regexp: String.raw`\(defmacro\s+KEYWORD($|[^a-zA-Z0-9\?\*-])`,
+  emacsRegexp: String.raw`\(defmacro\s+JJJ\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
-  specSuccess: [`(defmacro test (blah)`, `(defmacro test\\n`],
+  specSuccess: [`(defmacro test (blah)`, `(defmacro test\n`],
   specFailed: [
     `(defmacro test-asdf (blah)`,
-    `(defmacro test-blah\\n`,
+    `(defmacro test-blah\n`,
     `(defmacro tester (blah)`,
     `(defmacro test? (blah)`,
     `(defmacro test- (blah)`,
@@ -80,26 +80,26 @@ addDefinition("elisp", {
 
 addDefinition("elisp", {
   type: "variable",
-  pcre2Regexp: `\\(defvar\\b\\s*KEYWORD($|[^a-zA-Z0-9\\?\\*-])`,
-  emacsRegexp: `\\(defvar\\b\\s*JJJ\\j`,
+  pcre2Regexp: String.raw`\(defvar\b\s*KEYWORD($|[^a-zA-Z0-9\?\*-])`,
+  emacsRegexp: String.raw`\(defvar\b\s*JJJ\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
-  specSuccess: ["(defvar test ", "(defvar test\\n"],
+  specSuccess: ["(defvar test ", "(defvar test\n"],
   specFailed: ["(defvar tester", "(defvar test?", "(defvar test-"],
 });
 
 addDefinition("elisp", {
   type: "variable",
-  pcre2Regexp: `\\(defcustom\\b\\s*KEYWORD($|[^a-zA-Z0-9\\?\\*-])`,
-  emacsRegexp: `\\(defcustom\\b\\s*JJJ\\j`,
+  pcre2Regexp: String.raw`\(defcustom\b\s*KEYWORD($|[^a-zA-Z0-9\?\*-])`,
+  emacsRegexp: String.raw`\(defcustom\b\s*JJJ\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
-  specSuccess: ["(defcustom test ", "(defcustom test\\n"],
+  specSuccess: ["(defcustom test ", "(defcustom test\n"],
   specFailed: ["(defcustom tester", "(defcustom test?", "(defcustom test-"],
 });
 
 addDefinition("elisp", {
   type: "variable",
-  pcre2Regexp: `\\(setq\\b\\s*KEYWORD($|[^a-zA-Z0-9\\?\\*-])`,
-  emacsRegexp: `\\(setq\\b\\s*JJJ\\j`,
+  pcre2Regexp: String.raw`\(setq\b\s*KEYWORD($|[^a-zA-Z0-9\?\*-])`,
+  emacsRegexp: String.raw`\(setq\b\s*JJJ\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["(setq test 123)"],
   specFailed: [
@@ -112,8 +112,8 @@ addDefinition("elisp", {
 
 addDefinition("elisp", {
   type: "variable",
-  pcre2Regexp: `\\(KEYWORD\\s+`,
-  emacsRegexp: `\\(JJJ\\s+`,
+  pcre2Regexp: String.raw`\(KEYWORD\s+`,
+  emacsRegexp: String.raw`\(JJJ\s+`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["(let ((test 123)))"],
   specFailed: ["(let ((test-2 123)))"],
@@ -121,9 +121,9 @@ addDefinition("elisp", {
 
 addDefinition("elisp", {
   type: "variable",
-  pcre2Regexp:
-    `\\((defun|cl-defun)\\s*.+\\(?\\s*KEYWORD($|[^a-zA-Z0-9\\?\\*-])\\s*\\)?`,
-  emacsRegexp: `\\((defun|cl-defun)\\s*.+\\(?\\s*JJJ\\j\\s*\\)?`,
+  pcre2Regexp: String
+    .raw`\((defun|cl-defun)\s*.+\(?\s*KEYWORD($|[^a-zA-Z0-9\?\*-])\s*\)?`,
+  emacsRegexp: String.raw`\((defun|cl-defun)\s*.+\(?\s*JJJ\j\s*\)?`,
   supports: ["ag", "rg", "git-grep"],
   specSuccess: [
     "(defun blah (test)",
@@ -139,13 +139,13 @@ addDefinition("elisp", {
 
 addDefinition("commonlisp", {
   type: "function",
-  pcre2Regexp: `\\(defun\\s+KEYWORD($|[^a-zA-Z0-9\\?\\*-])`,
-  emacsRegexp: `\\(defun\\s+JJJ\\j`,
+  pcre2Regexp: String.raw`\(defun\s+KEYWORD($|[^a-zA-Z0-9\?\*-])`,
+  emacsRegexp: String.raw`\(defun\s+JJJ\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
-  specSuccess: ["(defun test (blah)", "(defun test\\n"],
+  specSuccess: ["(defun test (blah)", "(defun test\n"],
   specFailed: [
     "(defun test-asdf (blah)",
-    "(defun test-blah\\n",
+    "(defun test-blah\n",
     "(defun tester (blah)",
     "(defun test? (blah)",
     "(defun test- (blah)",
@@ -154,10 +154,10 @@ addDefinition("commonlisp", {
 
 addDefinition("commonlisp", {
   type: "variable",
-  pcre2Regexp: `\\(defparameter\\b\\s*KEYWORD($|[^a-zA-Z0-9\\?\\*-])`,
-  emacsRegexp: `\\(defparameter\\b\\s*JJJ\\j`,
+  pcre2Regexp: String.raw`\(defparameter\b\s*KEYWORD($|[^a-zA-Z0-9\?\*-])`,
+  emacsRegexp: String.raw`\(defparameter\b\s*JJJ\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
-  specSuccess: ["(defparameter test ", "(defparameter test\\n"],
+  specSuccess: ["(defparameter test ", "(defparameter test\n"],
   specFailed: [
     "(defparameter tester",
     "(defparameter test?",
@@ -167,10 +167,10 @@ addDefinition("commonlisp", {
 
 addDefinition("racket", {
   type: "function",
-  pcre2Regexp: `\\(define\\s+\\(\\s*KEYWORD($|[^a-zA-Z0-9\\?\\*-])`,
-  emacsRegexp: `\\(define\\s+\\(\\s*JJJ\\j`,
+  pcre2Regexp: String.raw`\(define\s+\(\s*KEYWORD($|[^a-zA-Z0-9\?\*-])`,
+  emacsRegexp: String.raw`\(define\s+\(\s*JJJ\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
-  specSuccess: ["(define (test blah)", "(define (test\\n"],
+  specSuccess: ["(define (test blah)", "(define (test\n"],
   specFailed: [
     "(define test blah",
     "(define (test-asdf blah)",
@@ -180,10 +180,10 @@ addDefinition("racket", {
 
 addDefinition("racket", {
   type: "function",
-  pcre2Regexp: `\\(define\\s+KEYWORD\\s*\\(\\s*lambda`,
-  emacsRegexp: `\\(define\\s+JJJ\\s*\\(\\s*lambda`,
+  pcre2Regexp: String.raw`\(define\s+KEYWORD\s*\(\s*lambda`,
+  emacsRegexp: String.raw`\(define\s+JJJ\s*\(\s*lambda`,
   supports: ["ag", "grep", "rg", "git-grep"],
-  specSuccess: ["(define test (lambda (blah", "(define test (lambda\\n"],
+  specSuccess: ["(define test (lambda (blah", "(define test (lambda\n"],
   specFailed: [
     "(define test blah",
     "(define test-asdf (lambda (blah)",
@@ -194,12 +194,12 @@ addDefinition("racket", {
 
 addDefinition("racket", {
   type: "function",
-  pcre2Regexp: `\\(let\\s+KEYWORD\\s*(\\(|\\[)*`,
-  emacsRegexp: `\\(let\\s+JJJ\\s*(\\(|\\[)*`,
+  pcre2Regexp: String.raw`\(let\s+KEYWORD\s*(\(|\[)*`,
+  emacsRegexp: String.raw`\(let\s+JJJ\s*(\(|\[)*`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "(let test ((blah foo) (bar bas))",
-    "(let test\\n",
+    "(let test\n",
     "(let test [(foo",
   ],
   specFailed: ["(let ((test blah"],
@@ -207,17 +207,17 @@ addDefinition("racket", {
 
 addDefinition("racket", {
   type: "variable",
-  pcre2Regexp: `\\(define\\s+KEYWORD($|[^a-zA-Z0-9\\?\\*-])`,
-  emacsRegexp: `\\(define\\s+JJJ\\j`,
+  pcre2Regexp: String.raw`\(define\s+KEYWORD($|[^a-zA-Z0-9\?\*-])`,
+  emacsRegexp: String.raw`\(define\s+JJJ\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
-  specSuccess: ["(define test ", "(define test\\n"],
+  specSuccess: ["(define test ", "(define test\n"],
   specFailed: ["(define (test"],
 });
 
 addDefinition("racket", {
   type: "variable",
-  pcre2Regexp: `(\\(|\\[)\\s*KEYWORD\\s+`,
-  emacsRegexp: `(\\(|\\[)\\s*JJJ\\s+`,
+  pcre2Regexp: String.raw`(\(|\[)\s*KEYWORD\s+`,
+  emacsRegexp: String.raw`(\(|\[)\s*JJJ\s+`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "(let ((test 'foo",
@@ -231,9 +231,9 @@ addDefinition("racket", {
 
 addDefinition("racket", {
   type: "variable",
-  pcre2Regexp:
-    `\\(lambda\\s+\\(?[^()]*\\s*KEYWORD($|[^a-zA-Z0-9\\?\\*-])\\s*\\)?`,
-  emacsRegexp: `\\(lambda\\s+\\(?[^()]*\\s*JJJ\\j\\s*\\)?`,
+  pcre2Regexp: String
+    .raw`\(lambda\s+\(?[^()]*\s*KEYWORD($|[^a-zA-Z0-9\?\*-])\s*\)?`,
+  emacsRegexp: String.raw`\(lambda\s+\(?[^()]*\s*JJJ\j\s*\)?`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["(lambda (test)", "(lambda (foo test)", "(lambda test (foo)"],
   specFailed: ["(lambda () test"],
@@ -241,9 +241,9 @@ addDefinition("racket", {
 
 addDefinition("racket", {
   type: "variable",
-  pcre2Regexp:
-    `\\(define\\s+\\([^()]+\\s*KEYWORD($|[^a-zA-Z0-9\\?\\*-])\\s*\\)?`,
-  emacsRegexp: `\\(define\\s+\\([^()]+\\s*JJJ\\j\\s*\\)?`,
+  pcre2Regexp: String
+    .raw`\(define\s+\([^()]+\s*KEYWORD($|[^a-zA-Z0-9\?\*-])\s*\)?`,
+  emacsRegexp: String.raw`\(define\s+\([^()]+\s*JJJ\j\s*\)?`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["(define (foo test)", "(define (foo test bar)"],
   specFailed: ["(define foo test", "(define (test foo", "(define (test)"],
@@ -251,8 +251,8 @@ addDefinition("racket", {
 
 addDefinition("racket", {
   type: "type",
-  pcre2Regexp: `\\(struct\\s+KEYWORD($|[^a-zA-Z0-9\\?\\*-])`,
-  emacsRegexp: `\\(struct\\s+JJJ\\j`,
+  pcre2Regexp: String.raw`\(struct\s+KEYWORD($|[^a-zA-Z0-9\?\*-])`,
+  emacsRegexp: String.raw`\(struct\s+JJJ\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["(struct test (a b)"],
   specFailed: [],
@@ -260,10 +260,10 @@ addDefinition("racket", {
 
 addDefinition("scheme", {
   type: "function",
-  pcre2Regexp: `\\(define\\s+\\(\\s*KEYWORD($|[^a-zA-Z0-9\\?\\*-])`,
-  emacsRegexp: `\\(define\\s+\\(\\s*JJJ\\j`,
+  pcre2Regexp: String.raw`\(define\s+\(\s*KEYWORD($|[^a-zA-Z0-9\?\*-])`,
+  emacsRegexp: String.raw`\(define\s+\(\s*JJJ\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
-  specSuccess: ["(define (test blah)", "(define (test\\n"],
+  specSuccess: ["(define (test blah)", "(define (test\n"],
   specFailed: [
     "(define test blah",
     "(define (test-asdf blah)",
@@ -273,10 +273,10 @@ addDefinition("scheme", {
 
 addDefinition("scheme", {
   type: "function",
-  pcre2Regexp: `\\(define\\s+KEYWORD\\s*\\(\\s*lambda`,
-  emacsRegexp: `\\(define\\s+JJJ\\s*\\(\\s*lambda`,
+  pcre2Regexp: String.raw`\(define\s+KEYWORD\s*\(\s*lambda`,
+  emacsRegexp: String.raw`\(define\s+JJJ\s*\(\s*lambda`,
   supports: ["ag", "grep", "rg", "git-grep"],
-  specSuccess: ["(define test (lambda (blah", "(define test (lambda\\n"],
+  specSuccess: ["(define test (lambda (blah", "(define test (lambda\n"],
   specFailed: [
     "(define test blah",
     "(define test-asdf (lambda (blah)",
@@ -287,12 +287,12 @@ addDefinition("scheme", {
 
 addDefinition("scheme", {
   type: "function",
-  pcre2Regexp: `\\(let\\s+KEYWORD\\s*(\\(|\\[)*`,
-  emacsRegexp: `\\(let\\s+JJJ\\s*(\\(|\\[)*`,
+  pcre2Regexp: String.raw`\(let\s+KEYWORD\s*(\(|\[)*`,
+  emacsRegexp: String.raw`\(let\s+JJJ\s*(\(|\[)*`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "(let test ((blah foo) (bar bas))",
-    "(let test\\n",
+    "(let test\n",
     "(let test [(foo",
   ],
   specFailed: ["(let ((test blah"],
@@ -300,17 +300,17 @@ addDefinition("scheme", {
 
 addDefinition("scheme", {
   type: "variable",
-  pcre2Regexp: `\\(define\\s+KEYWORD($|[^a-zA-Z0-9\\?\\*-])`,
-  emacsRegexp: `\\(define\\s+JJJ\\j`,
+  pcre2Regexp: String.raw`\(define\s+KEYWORD($|[^a-zA-Z0-9\?\*-])`,
+  emacsRegexp: String.raw`\(define\s+JJJ\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
-  specSuccess: ["(define test ", "(define test\\n"],
+  specSuccess: ["(define test ", "(define test\n"],
   specFailed: ["(define (test"],
 });
 
 addDefinition("scheme", {
   type: "variable",
-  pcre2Regexp: `(\\(|\\[)\\s*KEYWORD\\s+`,
-  emacsRegexp: `(\\(|\\[)\\s*JJJ\\s+`,
+  pcre2Regexp: String.raw`(\(|\[)\s*KEYWORD\s+`,
+  emacsRegexp: String.raw`(\(|\[)\s*JJJ\s+`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "(let ((test 'foo",
@@ -324,9 +324,9 @@ addDefinition("scheme", {
 
 addDefinition("scheme", {
   type: "variable",
-  pcre2Regexp:
-    `\\(lambda\\s+\\(?[^()]*\\s*KEYWORD($|[^a-zA-Z0-9\\?\\*-])\\s*\\)?`,
-  emacsRegexp: `\\(lambda\\s+\\(?[^()]*\\s*JJJ\\j\\s*\\)?`,
+  pcre2Regexp: String
+    .raw`\(lambda\s+\(?[^()]*\s*KEYWORD($|[^a-zA-Z0-9\?\*-])\s*\)?`,
+  emacsRegexp: String.raw`\(lambda\s+\(?[^()]*\s*JJJ\j\s*\)?`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["(lambda (test)", "(lambda (foo test)", "(lambda test (foo)"],
   specFailed: ["(lambda () test"],
@@ -334,9 +334,9 @@ addDefinition("scheme", {
 
 addDefinition("scheme", {
   type: "variable",
-  pcre2Regexp:
-    `\\(define\\s+\\([^()]+\\s*KEYWORD($|[^a-zA-Z0-9\\?\\*-])\\s*\\)?`,
-  emacsRegexp: `\\(define\\s+\\([^()]+\\s*JJJ\\j\\s*\\)?`,
+  pcre2Regexp: String
+    .raw`\(define\s+\([^()]+\s*KEYWORD($|[^a-zA-Z0-9\?\*-])\s*\)?`,
+  emacsRegexp: String.raw`\(define\s+\([^()]+\s*JJJ\j\s*\)?`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["(define (foo test)", "(define (foo test bar)"],
   specFailed: ["(define foo test", "(define (test foo", "(define (test)"],
@@ -344,10 +344,10 @@ addDefinition("scheme", {
 
 addDefinition("cpp", {
   type: "function",
-  pcre2Regexp:
-    `\\bKEYWORD(\\s|\\))*\\((\\w|[,&*.<>:]|\\s)*(\\))\\s*(const|->|\\{|$)|typedef\\s+(\\w|[(*]|\\s)+KEYWORD(\\)|\\s)*\\(`,
-  emacsRegexp:
-    `\\bJJJ(\\s|\\))*\\((\\w|[,&*.<>:]|\\s)*(\\))\\s*(const|->|\\{|$)|typedef\\s+(\\w|[(*]|\\s)+JJJ(\\)|\\s)*\\(`,
+  pcre2Regexp: String
+    .raw`\bKEYWORD(\s|\))*\((\w|[,&*.<>:]|\s)*(\))\s*(const|->|\{|$)|typedef\s+(\w|[(*]|\s)+KEYWORD(\)|\s)*\(`,
+  emacsRegexp: String
+    .raw`\bJJJ(\s|\))*\((\w|[,&*.<>:]|\s)*(\))\s*(const|->|\{|$)|typedef\s+(\w|[(*]|\s)+JJJ(\)|\s)*\(`,
   supports: ["ag", "rg", "git-grep"],
   specSuccess: [
     "int test(){",
@@ -367,10 +367,10 @@ addDefinition("cpp", {
 
 addDefinition("cpp", {
   type: "variable",
-  pcre2Regexp:
-    `(\\b\\w+|[,>])([*&]|\\s)+KEYWORD\\s*(\\[([0-9]|\\s)*\\])*\\s*([=,){;]|:\\s*[0-9])|#define\\s+KEYWORD\\b`,
-  emacsRegexp:
-    `(\\b\\w+|[,>])([*&]|\\s)+JJJ\\s*(\\[([0-9]|\\s)*\\])*\\s*([=,){;]|:\\s*[0-9])|#define\\s+JJJ\\b`,
+  pcre2Regexp: String
+    .raw`(\b\w+|[,>])([*&]|\s)+KEYWORD\s*(\[([0-9]|\s)*\])*\s*([=,){;]|:\s*[0-9])|#define\s+KEYWORD\b`,
+  emacsRegexp: String
+    .raw`(\b\w+|[,>])([*&]|\s)+JJJ\s*(\[([0-9]|\s)*\])*\s*([=,){;]|:\s*[0-9])|#define\s+JJJ\b`,
   supports: ["grep"],
   specSuccess: [
     "int test=2;",
@@ -385,10 +385,10 @@ addDefinition("cpp", {
 
 addDefinition("cpp", {
   type: "variable",
-  pcre2Regexp:
-    `\\b(?!(class\\b|struct\\b|return\\b|else\\b|delete\\b))(\\w+|[,>])([*&]|\\s)+KEYWORD\\s*(\\[(\\d|\\s)*\\])*\\s*([=,(){;]|:\\s*\\d)|#define\\s+KEYWORD\\b`,
-  emacsRegexp:
-    `\\b(?!(class\\b|struct\\b|return\\b|else\\b|delete\\b))(\\w+|[,>])([*&]|\\s)+JJJ\\s*(\\[(\\d|\\s)*\\])*\\s*([=,(){;]|:\\s*\\d)|#define\\s+JJJ\\b`,
+  pcre2Regexp: String
+    .raw`\b(?!(class\b|struct\b|return\b|else\b|delete\b))(\w+|[,>])([*&]|\s)+KEYWORD\s*(\[(\d|\s)*\])*\s*([=,(){;]|:\s*\d)|#define\s+KEYWORD\b`,
+  emacsRegexp: String
+    .raw`\b(?!(class\b|struct\b|return\b|else\b|delete\b))(\w+|[,>])([*&]|\s)+JJJ\s*(\[(\d|\s)*\])*\s*([=,(){;]|:\s*\d)|#define\s+JJJ\b`,
   supports: ["ag", "rg"],
   specSuccess: [
     "int test=2;",
@@ -404,10 +404,10 @@ addDefinition("cpp", {
 
 addDefinition("cpp", {
   type: "type",
-  pcre2Regexp:
-    `\\b(class|struct|enum|union)\\b\\s*KEYWORD\\b\\s*(final\\s*)?(:((\\s*\\w+\\s*::)*\\s*\\w*\\s*<?(\\s*\\w+\\s*::)*\\w+>?\\s*,*)+)?((\\{|$))|}\\s*KEYWORD\\b\\s*;`,
-  emacsRegexp:
-    `\\b(class|struct|enum|union)\\b\\s*JJJ\\b\\s*(final\\s*)?(:((\\s*\\w+\\s*::)*\\s*\\w*\\s*<?(\\s*\\w+\\s*::)*\\w+>?\\s*,*)+)?((\\{|$))|}\\s*JJJ\\b\\s*;`,
+  pcre2Regexp: String
+    .raw`\b(class|struct|enum|union)\b\s*KEYWORD\b\s*(final\s*)?(:((\s*\w+\s*::)*\s*\w*\s*<?(\s*\w+\s*::)*\w+>?\s*,*)+)?((\{|$))|}\s*KEYWORD\b\s*;`,
+  emacsRegexp: String
+    .raw`\b(class|struct|enum|union)\b\s*JJJ\b\s*(final\s*)?(:((\s*\w+\s*::)*\s*\w*\s*<?(\s*\w+\s*::)*\w+>?\s*,*)+)?((\{|$))|}\s*JJJ\b\s*;`,
   supports: ["ag", "rg", "git-grep"],
   specSuccess: [
     "typedef struct test {",
@@ -422,8 +422,8 @@ addDefinition("cpp", {
 
 addDefinition("clojure", {
   type: "variable",
-  pcre2Regexp: `\\(def\\s+KEYWORD($|[^a-zA-Z0-9\\?\\*-])`,
-  emacsRegexp: `\\(def\\s+JJJ\\j`,
+  pcre2Regexp: String.raw`\(def\s+KEYWORD($|[^a-zA-Z0-9\?\*-])`,
+  emacsRegexp: String.raw`\(def\s+JJJ\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["(def test (foo)"],
   specFailed: [],
@@ -431,8 +431,8 @@ addDefinition("clojure", {
 
 addDefinition("clojure", {
   type: "function",
-  pcre2Regexp: `\\(defn-?\\s+KEYWORD($|[^a-zA-Z0-9\\?\\*-])`,
-  emacsRegexp: `\\(defn-?\\s+JJJ\\j`,
+  pcre2Regexp: String.raw`\(defn-?\s+KEYWORD($|[^a-zA-Z0-9\?\*-])`,
+  emacsRegexp: String.raw`\(defn-?\s+JJJ\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["(defn test [foo]", "(defn- test [foo]"],
   specFailed: ["(defn test? [foo]", "(defn- test? [foo]"],
@@ -440,8 +440,8 @@ addDefinition("clojure", {
 
 addDefinition("clojure", {
   type: "function",
-  pcre2Regexp: `\\(defmacro\\s+KEYWORD($|[^a-zA-Z0-9\\?\\*-])`,
-  emacsRegexp: `\\(defmacro\\s+JJJ\\j`,
+  pcre2Regexp: String.raw`\(defmacro\s+KEYWORD($|[^a-zA-Z0-9\?\*-])`,
+  emacsRegexp: String.raw`\(defmacro\s+JJJ\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["(defmacro test [foo]"],
   specFailed: [],
@@ -449,8 +449,8 @@ addDefinition("clojure", {
 
 addDefinition("clojure", {
   type: "function",
-  pcre2Regexp: `\\(deftask\\s+KEYWORD($|[^a-zA-Z0-9\\?\\*-])`,
-  emacsRegexp: `\\(deftask\\s+JJJ\\j`,
+  pcre2Regexp: String.raw`\(deftask\s+KEYWORD($|[^a-zA-Z0-9\?\*-])`,
+  emacsRegexp: String.raw`\(deftask\s+JJJ\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["(deftask test [foo]"],
   specFailed: [],
@@ -458,8 +458,8 @@ addDefinition("clojure", {
 
 addDefinition("clojure", {
   type: "type",
-  pcre2Regexp: `\\(deftype\\s+KEYWORD($|[^a-zA-Z0-9\\?\\*-])`,
-  emacsRegexp: `\\(deftype\\s+JJJ\\j`,
+  pcre2Regexp: String.raw`\(deftype\s+KEYWORD($|[^a-zA-Z0-9\?\*-])`,
+  emacsRegexp: String.raw`\(deftype\s+JJJ\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["(deftype test [foo]"],
   specFailed: [],
@@ -467,8 +467,8 @@ addDefinition("clojure", {
 
 addDefinition("clojure", {
   type: "type",
-  pcre2Regexp: `\\(defmulti\\s+KEYWORD($|[^a-zA-Z0-9\\?\\*-])`,
-  emacsRegexp: `\\(defmulti\\s+JJJ\\j`,
+  pcre2Regexp: String.raw`\(defmulti\s+KEYWORD($|[^a-zA-Z0-9\?\*-])`,
+  emacsRegexp: String.raw`\(defmulti\s+JJJ\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["(defmulti test fn"],
   specFailed: [],
@@ -476,8 +476,8 @@ addDefinition("clojure", {
 
 addDefinition("clojure", {
   type: "type",
-  pcre2Regexp: `\\(defmethod\\s+KEYWORD($|[^a-zA-Z0-9\\?\\*-])`,
-  emacsRegexp: `\\(defmethod\\s+JJJ\\j`,
+  pcre2Regexp: String.raw`\(defmethod\s+KEYWORD($|[^a-zA-Z0-9\?\*-])`,
+  emacsRegexp: String.raw`\(defmethod\s+JJJ\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["(defmethod test type"],
   specFailed: [],
@@ -485,8 +485,8 @@ addDefinition("clojure", {
 
 addDefinition("clojure", {
   type: "type",
-  pcre2Regexp: `\\(definterface\\s+KEYWORD($|[^a-zA-Z0-9\\?\\*-])`,
-  emacsRegexp: `\\(definterface\\s+JJJ\\j`,
+  pcre2Regexp: String.raw`\(definterface\s+KEYWORD($|[^a-zA-Z0-9\?\*-])`,
+  emacsRegexp: String.raw`\(definterface\s+JJJ\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["(definterface test (foo)"],
   specFailed: [],
@@ -494,8 +494,8 @@ addDefinition("clojure", {
 
 addDefinition("clojure", {
   type: "type",
-  pcre2Regexp: `\\(defprotocol\\s+KEYWORD($|[^a-zA-Z0-9\\?\\*-])`,
-  emacsRegexp: `\\(defprotocol\\s+JJJ\\j`,
+  pcre2Regexp: String.raw`\(defprotocol\s+KEYWORD($|[^a-zA-Z0-9\?\*-])`,
+  emacsRegexp: String.raw`\(defprotocol\s+JJJ\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["(defprotocol test (foo)"],
   specFailed: [],
@@ -503,8 +503,8 @@ addDefinition("clojure", {
 
 addDefinition("clojure", {
   type: "type",
-  pcre2Regexp: `\\(defrecord\\s+KEYWORD($|[^a-zA-Z0-9\\?\\*-])`,
-  emacsRegexp: `\\(defrecord\\s+JJJ\\j`,
+  pcre2Regexp: String.raw`\(defrecord\s+KEYWORD($|[^a-zA-Z0-9\?\*-])`,
+  emacsRegexp: String.raw`\(defrecord\s+JJJ\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["(defrecord test [foo]"],
   specFailed: [],
@@ -512,8 +512,8 @@ addDefinition("clojure", {
 
 addDefinition("coffeescript", {
   type: "function",
-  pcre2Regexp: `^\\s*KEYWORD\\s*[=:].*[-=]>`,
-  emacsRegexp: `^\\s*JJJ\\s*[=:].*[-=]>`,
+  pcre2Regexp: String.raw`^\s*KEYWORD\s*[=:].*[-=]>`,
+  emacsRegexp: String.raw`^\s*JJJ\s*[=:].*[-=]>`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "test = ()  =>",
@@ -530,8 +530,8 @@ addDefinition("coffeescript", {
 
 addDefinition("coffeescript", {
   type: "variable",
-  pcre2Regexp: `^\\s*KEYWORD\\s*[:=][^:=-][^>]+$`,
-  emacsRegexp: `^\\s*JJJ\\s*[:=][^:=-][^>]+$`,
+  pcre2Regexp: String.raw`^\s*KEYWORD\s*[:=][^:=-][^>]+$`,
+  emacsRegexp: String.raw`^\s*JJJ\s*[:=][^:=-][^>]+$`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["test = $", "test : [", "test = {", "test = a"],
   specFailed: ["test::a", "test: =>", "test == 1", "# test = 1"],
@@ -539,8 +539,8 @@ addDefinition("coffeescript", {
 
 addDefinition("coffeescript", {
   type: "class",
-  pcre2Regexp: `^\\s*\\bclass\\s+KEYWORD`,
-  emacsRegexp: `^\\s*\\bclass\\s+JJJ`,
+  pcre2Regexp: String.raw`^\s*\bclass\s+KEYWORD`,
+  emacsRegexp: String.raw`^\s*\bclass\s+JJJ`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["class test", "class test extends"],
   specFailed: ["# class"],
@@ -548,8 +548,8 @@ addDefinition("coffeescript", {
 
 addDefinition("objc", {
   type: "function",
-  pcre2Regexp: `\\)\\s*KEYWORD(:|\\b|\\s)`,
-  emacsRegexp: `\\)\\s*JJJ(:|\\b|\\s)`,
+  pcre2Regexp: String.raw`\)\s*KEYWORD(:|\b|\s)`,
+  emacsRegexp: String.raw`\)\s*JJJ(:|\b|\s)`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["- (void)test", "- (void)test:(UIAlertView *)alertView"],
   specFailed: ["- (void)testnot", "- (void)testnot:(UIAlertView *)alertView"],
@@ -557,8 +557,8 @@ addDefinition("objc", {
 
 addDefinition("objc", {
   type: "variable",
-  pcre2Regexp: `\\b\\*?KEYWORD\\s*=[^=\\n]+`,
-  emacsRegexp: `\\b\\*?JJJ\\s*=[^=\\n]+`,
+  pcre2Regexp: String.raw`\b\*?KEYWORD\s*=[^=\n]+`,
+  emacsRegexp: String.raw`\b\*?JJJ\s*=[^=\n]+`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ['NSString *test = @"asdf"'],
   specFailed: ['NSString *testnot = @"asdf"', 'NSString *nottest = @"asdf"'],
@@ -566,8 +566,9 @@ addDefinition("objc", {
 
 addDefinition("objc", {
   type: "type",
-  pcre2Regexp: `(@interface|@protocol|@implementation)\\b\\s*KEYWORD\\b\\s*`,
-  emacsRegexp: `(@interface|@protocol|@implementation)\\b\\s*JJJ\\b\\s*`,
+  pcre2Regexp: String
+    .raw`(@interface|@protocol|@implementation)\b\s*KEYWORD\b\s*`,
+  emacsRegexp: String.raw`(@interface|@protocol|@implementation)\b\s*JJJ\b\s*`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["@interface test: UIWindow"],
   specFailed: ["@interface testnon: UIWindow"],
@@ -575,9 +576,10 @@ addDefinition("objc", {
 
 addDefinition("objc", {
   type: "type",
-  pcre2Regexp:
-    `typedef\\b\\s+(NS_OPTIONS|NS_ENUM)\\b\\([^,]+?,\\s*KEYWORD\\b\\s*`,
-  emacsRegexp: `typedef\\b\\s+(NS_OPTIONS|NS_ENUM)\\b\\([^,]+?,\\s*JJJ\\b\\s*`,
+  pcre2Regexp: String
+    .raw`typedef\b\s+(NS_OPTIONS|NS_ENUM)\b\([^,]+?,\s*KEYWORD\b\s*`,
+  emacsRegexp: String
+    .raw`typedef\b\s+(NS_OPTIONS|NS_ENUM)\b\([^,]+?,\s*JJJ\b\s*`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["typedef NS_ENUM(NSUInteger, test)"],
   specFailed: ["typedef NS_ENUMD(NSUInteger, test)"],
@@ -585,8 +587,8 @@ addDefinition("objc", {
 
 addDefinition("swift", {
   type: "variable",
-  pcre2Regexp: `(let|var)\\s*KEYWORD\\s*(=|:)[^=:\\n]+`,
-  emacsRegexp: `(let|var)\\s*JJJ\\s*(=|:)[^=:\\n]+`,
+  pcre2Regexp: String.raw`(let|var)\s*KEYWORD\s*(=|:)[^=:\n]+`,
+  emacsRegexp: String.raw`(let|var)\s*JJJ\s*(=|:)[^=:\n]+`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "let test = 1234",
@@ -598,8 +600,8 @@ addDefinition("swift", {
 
 addDefinition("swift", {
   type: "function",
-  pcre2Regexp: `func\\s+KEYWORD\\b\\s*(<[^>]*>)?\\s*\\(`,
-  emacsRegexp: `func\\s+JJJ\\b\\s*(<[^>]*>)?\\s*\\(`,
+  pcre2Regexp: String.raw`func\s+KEYWORD\b\s*(<[^>]*>)?\s*\(`,
+  emacsRegexp: String.raw`func\s+JJJ\b\s*(<[^>]*>)?\s*\(`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "func test(asdf)",
@@ -611,8 +613,8 @@ addDefinition("swift", {
 
 addDefinition("swift", {
   type: "type",
-  pcre2Regexp: `(class|struct|protocol|enum)\\s+KEYWORD\\b\\s*?`,
-  emacsRegexp: `(class|struct|protocol|enum)\\s+JJJ\\b\\s*?`,
+  pcre2Regexp: String.raw`(class|struct|protocol|enum)\s+KEYWORD\b\s*?`,
+  emacsRegexp: String.raw`(class|struct|protocol|enum)\s+JJJ\b\s*?`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "struct test",
@@ -631,8 +633,8 @@ addDefinition("swift", {
 
 addDefinition("swift", {
   type: "type",
-  pcre2Regexp: `(typealias)\\s+KEYWORD\\b\\s*?=`,
-  emacsRegexp: `(typealias)\\s+JJJ\\b\\s*?=`,
+  pcre2Regexp: String.raw`(typealias)\s+KEYWORD\b\s*?=`,
+  emacsRegexp: String.raw`(typealias)\s+JJJ\b\s*?=`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["typealias test ="],
   specFailed: ["typealias testnot"],
@@ -640,8 +642,8 @@ addDefinition("swift", {
 
 addDefinition("csharp", {
   type: "function",
-  pcre2Regexp: `^\\s*(?:[\\w\\[\\]]+\\s+){1,3}KEYWORD\\s*\\(`,
-  emacsRegexp: `^\\s*(?:[\\w\\[\\]]+\\s+){1,3}JJJ\\s*\\(`,
+  pcre2Regexp: String.raw`^\s*(?:[\w\[\]]+\s+){1,3}KEYWORD\s*\(`,
+  emacsRegexp: String.raw`^\s*(?:[\w\[\]]+\s+){1,3}JJJ\s*\(`,
   supports: ["ag", "rg"],
   specSuccess: [
     "int test()",
@@ -657,8 +659,8 @@ addDefinition("csharp", {
 
 addDefinition("csharp", {
   type: "variable",
-  pcre2Regexp: `\\s*\\bKEYWORD\\s*=[^=\\n)]+`,
-  emacsRegexp: `\\s*\\bJJJ\\s*=[^=\\n)]+`,
+  pcre2Regexp: String.raw`\s*\bKEYWORD\s*=[^=\n)]+`,
+  emacsRegexp: String.raw`\s*\bJJJ\s*=[^=\n)]+`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["int test = 1234"],
   specFailed: ["if test == 1234:", "int nottest = 44"],
@@ -666,8 +668,8 @@ addDefinition("csharp", {
 
 addDefinition("csharp", {
   type: "type",
-  pcre2Regexp: `(class|interface)\\s*KEYWORD\\b`,
-  emacsRegexp: `(class|interface)\\s*JJJ\\b`,
+  pcre2Regexp: String.raw`(class|interface)\s*KEYWORD\b`,
+  emacsRegexp: String.raw`(class|interface)\s*JJJ\b`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["class test:", "public class test : IReadableChannel, I"],
   specFailed: [
@@ -678,8 +680,8 @@ addDefinition("csharp", {
 
 addDefinition("java", {
   type: "function",
-  pcre2Regexp: `^\\s*(?:[\\w\\[\\]]+\\s+){1,3}KEYWORD\\s*\\(`,
-  emacsRegexp: `^\\s*(?:[\\w\\[\\]]+\\s+){1,3}JJJ\\s*\\(`,
+  pcre2Regexp: String.raw`^\s*(?:[\w\[\]]+\s+){1,3}KEYWORD\s*\(`,
+  emacsRegexp: String.raw`^\s*(?:[\w\[\]]+\s+){1,3}JJJ\s*\(`,
   supports: ["ag", "rg"],
   specSuccess: [
     "int test()",
@@ -701,8 +703,8 @@ addDefinition("java", {
 
 addDefinition("java", {
   type: "variable",
-  pcre2Regexp: `\\s*\\bKEYWORD\\s*=[^=\\n)]+`,
-  emacsRegexp: `\\s*\\bJJJ\\s*=[^=\\n)]+`,
+  pcre2Regexp: String.raw`\s*\bKEYWORD\s*=[^=\n)]+`,
+  emacsRegexp: String.raw`\s*\bJJJ\s*=[^=\n)]+`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["int test = 1234"],
   specFailed: ["if test == 1234:", "int nottest = 44"],
@@ -710,8 +712,8 @@ addDefinition("java", {
 
 addDefinition("java", {
   type: "type",
-  pcre2Regexp: `(class|interface)\\s*KEYWORD\\b`,
-  emacsRegexp: `(class|interface)\\s*JJJ\\b`,
+  pcre2Regexp: String.raw`(class|interface)\s*KEYWORD\b`,
+  emacsRegexp: String.raw`(class|interface)\s*JJJ\b`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["class test:", "public class test implements Something"],
   specFailed: ["class testnot:", "public class testnot implements Something"],
@@ -719,8 +721,8 @@ addDefinition("java", {
 
 addDefinition("vala", {
   type: "function",
-  pcre2Regexp: `^\\s*(?:[\\w\\[\\]]+\\s+){1,3}KEYWORD\\s*\\(`,
-  emacsRegexp: `^\\s*(?:[\\w\\[\\]]+\\s+){1,3}JJJ\\s*\\(`,
+  pcre2Regexp: String.raw`^\s*(?:[\w\[\]]+\s+){1,3}KEYWORD\s*\(`,
+  emacsRegexp: String.raw`^\s*(?:[\w\[\]]+\s+){1,3}JJJ\s*\(`,
   supports: ["ag", "rg"],
   specSuccess: [
     "int test()",
@@ -736,8 +738,8 @@ addDefinition("vala", {
 
 addDefinition("vala", {
   type: "variable",
-  pcre2Regexp: `\\s*\\bKEYWORD\\s*=[^=\\n)]+`,
-  emacsRegexp: `\\s*\\bJJJ\\s*=[^=\\n)]+`,
+  pcre2Regexp: String.raw`\s*\bKEYWORD\s*=[^=\n)]+`,
+  emacsRegexp: String.raw`\s*\bJJJ\s*=[^=\n)]+`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["int test = 1234"],
   specFailed: ["if test == 1234:", "int nottest = 44"],
@@ -745,8 +747,8 @@ addDefinition("vala", {
 
 addDefinition("vala", {
   type: "type",
-  pcre2Regexp: `(class|interface)\\s*KEYWORD\\b`,
-  emacsRegexp: `(class|interface)\\s*JJJ\\b`,
+  pcre2Regexp: String.raw`(class|interface)\s*KEYWORD\b`,
+  emacsRegexp: String.raw`(class|interface)\s*JJJ\b`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["class test:", "public class test : IReadableChannel, I"],
   specFailed: [
@@ -757,8 +759,8 @@ addDefinition("vala", {
 
 addDefinition("coq", {
   type: "function",
-  pcre2Regexp: `\\s*Variable\\s+KEYWORD\\b`,
-  emacsRegexp: `\\s*Variable\\s+JJJ\\b`,
+  pcre2Regexp: String.raw`\s*Variable\s+KEYWORD\b`,
+  emacsRegexp: String.raw`\s*Variable\s+JJJ\b`,
   supports: ["ag", "rg", "git-grep"],
   specSuccess: ["Variable test"],
   specFailed: ["Variable testx"],
@@ -766,8 +768,8 @@ addDefinition("coq", {
 
 addDefinition("coq", {
   type: "function",
-  pcre2Regexp: `\\s*Inductive\\s+KEYWORD\\b`,
-  emacsRegexp: `\\s*Inductive\\s+JJJ\\b`,
+  pcre2Regexp: String.raw`\s*Inductive\s+KEYWORD\b`,
+  emacsRegexp: String.raw`\s*Inductive\s+JJJ\b`,
   supports: ["ag", "rg", "git-grep"],
   specSuccess: ["Inductive test"],
   specFailed: ["Inductive testx"],
@@ -775,8 +777,8 @@ addDefinition("coq", {
 
 addDefinition("coq", {
   type: "function",
-  pcre2Regexp: `\\s*Lemma\\s+KEYWORD\\b`,
-  emacsRegexp: `\\s*Lemma\\s+JJJ\\b`,
+  pcre2Regexp: String.raw`\s*Lemma\s+KEYWORD\b`,
+  emacsRegexp: String.raw`\s*Lemma\s+JJJ\b`,
   supports: ["ag", "rg", "git-grep"],
   specSuccess: ["Lemma test"],
   specFailed: ["Lemma testx"],
@@ -784,8 +786,8 @@ addDefinition("coq", {
 
 addDefinition("coq", {
   type: "function",
-  pcre2Regexp: `\\s*Definition\\s+KEYWORD\\b`,
-  emacsRegexp: `\\s*Definition\\s+JJJ\\b`,
+  pcre2Regexp: String.raw`\s*Definition\s+KEYWORD\b`,
+  emacsRegexp: String.raw`\s*Definition\s+JJJ\b`,
   supports: ["ag", "rg", "git-grep"],
   specSuccess: ["Definition test"],
   specFailed: ["Definition testx"],
@@ -793,8 +795,8 @@ addDefinition("coq", {
 
 addDefinition("coq", {
   type: "function",
-  pcre2Regexp: `\\s*Hypothesis\\s+KEYWORD\\b`,
-  emacsRegexp: `\\s*Hypothesis\\s+JJJ\\b`,
+  pcre2Regexp: String.raw`\s*Hypothesis\s+KEYWORD\b`,
+  emacsRegexp: String.raw`\s*Hypothesis\s+JJJ\b`,
   supports: ["ag", "rg", "git-grep"],
   specSuccess: ["Hypothesis test"],
   specFailed: ["Hypothesis testx"],
@@ -802,8 +804,8 @@ addDefinition("coq", {
 
 addDefinition("coq", {
   type: "function",
-  pcre2Regexp: `\\s*Theorm\\s+KEYWORD\\b`,
-  emacsRegexp: `\\s*Theorm\\s+JJJ\\b`,
+  pcre2Regexp: String.raw`\s*Theorm\s+KEYWORD\b`,
+  emacsRegexp: String.raw`\s*Theorm\s+JJJ\b`,
   supports: ["ag", "rg", "git-grep"],
   specSuccess: ["Theorm test"],
   specFailed: ["Theorm testx"],
@@ -811,8 +813,8 @@ addDefinition("coq", {
 
 addDefinition("coq", {
   type: "function",
-  pcre2Regexp: `\\s*Fixpoint\\s+KEYWORD\\b`,
-  emacsRegexp: `\\s*Fixpoint\\s+JJJ\\b`,
+  pcre2Regexp: String.raw`\s*Fixpoint\s+KEYWORD\b`,
+  emacsRegexp: String.raw`\s*Fixpoint\s+JJJ\b`,
   supports: ["ag", "rg", "git-grep"],
   specSuccess: ["Fixpoint test"],
   specFailed: ["Fixpoint testx"],
@@ -820,8 +822,8 @@ addDefinition("coq", {
 
 addDefinition("coq", {
   type: "function",
-  pcre2Regexp: `\\s*Module\\s+KEYWORD\\b`,
-  emacsRegexp: `\\s*Module\\s+JJJ\\b`,
+  pcre2Regexp: String.raw`\s*Module\s+KEYWORD\b`,
+  emacsRegexp: String.raw`\s*Module\s+JJJ\b`,
   supports: ["ag", "rg", "git-grep"],
   specSuccess: ["Module test"],
   specFailed: ["Module testx"],
@@ -829,8 +831,8 @@ addDefinition("coq", {
 
 addDefinition("coq", {
   type: "function",
-  pcre2Regexp: `\\s*CoInductive\\s+KEYWORD\\b`,
-  emacsRegexp: `\\s*CoInductive\\s+JJJ\\b`,
+  pcre2Regexp: String.raw`\s*CoInductive\s+KEYWORD\b`,
+  emacsRegexp: String.raw`\s*CoInductive\s+JJJ\b`,
   supports: ["ag", "rg", "git-grep"],
   specSuccess: ["CoInductive test"],
   specFailed: ["CoInductive testx"],
@@ -838,8 +840,8 @@ addDefinition("coq", {
 
 addDefinition("python", {
   type: "variable",
-  pcre2Regexp: `\\s*\\bKEYWORD\\s*=[^=\\n]+`,
-  emacsRegexp: `\\s*\\bJJJ\\s*=[^=\\n]+`,
+  pcre2Regexp: String.raw`\s*\bKEYWORD\s*=[^=\n]+`,
+  emacsRegexp: String.raw`\s*\bJJJ\s*=[^=\n]+`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["test = 1234"],
   specFailed: ["if test == 1234:", "_test = 1234"],
@@ -847,17 +849,17 @@ addDefinition("python", {
 
 addDefinition("python", {
   type: "function",
-  pcre2Regexp: `def\\s*KEYWORD\\b\\s*\\(`,
-  emacsRegexp: `def\\s*JJJ\\b\\s*\\(`,
+  pcre2Regexp: String.raw`def\s*KEYWORD\b\s*\(`,
+  emacsRegexp: String.raw`def\s*JJJ\b\s*\(`,
   supports: ["ag", "grep", "rg", "git-grep"],
-  specSuccess: ["\\tdef test(asdf)", "def test()"],
-  specFailed: ["\\tdef testnot(asdf)", "def testnot()"],
+  specSuccess: ["\tdef test(asdf)", "def test()"],
+  specFailed: ["\tdef testnot(asdf)", "def testnot()"],
 });
 
 addDefinition("python", {
   type: "type",
-  pcre2Regexp: `class\\s*KEYWORD\\b\\s*\\(?`,
-  emacsRegexp: `class\\s*JJJ\\b\\s*\\(?`,
+  pcre2Regexp: String.raw`class\s*KEYWORD\b\s*\(?`,
+  emacsRegexp: String.raw`class\s*JJJ\b\s*\(?`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["class test(object):", "class test:"],
   specFailed: ["class testnot:", "class testnot(object):"],
@@ -865,8 +867,8 @@ addDefinition("python", {
 
 addDefinition("matlab", {
   type: "variable",
-  pcre2Regexp: `^\\s*\\bKEYWORD\\s*=[^=\\n]+`,
-  emacsRegexp: `^\\s*\\bJJJ\\s*=[^=\\n]+`,
+  pcre2Regexp: String.raw`^\s*\bKEYWORD\s*=[^=\n]+`,
+  emacsRegexp: String.raw`^\s*\bJJJ\s*=[^=\n]+`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["test = 1234"],
   specFailed: ["for test = 1:2:", "_test = 1234"],
@@ -874,21 +876,21 @@ addDefinition("matlab", {
 
 addDefinition("matlab", {
   type: "function",
-  pcre2Regexp: `^\\s*function\\s*[^=]+\\s*=\\s*KEYWORD\\b`,
-  emacsRegexp: `^\\s*function\\s*[^=]+\\s*=\\s*JJJ\\b`,
+  pcre2Regexp: String.raw`^\s*function\s*[^=]+\s*=\s*KEYWORD\b`,
+  emacsRegexp: String.raw`^\s*function\s*[^=]+\s*=\s*JJJ\b`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
-    "\\tfunction y = test(asdf)",
+    "\tfunction y = test(asdf)",
     "function x = test()",
     "function [x, losses] = test(A, y, lambda, method, qtile)",
   ],
-  specFailed: ["\\tfunction testnot(asdf)", "function testnot()"],
+  specFailed: ["\tfunction testnot(asdf)", "function testnot()"],
 });
 
 addDefinition("matlab", {
   type: "type",
-  pcre2Regexp: `^\\s*classdef\\s*KEYWORD\\b\\s*`,
-  emacsRegexp: `^\\s*classdef\\s*JJJ\\b\\s*`,
+  pcre2Regexp: String.raw`^\s*classdef\s*KEYWORD\b\s*`,
+  emacsRegexp: String.raw`^\s*classdef\s*JJJ\b\s*`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["classdef test"],
   specFailed: ["classdef testnot"],
@@ -896,8 +898,8 @@ addDefinition("matlab", {
 
 addDefinition("nim", {
   type: "variable",
-  pcre2Regexp: `(const|let|var)\\s*KEYWORD\\*?\\s*(=|:)[^=:\\n]+`,
-  emacsRegexp: `(const|let|var)\\s*JJJ\\*?\\s*(=|:)[^=:\\n]+`,
+  pcre2Regexp: String.raw`(const|let|var)\s*KEYWORD\*?\s*(=|:)[^=:\n]+`,
+  emacsRegexp: String.raw`(const|let|var)\s*JJJ\*?\s*(=|:)[^=:\n]+`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "let test = 1234",
@@ -911,24 +913,24 @@ addDefinition("nim", {
 
 addDefinition("nim", {
   type: "function",
-  pcre2Regexp: `(proc|func|macro|template)\\s*\`?KEYWORD\`?\\b\\*?\\s*\\(`,
-  emacsRegexp: `(proc|func|macro|template)\\s*\`?JJJ\`?\\b\\*?\\s*\\(`,
+  pcre2Regexp: String.raw`(proc|func|macro|template)\s*\`?KEYWORD\`?\b\*?\s*\(`,
+  emacsRegexp: String.raw`(proc|func|macro|template)\s*\`?JJJ\`?\b\*?\s*\(`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
-    "\\tproc test(asdf)",
+    "\tproc test(asdf)",
     "proc test()",
     "func test()",
     "macro test()",
     "template test()",
     "proc test*()",
   ],
-  specFailed: ["\\tproc testnot(asdf)", "proc testnot()"],
+  specFailed: ["\tproc testnot(asdf)", "proc testnot()"],
 });
 
 addDefinition("nim", {
   type: "type",
-  pcre2Regexp: `type\\s*KEYWORD\\b\\*?\\s*(\\{[^}]+\\})?\\s*=\\s*\\w+`,
-  emacsRegexp: `type\\s*JJJ\\b\\*?\\s*(\\{[^}]+\\})?\\s*=\\s*\\w+`,
+  pcre2Regexp: String.raw`type\s*KEYWORD\b\*?\s*(\{[^}]+\})?\s*=\s*\w+`,
+  emacsRegexp: String.raw`type\s*JJJ\b\*?\s*(\{[^}]+\})?\s*=\s*\w+`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "type test = object",
@@ -940,8 +942,8 @@ addDefinition("nim", {
 
 addDefinition("nix", {
   type: "variable",
-  pcre2Regexp: `\\b\\s*KEYWORD\\s*=[^=;]+`,
-  emacsRegexp: `\\b\\s*JJJ\\s*=[^=;]+`,
+  pcre2Regexp: String.raw`\b\s*KEYWORD\s*=[^=;]+`,
+  emacsRegexp: String.raw`\b\s*JJJ\s*=[^=;]+`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["test = 1234;", "test = 123;", "test=123"],
   specFailed: ["testNot = 1234;", "Nottest = 1234;", "AtestNot = 1234;"],
@@ -949,10 +951,10 @@ addDefinition("nix", {
 
 addDefinition("ruby", {
   type: "variable",
-  pcre2Regexp:
-    `^\\s*((\\w+[.])*\\w+,\\s*)*KEYWORD(,\\s*(\\w+[.])*\\w+)*\\s*=([^=>~]|$)`,
-  emacsRegexp:
-    `^\\s*((\\w+[.])*\\w+,\\s*)*JJJ(,\\s*(\\w+[.])*\\w+)*\\s*=([^=>~]|$)`,
+  pcre2Regexp: String
+    .raw`^\s*((\w+[.])*\w+,\s*)*KEYWORD(,\s*(\w+[.])*\w+)*\s*=([^=>~]|$)`,
+  emacsRegexp: String
+    .raw`^\s*((\w+[.])*\w+,\s*)*JJJ(,\s*(\w+[.])*\w+)*\s*=([^=>~]|$)`,
   supports: ["ag", "rg", "git-grep"],
   specSuccess: ["test = 1234", "self.foo, test, bar = args"],
   specFailed: ["if test == 1234", "foo_test = 1234"],
@@ -960,10 +962,10 @@ addDefinition("ruby", {
 
 addDefinition("ruby", {
   type: "function",
-  pcre2Regexp:
-    `(^|[^\\w.])((private|public|protected)\\s+)?def\\s+(\\w+(::|[.]))*KEYWORD($|[^\\w|:])`,
-  emacsRegexp:
-    `(^|[^\\w.])((private|public|protected)\\s+)?def\\s+(\\w+(::|[.]))*JJJ($|[^\\w|:])`,
+  pcre2Regexp: String
+    .raw`(^|[^\w.])((private|public|protected)\s+)?def\s+(\w+(::|[.]))*KEYWORD($|[^\w|:])`,
+  emacsRegexp: String
+    .raw`(^|[^\w.])((private|public|protected)\s+)?def\s+(\w+(::|[.]))*JJJ($|[^\w|:])`,
   supports: ["ag", "rg", "git-grep"],
   specSuccess: [
     "def test(foo)",
@@ -979,10 +981,10 @@ addDefinition("ruby", {
 
 addDefinition("ruby", {
   type: "function",
-  pcre2Regexp:
-    `(^|\\W)define(_singleton|_instance)?_method(\\s|[(])\\s*:KEYWORD($|[^\\w|:])`,
-  emacsRegexp:
-    `(^|\\W)define(_singleton|_instance)?_method(\\s|[(])\\s*:JJJ($|[^\\w|:])`,
+  pcre2Regexp: String
+    .raw`(^|\W)define(_singleton|_instance)?_method(\s|[(])\s*:KEYWORD($|[^\w|:])`,
+  emacsRegexp: String
+    .raw`(^|\W)define(_singleton|_instance)?_method(\s|[(])\s*:JJJ($|[^\w|:])`,
   supports: ["ag", "rg", "git-grep"],
   specSuccess: [
     "define_method(:test, &body)",
@@ -993,8 +995,8 @@ addDefinition("ruby", {
 
 addDefinition("ruby", {
   type: "type",
-  pcre2Regexp: `(^|[^\\w.])class\\s+(\\w*::)*KEYWORD($|[^\\w|:])`,
-  emacsRegexp: `(^|[^\\w.])class\\s+(\\w*::)*JJJ($|[^\\w|:])`,
+  pcre2Regexp: String.raw`(^|[^\w.])class\s+(\w*::)*KEYWORD($|[^\w|:])`,
+  emacsRegexp: String.raw`(^|[^\w.])class\s+(\w*::)*JJJ($|[^\w|:])`,
   supports: ["ag", "rg", "git-grep"],
   specSuccess: ["class test", "class Foo::test"],
   specFailed: [],
@@ -1002,8 +1004,8 @@ addDefinition("ruby", {
 
 addDefinition("ruby", {
   type: "type",
-  pcre2Regexp: `(^|[^\\w.])module\\s+(\\w*::)*KEYWORD($|[^\\w|:])`,
-  emacsRegexp: `(^|[^\\w.])module\\s+(\\w*::)*JJJ($|[^\\w|:])`,
+  pcre2Regexp: String.raw`(^|[^\w.])module\s+(\w*::)*KEYWORD($|[^\w|:])`,
+  emacsRegexp: String.raw`(^|[^\w.])module\s+(\w*::)*JJJ($|[^\w|:])`,
   supports: ["ag", "rg", "git-grep"],
   specSuccess: ["module test", "module Foo::test"],
   specFailed: [],
@@ -1011,8 +1013,8 @@ addDefinition("ruby", {
 
 addDefinition("ruby", {
   type: "function",
-  pcre2Regexp: `(^|\\W)alias(_method)?\\W+KEYWORD(\\W|$)`,
-  emacsRegexp: `(^|\\W)alias(_method)?\\W+JJJ(\\W|$)`,
+  pcre2Regexp: String.raw`(^|\W)alias(_method)?\W+KEYWORD(\W|$)`,
+  emacsRegexp: String.raw`(^|\W)alias(_method)?\W+JJJ(\W|$)`,
   supports: ["ag", "rg", "git-grep"],
   specSuccess: [
     "alias test some_method",
@@ -1029,10 +1031,10 @@ addDefinition("ruby", {
 
 addDefinition("groovy", {
   type: "variable",
-  pcre2Regexp:
-    `^\\s*((\\w+[.])*\\w+,\\s*)*KEYWORD(,\\s*(\\w+[.])*\\w+)*\\s*=([^=>~]|$)`,
-  emacsRegexp:
-    `^\\s*((\\w+[.])*\\w+,\\s*)*JJJ(,\\s*(\\w+[.])*\\w+)*\\s*=([^=>~]|$)`,
+  pcre2Regexp: String
+    .raw`^\s*((\w+[.])*\w+,\s*)*KEYWORD(,\s*(\w+[.])*\w+)*\s*=([^=>~]|$)`,
+  emacsRegexp: String
+    .raw`^\s*((\w+[.])*\w+,\s*)*JJJ(,\s*(\w+[.])*\w+)*\s*=([^=>~]|$)`,
   supports: ["ag", "rg", "git-grep"],
   specSuccess: ["test = 1234", "self.foo, test, bar = args"],
   specFailed: ["if test == 1234", "foo_test = 1234"],
@@ -1040,10 +1042,10 @@ addDefinition("groovy", {
 
 addDefinition("groovy", {
   type: "function",
-  pcre2Regexp:
-    `(^|[^\\w.])((private|public)\\s+)?def\\s+(\\w+(::|[.]))*KEYWORD($|[^\\w|:])`,
-  emacsRegexp:
-    `(^|[^\\w.])((private|public)\\s+)?def\\s+(\\w+(::|[.]))*JJJ($|[^\\w|:])`,
+  pcre2Regexp: String
+    .raw`(^|[^\w.])((private|public)\s+)?def\s+(\w+(::|[.]))*KEYWORD($|[^\w|:])`,
+  emacsRegexp: String
+    .raw`(^|[^\w.])((private|public)\s+)?def\s+(\w+(::|[.]))*JJJ($|[^\w|:])`,
   supports: ["ag", "rg", "git-grep"],
   specSuccess: [
     "def test(foo)",
@@ -1059,8 +1061,8 @@ addDefinition("groovy", {
 
 addDefinition("groovy", {
   type: "type",
-  pcre2Regexp: `(^|[^\\w.])class\\s+(\\w*::)*KEYWORD($|[^\\w|:])`,
-  emacsRegexp: `(^|[^\\w.])class\\s+(\\w*::)*JJJ($|[^\\w|:])`,
+  pcre2Regexp: String.raw`(^|[^\w.])class\s+(\w*::)*KEYWORD($|[^\w|:])`,
+  emacsRegexp: String.raw`(^|[^\w.])class\s+(\w*::)*JJJ($|[^\w|:])`,
   supports: ["ag", "rg", "git-grep"],
   specSuccess: ["class test", "class Foo::test"],
   specFailed: [],
@@ -1068,10 +1070,10 @@ addDefinition("groovy", {
 
 addDefinition("crystal", {
   type: "variable",
-  pcre2Regexp:
-    `^\\s*((\\w+[.])*\\w+,\\s*)*KEYWORD(,\\s*(\\w+[.])*\\w+)*\\s*=([^=>~]|$)`,
-  emacsRegexp:
-    `^\\s*((\\w+[.])*\\w+,\\s*)*JJJ(,\\s*(\\w+[.])*\\w+)*\\s*=([^=>~]|$)`,
+  pcre2Regexp: String
+    .raw`^\s*((\w+[.])*\w+,\s*)*KEYWORD(,\s*(\w+[.])*\w+)*\s*=([^=>~]|$)`,
+  emacsRegexp: String
+    .raw`^\s*((\w+[.])*\w+,\s*)*JJJ(,\s*(\w+[.])*\w+)*\s*=([^=>~]|$)`,
   supports: ["ag", "rg", "git-grep"],
   specSuccess: ["test = 1234", "self.foo, test, bar = args"],
   specFailed: ["if test == 1234", "foo_test = 1234"],
@@ -1079,10 +1081,10 @@ addDefinition("crystal", {
 
 addDefinition("crystal", {
   type: "function",
-  pcre2Regexp:
-    `(^|[^\\w.])((private|public|protected)\\s+)?def\\s+(\\w+(::|[.]))*KEYWORD($|[^\\w|:])`,
-  emacsRegexp:
-    `(^|[^\\w.])((private|public|protected)\\s+)?def\\s+(\\w+(::|[.]))*JJJ($|[^\\w|:])`,
+  pcre2Regexp: String
+    .raw`(^|[^\w.])((private|public|protected)\s+)?def\s+(\w+(::|[.]))*KEYWORD($|[^\w|:])`,
+  emacsRegexp: String
+    .raw`(^|[^\w.])((private|public|protected)\s+)?def\s+(\w+(::|[.]))*JJJ($|[^\w|:])`,
   supports: ["ag", "rg", "git-grep"],
   specSuccess: [
     "def test(foo)",
@@ -1098,8 +1100,8 @@ addDefinition("crystal", {
 
 addDefinition("crystal", {
   type: "type",
-  pcre2Regexp: `(^|[^\\w.])class\\s+(\\w*::)*KEYWORD($|[^\\w|:])`,
-  emacsRegexp: `(^|[^\\w.])class\\s+(\\w*::)*JJJ($|[^\\w|:])`,
+  pcre2Regexp: String.raw`(^|[^\w.])class\s+(\w*::)*KEYWORD($|[^\w|:])`,
+  emacsRegexp: String.raw`(^|[^\w.])class\s+(\w*::)*JJJ($|[^\w|:])`,
   supports: ["ag", "rg", "git-grep"],
   specSuccess: ["class test", "class Foo::test"],
   specFailed: [],
@@ -1107,8 +1109,8 @@ addDefinition("crystal", {
 
 addDefinition("crystal", {
   type: "type",
-  pcre2Regexp: `(^|[^\\w.])module\\s+(\\w*::)*KEYWORD($|[^\\w|:])`,
-  emacsRegexp: `(^|[^\\w.])module\\s+(\\w*::)*JJJ($|[^\\w|:])`,
+  pcre2Regexp: String.raw`(^|[^\w.])module\s+(\w*::)*KEYWORD($|[^\w|:])`,
+  emacsRegexp: String.raw`(^|[^\w.])module\s+(\w*::)*JJJ($|[^\w|:])`,
   supports: ["ag", "rg", "git-grep"],
   specSuccess: ["module test", "module Foo::test"],
   specFailed: [],
@@ -1116,8 +1118,8 @@ addDefinition("crystal", {
 
 addDefinition("crystal", {
   type: "type",
-  pcre2Regexp: `(^|[^\\w.])struct\\s+(\\w*::)*KEYWORD($|[^\\w|:])`,
-  emacsRegexp: `(^|[^\\w.])struct\\s+(\\w*::)*JJJ($|[^\\w|:])`,
+  pcre2Regexp: String.raw`(^|[^\w.])struct\s+(\w*::)*KEYWORD($|[^\w|:])`,
+  emacsRegexp: String.raw`(^|[^\w.])struct\s+(\w*::)*JJJ($|[^\w|:])`,
   supports: ["ag", "rg", "git-grep"],
   specSuccess: ["struct test", "struct Foo::test"],
   specFailed: [],
@@ -1125,8 +1127,8 @@ addDefinition("crystal", {
 
 addDefinition("crystal", {
   type: "type",
-  pcre2Regexp: `(^|[^\\w.])alias\\s+(\\w*::)*KEYWORD($|[^\\w|:])`,
-  emacsRegexp: `(^|[^\\w.])alias\\s+(\\w*::)*JJJ($|[^\\w|:])`,
+  pcre2Regexp: String.raw`(^|[^\w.])alias\s+(\w*::)*KEYWORD($|[^\w|:])`,
+  emacsRegexp: String.raw`(^|[^\w.])alias\s+(\w*::)*JJJ($|[^\w|:])`,
   supports: ["ag", "rg", "git-grep"],
   specSuccess: ["alias test", "alias Foo::test"],
   specFailed: [],
@@ -1134,8 +1136,8 @@ addDefinition("crystal", {
 
 addDefinition("scad", {
   type: "variable",
-  pcre2Regexp: `\\s*\\bKEYWORD\\s*=[^=\\n]+`,
-  emacsRegexp: `\\s*\\bJJJ\\s*=[^=\\n]+`,
+  pcre2Regexp: String.raw`\s*\bKEYWORD\s*=[^=\n]+`,
+  emacsRegexp: String.raw`\s*\bJJJ\s*=[^=\n]+`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["test = 1234"],
   specFailed: ["if test == 1234 {"],
@@ -1143,8 +1145,8 @@ addDefinition("scad", {
 
 addDefinition("scad", {
   type: "function",
-  pcre2Regexp: `function\\s*KEYWORD\\s*\\(`,
-  emacsRegexp: `function\\s*JJJ\\s*\\(`,
+  pcre2Regexp: String.raw`function\s*KEYWORD\s*\(`,
+  emacsRegexp: String.raw`function\s*JJJ\s*\(`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["function test()", "function test ()"],
   specFailed: [],
@@ -1152,8 +1154,8 @@ addDefinition("scad", {
 
 addDefinition("scad", {
   type: "module",
-  pcre2Regexp: `module\\s*KEYWORD\\s*\\(`,
-  emacsRegexp: `module\\s*JJJ\\s*\\(`,
+  pcre2Regexp: String.raw`module\s*KEYWORD\s*\(`,
+  emacsRegexp: String.raw`module\s*JJJ\s*\(`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["module test()", "module test ()"],
   specFailed: [],
@@ -1161,8 +1163,8 @@ addDefinition("scad", {
 
 addDefinition("scala", {
   type: "variable",
-  pcre2Regexp: `\\bval\\s*KEYWORD\\s*=[^=\\n]+`,
-  emacsRegexp: `\\bval\\s*JJJ\\s*=[^=\\n]+`,
+  pcre2Regexp: String.raw`\bval\s*KEYWORD\s*=[^=\n]+`,
+  emacsRegexp: String.raw`\bval\s*JJJ\s*=[^=\n]+`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["val test = 1234"],
   specFailed: ["case test => 1234"],
@@ -1170,8 +1172,8 @@ addDefinition("scala", {
 
 addDefinition("scala", {
   type: "variable",
-  pcre2Regexp: `\\bvar\\s*KEYWORD\\s*=[^=\\n]+`,
-  emacsRegexp: `\\bvar\\s*JJJ\\s*=[^=\\n]+`,
+  pcre2Regexp: String.raw`\bvar\s*KEYWORD\s*=[^=\n]+`,
+  emacsRegexp: String.raw`\bvar\s*JJJ\s*=[^=\n]+`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["var test = 1234"],
   specFailed: ["case test => 1234"],
@@ -1179,8 +1181,8 @@ addDefinition("scala", {
 
 addDefinition("scala", {
   type: "variable",
-  pcre2Regexp: `\\btype\\s*KEYWORD\\s*=[^=\\n]+`,
-  emacsRegexp: `\\btype\\s*JJJ\\s*=[^=\\n]+`,
+  pcre2Regexp: String.raw`\btype\s*KEYWORD\s*=[^=\n]+`,
+  emacsRegexp: String.raw`\btype\s*JJJ\s*=[^=\n]+`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["type test = 1234"],
   specFailed: ["case test => 1234"],
@@ -1188,8 +1190,8 @@ addDefinition("scala", {
 
 addDefinition("scala", {
   type: "function",
-  pcre2Regexp: `\\bdef\\s*KEYWORD\\s*\\(`,
-  emacsRegexp: `\\bdef\\s*JJJ\\s*\\(`,
+  pcre2Regexp: String.raw`\bdef\s*KEYWORD\s*\(`,
+  emacsRegexp: String.raw`\bdef\s*JJJ\s*\(`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["def test(asdf)", "def test()"],
   specFailed: [],
@@ -1197,8 +1199,8 @@ addDefinition("scala", {
 
 addDefinition("scala", {
   type: "type",
-  pcre2Regexp: `class\\s*KEYWORD\\s*\\(?`,
-  emacsRegexp: `class\\s*JJJ\\s*\\(?`,
+  pcre2Regexp: String.raw`class\s*KEYWORD\s*\(?`,
+  emacsRegexp: String.raw`class\s*JJJ\s*\(?`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["class test(object)"],
   specFailed: [],
@@ -1206,8 +1208,8 @@ addDefinition("scala", {
 
 addDefinition("scala", {
   type: "type",
-  pcre2Regexp: `trait\\s*KEYWORD\\s*\\(?`,
-  emacsRegexp: `trait\\s*JJJ\\s*\\(?`,
+  pcre2Regexp: String.raw`trait\s*KEYWORD\s*\(?`,
+  emacsRegexp: String.raw`trait\s*JJJ\s*\(?`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["trait test(object)"],
   specFailed: [],
@@ -1215,8 +1217,8 @@ addDefinition("scala", {
 
 addDefinition("scala", {
   type: "type",
-  pcre2Regexp: `object\\s*KEYWORD\\s*\\(?`,
-  emacsRegexp: `object\\s*JJJ\\s*\\(?`,
+  pcre2Regexp: String.raw`object\s*KEYWORD\s*\(?`,
+  emacsRegexp: String.raw`object\s*JJJ\s*\(?`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["object test(object)"],
   specFailed: [],
@@ -1224,8 +1226,8 @@ addDefinition("scala", {
 
 addDefinition("solidity", {
   type: "function",
-  pcre2Regexp: `function\\s*KEYWORD\\s*\\(`,
-  emacsRegexp: `function\\s*JJJ\\s*\\(`,
+  pcre2Regexp: String.raw`function\s*KEYWORD\s*\(`,
+  emacsRegexp: String.raw`function\s*JJJ\s*\(`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "function test() internal",
@@ -1237,8 +1239,8 @@ addDefinition("solidity", {
 
 addDefinition("solidity", {
   type: "modifier",
-  pcre2Regexp: `modifier\\s*KEYWORD\\s*\\(`,
-  emacsRegexp: `modifier\\s*JJJ\\s*\\(`,
+  pcre2Regexp: String.raw`modifier\s*KEYWORD\s*\(`,
+  emacsRegexp: String.raw`modifier\s*JJJ\s*\(`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["modifier test()", "modifier test ()"],
   specFailed: [],
@@ -1246,8 +1248,8 @@ addDefinition("solidity", {
 
 addDefinition("solidity", {
   type: "event",
-  pcre2Regexp: `event\\s*KEYWORD\\s*\\(`,
-  emacsRegexp: `event\\s*JJJ\\s*\\(`,
+  pcre2Regexp: String.raw`event\s*KEYWORD\s*\(`,
+  emacsRegexp: String.raw`event\s*JJJ\s*\(`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "event test();",
@@ -1259,8 +1261,8 @@ addDefinition("solidity", {
 
 addDefinition("solidity", {
   type: "error",
-  pcre2Regexp: `error\\s*KEYWORD\\s*\\(`,
-  emacsRegexp: `error\\s*JJJ\\s*\\(`,
+  pcre2Regexp: String.raw`error\s*KEYWORD\s*\(`,
+  emacsRegexp: String.raw`error\s*JJJ\s*\(`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "error test();",
@@ -1272,8 +1274,8 @@ addDefinition("solidity", {
 
 addDefinition("r", {
   type: "variable",
-  pcre2Regexp: `\\bKEYWORD\\s*=[^=><]`,
-  emacsRegexp: `\\bJJJ\\s*=[^=><]`,
+  pcre2Regexp: String.raw`\bKEYWORD\s*=[^=><]`,
+  emacsRegexp: String.raw`\bJJJ\s*=[^=><]`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["test = 1234"],
   specFailed: ["if (test == 1234)"],
@@ -1281,8 +1283,8 @@ addDefinition("r", {
 
 addDefinition("r", {
   type: "function",
-  pcre2Regexp: `\\bKEYWORD\\s*<-\\s*function\\b`,
-  emacsRegexp: `\\bJJJ\\s*<-\\s*function\\b`,
+  pcre2Regexp: String.raw`\bKEYWORD\s*<-\s*function\b`,
+  emacsRegexp: String.raw`\bJJJ\s*<-\s*function\b`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["test <- function", "test <- function("],
   specFailed: ["test <- functionX"],
@@ -1290,8 +1292,8 @@ addDefinition("r", {
 
 addDefinition("perl", {
   type: "function",
-  pcre2Regexp: `sub\\s*KEYWORD\\s*(\\{|\\()`,
-  emacsRegexp: `sub\\s*JJJ\\s*(\\{|\\()`,
+  pcre2Regexp: String.raw`sub\s*KEYWORD\s*(\{|\()`,
+  emacsRegexp: String.raw`sub\s*JJJ\s*(\{|\()`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["sub test{", "sub test {", "sub test(", "sub test ("],
   specFailed: [],
@@ -1299,8 +1301,8 @@ addDefinition("perl", {
 
 addDefinition("perl", {
   type: "variable",
-  pcre2Regexp: `KEYWORD\\s*=\\s*`,
-  emacsRegexp: `JJJ\\s*=\\s*`,
+  pcre2Regexp: String.raw`KEYWORD\s*=\s*`,
+  emacsRegexp: String.raw`JJJ\s*=\s*`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["$test = 1234"],
   specFailed: [],
@@ -1308,8 +1310,8 @@ addDefinition("perl", {
 
 addDefinition("tcl", {
   type: "function",
-  pcre2Regexp: `proc\\s+KEYWORD\\s*\\{`,
-  emacsRegexp: `proc\\s+JJJ\\s*\\{`,
+  pcre2Regexp: String.raw`proc\s+KEYWORD\s*\{`,
+  emacsRegexp: String.raw`proc\s+JJJ\s*\{`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["proc test{", "proc test {"],
   specFailed: [],
@@ -1317,8 +1319,8 @@ addDefinition("tcl", {
 
 addDefinition("tcl", {
   type: "variable",
-  pcre2Regexp: `set\\s+KEYWORD`,
-  emacsRegexp: `set\\s+JJJ`,
+  pcre2Regexp: String.raw`set\s+KEYWORD`,
+  emacsRegexp: String.raw`set\s+JJJ`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["set test 1234"],
   specFailed: [],
@@ -1326,8 +1328,8 @@ addDefinition("tcl", {
 
 addDefinition("tcl", {
   type: "variable",
-  pcre2Regexp: `(variable|global)\\s+KEYWORD`,
-  emacsRegexp: `(variable|global)\\s+JJJ`,
+  pcre2Regexp: String.raw`(variable|global)\s+KEYWORD`,
+  emacsRegexp: String.raw`(variable|global)\s+JJJ`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["variable test", "global test"],
   specFailed: [],
@@ -1335,8 +1337,8 @@ addDefinition("tcl", {
 
 addDefinition("shell", {
   type: "function",
-  pcre2Regexp: `function\\s*KEYWORD\\s*`,
-  emacsRegexp: `function\\s*JJJ\\s*`,
+  pcre2Regexp: String.raw`function\s*KEYWORD\s*`,
+  emacsRegexp: String.raw`function\s*JJJ\s*`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["function test{", "function test {", "function test () {"],
   specFailed: ["function nottest {"],
@@ -1344,8 +1346,8 @@ addDefinition("shell", {
 
 addDefinition("shell", {
   type: "function",
-  pcre2Regexp: `KEYWORD\\(\\)\\s*\\{`,
-  emacsRegexp: `JJJ\\(\\)\\s*\\{`,
+  pcre2Regexp: String.raw`KEYWORD\(\)\s*\{`,
+  emacsRegexp: String.raw`JJJ\(\)\s*\{`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["test() {"],
   specFailed: ["testx() {"],
@@ -1353,8 +1355,8 @@ addDefinition("shell", {
 
 addDefinition("shell", {
   type: "variable",
-  pcre2Regexp: `\\bKEYWORD\\s*=\\s*`,
-  emacsRegexp: `\\bJJJ\\s*=\\s*`,
+  pcre2Regexp: String.raw`\bKEYWORD\s*=\s*`,
+  emacsRegexp: String.raw`\bJJJ\s*=\s*`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["test = 1234"],
   specFailed: ["blahtest = 1234"],
@@ -1362,8 +1364,8 @@ addDefinition("shell", {
 
 addDefinition("php", {
   type: "function",
-  pcre2Regexp: `function\\s*KEYWORD\\s*\\(`,
-  emacsRegexp: `function\\s*JJJ\\s*\\(`,
+  pcre2Regexp: String.raw`function\s*KEYWORD\s*\(`,
+  emacsRegexp: String.raw`function\s*JJJ\s*\(`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["function test()", "function test ()"],
   specFailed: [],
@@ -1371,8 +1373,8 @@ addDefinition("php", {
 
 addDefinition("php", {
   type: "function",
-  pcre2Regexp: `\\*\\s@method\\s+[^ 	]+\\s+KEYWORD\\(`,
-  emacsRegexp: `\\*\\s@method\\s+[^ 	]+\\s+JJJ\\(`,
+  pcre2Regexp: String.raw`\*\s@method\s+[^ 	]+\s+KEYWORD\(`,
+  emacsRegexp: String.raw`\*\s@method\s+[^ 	]+\s+JJJ\(`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "/** @method string|false test($a)",
@@ -1383,8 +1385,8 @@ addDefinition("php", {
 
 addDefinition("php", {
   type: "variable",
-  pcre2Regexp: `(\\s|->|\\$|::)KEYWORD\\s*=\\s*`,
-  emacsRegexp: `(\\s|->|\\$|::)JJJ\\s*=\\s*`,
+  pcre2Regexp: String.raw`(\s|->|\$|::)KEYWORD\s*=\s*`,
+  emacsRegexp: String.raw`(\s|->|\$|::)JJJ\s*=\s*`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["$test = 1234", "$foo->test = 1234"],
   specFailed: [],
@@ -1392,24 +1394,24 @@ addDefinition("php", {
 
 addDefinition("php", {
   type: "variable",
-  pcre2Regexp:
-    `\\*\\s@property(-read|-write)?\\s+([^ 	]+\\s+)&?\\$KEYWORD(\\s+|$)`,
-  emacsRegexp:
-    `\\*\\s@property(-read|-write)?\\s+([^ 	]+\\s+)&?\\$JJJ(\\s+|$)`,
+  pcre2Regexp: String
+    .raw`\*\s@property(-read|-write)?\s+([^ 	]+\s+)&?\$KEYWORD(\s+|$)`,
+  emacsRegexp: String
+    .raw`\*\s@property(-read|-write)?\s+([^ 	]+\s+)&?\$JJJ(\s+|$)`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "/** @property string $test",
     "/** @property string $test description for $test property",
     " * @property-read bool|bool $test",
-    " * @property-write \\\\ArrayObject<string,resource[]> $test",
+    " * @property-write \\ArrayObject<string,resource[]> $test",
   ],
   specFailed: [],
 });
 
 addDefinition("php", {
   type: "trait",
-  pcre2Regexp: `trait\\s*KEYWORD\\s*\\{`,
-  emacsRegexp: `trait\\s*JJJ\\s*\\{`,
+  pcre2Regexp: String.raw`trait\s*KEYWORD\s*\{`,
+  emacsRegexp: String.raw`trait\s*JJJ\s*\{`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["trait test{", "trait test {"],
   specFailed: [],
@@ -1417,8 +1419,8 @@ addDefinition("php", {
 
 addDefinition("php", {
   type: "interface",
-  pcre2Regexp: `interface\\s*KEYWORD\\s*\\{`,
-  emacsRegexp: `interface\\s*JJJ\\s*\\{`,
+  pcre2Regexp: String.raw`interface\s*KEYWORD\s*\{`,
+  emacsRegexp: String.raw`interface\s*JJJ\s*\{`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["interface test{", "interface test {"],
   specFailed: [],
@@ -1426,8 +1428,8 @@ addDefinition("php", {
 
 addDefinition("php", {
   type: "class",
-  pcre2Regexp: `class\\s*KEYWORD\\s*(extends|implements|\\{)`,
-  emacsRegexp: `class\\s*JJJ\\s*(extends|implements|\\{)`,
+  pcre2Regexp: String.raw`class\s*KEYWORD\s*(extends|implements|\{)`,
+  emacsRegexp: String.raw`class\s*JJJ\s*(extends|implements|\{)`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "class test{",
@@ -1440,8 +1442,8 @@ addDefinition("php", {
 
 addDefinition("dart", {
   type: "function",
-  pcre2Regexp: `\\bKEYWORD\\s*\\([^()]*\\)\\s*[{]`,
-  emacsRegexp: `\\bJJJ\\s*\\([^()]*\\)\\s*[{]`,
+  pcre2Regexp: String.raw`\bKEYWORD\s*\([^()]*\)\s*[{]`,
+  emacsRegexp: String.raw`\bJJJ\s*\([^()]*\)\s*[{]`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["test(foo) {", "test (foo){", "test(foo){"],
   specFailed: [],
@@ -1449,8 +1451,8 @@ addDefinition("dart", {
 
 addDefinition("dart", {
   type: "function",
-  pcre2Regexp: `class\\s*KEYWORD\\s*[\\(\\{]`,
-  emacsRegexp: `class\\s*JJJ\\s*[\\(\\{]`,
+  pcre2Regexp: String.raw`class\s*KEYWORD\s*[\(\{]`,
+  emacsRegexp: String.raw`class\s*JJJ\s*[\(\{]`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["class test(object) {", "class test{"],
   specFailed: [],
@@ -1458,8 +1460,8 @@ addDefinition("dart", {
 
 addDefinition("faust", {
   type: "function",
-  pcre2Regexp: `\\bKEYWORD(\\(.+\\))*\\s*=`,
-  emacsRegexp: `\\bJJJ(\\(.+\\))*\\s*=`,
+  pcre2Regexp: String.raw`\bKEYWORD(\(.+\))*\s*=`,
+  emacsRegexp: String.raw`\bJJJ(\(.+\))*\s*=`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["test = osc + 0.5;", "test(freq) = osc(freq) + 0.5;"],
   specFailed: [],
@@ -1467,8 +1469,8 @@ addDefinition("faust", {
 
 addDefinition("fennel", {
   type: "variable",
-  pcre2Regexp: `\\((local|var)\\s+KEYWORD($|[^a-zA-Z0-9\\?\\*-])`,
-  emacsRegexp: `\\((local|var)\\s+JJJ\\j`,
+  pcre2Regexp: String.raw`\((local|var)\s+KEYWORD($|[^a-zA-Z0-9\?\*-])`,
+  emacsRegexp: String.raw`\((local|var)\s+JJJ\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["(local test (foo)", "(var test (foo)"],
   specFailed: [],
@@ -1476,8 +1478,8 @@ addDefinition("fennel", {
 
 addDefinition("fennel", {
   type: "function",
-  pcre2Regexp: `\\(fn\\s+KEYWORD($|[^a-zA-Z0-9\\?\\*-])`,
-  emacsRegexp: `\\(fn\\s+JJJ\\j`,
+  pcre2Regexp: String.raw`\(fn\s+KEYWORD($|[^a-zA-Z0-9\?\*-])`,
+  emacsRegexp: String.raw`\(fn\s+JJJ\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["(fn test [foo]"],
   specFailed: ["(fn test? [foo]"],
@@ -1485,8 +1487,8 @@ addDefinition("fennel", {
 
 addDefinition("fennel", {
   type: "function",
-  pcre2Regexp: `\\(macro\\s+KEYWORD($|[^a-zA-Z0-9\\?\\*-])`,
-  emacsRegexp: `\\(macro\\s+JJJ\\j`,
+  pcre2Regexp: String.raw`\(macro\s+KEYWORD($|[^a-zA-Z0-9\?\*-])`,
+  emacsRegexp: String.raw`\(macro\s+JJJ\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["(macro test [foo]"],
   specFailed: [],
@@ -1494,8 +1496,8 @@ addDefinition("fennel", {
 
 addDefinition("fortran", {
   type: "variable",
-  pcre2Regexp: `\\s*\\bKEYWORD\\s*=[^=\\n]+`,
-  emacsRegexp: `\\s*\\bJJJ\\s*=[^=\\n]+`,
+  pcre2Regexp: String.raw`\s*\bKEYWORD\s*=[^=\n]+`,
+  emacsRegexp: String.raw`\s*\bJJJ\s*=[^=\n]+`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["test = 1234"],
   specFailed: ["if (test == 1234)"],
@@ -1503,9 +1505,10 @@ addDefinition("fortran", {
 
 addDefinition("fortran", {
   type: "function",
-  pcre2Regexp:
-    `\\b(function|subroutine|FUNCTION|SUBROUTINE)\\s+KEYWORD\\b\\s*\\(`,
-  emacsRegexp: `\\b(function|subroutine|FUNCTION|SUBROUTINE)\\s+JJJ\\b\\s*\\(`,
+  pcre2Regexp: String
+    .raw`\b(function|subroutine|FUNCTION|SUBROUTINE)\s+KEYWORD\b\s*\(`,
+  emacsRegexp: String
+    .raw`\b(function|subroutine|FUNCTION|SUBROUTINE)\s+JJJ\b\s*\(`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "function test (foo)",
@@ -1525,8 +1528,8 @@ addDefinition("fortran", {
 
 addDefinition("fortran", {
   type: "function",
-  pcre2Regexp: `^\\s*(interface|INTERFACE)\\s+KEYWORD\\b`,
-  emacsRegexp: `^\\s*(interface|INTERFACE)\\s+JJJ\\b`,
+  pcre2Regexp: String.raw`^\s*(interface|INTERFACE)\s+KEYWORD\b`,
+  emacsRegexp: String.raw`^\s*(interface|INTERFACE)\s+JJJ\b`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["interface test", "INTERFACE test"],
   specFailed: [
@@ -1539,8 +1542,8 @@ addDefinition("fortran", {
 
 addDefinition("fortran", {
   type: "type",
-  pcre2Regexp: `^\\s*(module|MODULE)\\s+KEYWORD\\s*`,
-  emacsRegexp: `^\\s*(module|MODULE)\\s+JJJ\\s*`,
+  pcre2Regexp: String.raw`^\s*(module|MODULE)\s+KEYWORD\s*`,
+  emacsRegexp: String.raw`^\s*(module|MODULE)\s+JJJ\s*`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["module test", "MODULE test"],
   specFailed: ["end module test", "END MODULE test"],
@@ -1548,8 +1551,8 @@ addDefinition("fortran", {
 
 addDefinition("go", {
   type: "variable",
-  pcre2Regexp: `\\s*\\bKEYWORD\\s*=[^=\\n]+`,
-  emacsRegexp: `\\s*\\bJJJ\\s*=[^=\\n]+`,
+  pcre2Regexp: String.raw`\s*\bKEYWORD\s*=[^=\n]+`,
+  emacsRegexp: String.raw`\s*\bJJJ\s*=[^=\n]+`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["test = 1234"],
   specFailed: ["if test == 1234 {"],
@@ -1557,8 +1560,8 @@ addDefinition("go", {
 
 addDefinition("go", {
   type: "variable",
-  pcre2Regexp: `\\s*\\bKEYWORD\\s*:=\\s*`,
-  emacsRegexp: `\\s*\\bJJJ\\s*:=\\s*`,
+  pcre2Regexp: String.raw`\s*\bKEYWORD\s*:=\s*`,
+  emacsRegexp: String.raw`\s*\bJJJ\s*:=\s*`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["test := 1234"],
   specFailed: [],
@@ -1566,8 +1569,8 @@ addDefinition("go", {
 
 addDefinition("go", {
   type: "function",
-  pcre2Regexp: `func\\s+\\([^\\)]*\\)\\s+KEYWORD\\s*\\(`,
-  emacsRegexp: `func\\s+\\([^\\)]*\\)\\s+JJJ\\s*\\(`,
+  pcre2Regexp: String.raw`func\s+\([^\)]*\)\s+KEYWORD\s*\(`,
+  emacsRegexp: String.raw`func\s+\([^\)]*\)\s+JJJ\s*\(`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["func (s *blah) test(filename string) string {"],
   specFailed: [],
@@ -1575,8 +1578,8 @@ addDefinition("go", {
 
 addDefinition("go", {
   type: "function",
-  pcre2Regexp: `func\\s+KEYWORD\\s*\\(`,
-  emacsRegexp: `func\\s+JJJ\\s*\\(`,
+  pcre2Regexp: String.raw`func\s+KEYWORD\s*\(`,
+  emacsRegexp: String.raw`func\s+JJJ\s*\(`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["func test(url string) (string, error)"],
   specFailed: [],
@@ -1584,8 +1587,8 @@ addDefinition("go", {
 
 addDefinition("go", {
   type: "type",
-  pcre2Regexp: `type\\s+KEYWORD\\s+struct\\s+\\{`,
-  emacsRegexp: `type\\s+JJJ\\s+struct\\s+\\{`,
+  pcre2Regexp: String.raw`type\s+KEYWORD\s+struct\s+\{`,
+  emacsRegexp: String.raw`type\s+JJJ\s+struct\s+\{`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["type test struct {"],
   specFailed: [],
@@ -1593,8 +1596,8 @@ addDefinition("go", {
 
 addDefinition("javascript", {
   type: "function",
-  pcre2Regexp: `(service|factory)\\(['\\"]KEYWORD['\\"]`,
-  emacsRegexp: `(service|factory)\\(['\\"]JJJ['\\"]`,
+  pcre2Regexp: String.raw`(service|factory)\(['\"]KEYWORD['\"]`,
+  emacsRegexp: String.raw`(service|factory)\(['\"]JJJ['\"]`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "module.factory('test', [\"$rootScope\", function($rootScope) {",
@@ -1604,8 +1607,8 @@ addDefinition("javascript", {
 
 addDefinition("javascript", {
   type: "function",
-  pcre2Regexp: `\\bKEYWORD\\s*[=:]\\s*\\([^\\)]*\\)\\s+=>`,
-  emacsRegexp: `\\bJJJ\\s*[=:]\\s*\\([^\\)]*\\)\\s+=>`,
+  pcre2Regexp: String.raw`\bKEYWORD\s*[=:]\s*\([^\)]*\)\s+=>`,
+  emacsRegexp: String.raw`\bJJJ\s*[=:]\s*\([^\)]*\)\s+=>`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "const test = (foo) => ",
@@ -1617,8 +1620,8 @@ addDefinition("javascript", {
 
 addDefinition("javascript", {
   type: "function",
-  pcre2Regexp: `\\bKEYWORD\\s*\\([^()]*\\)\\s*[{]`,
-  emacsRegexp: `\\bJJJ\\s*\\([^()]*\\)\\s*[{]`,
+  pcre2Regexp: String.raw`\bKEYWORD\s*\([^()]*\)\s*[{]`,
+  emacsRegexp: String.raw`\bJJJ\s*\([^()]*\)\s*[{]`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["test(foo) {", "test (foo){", "test(foo){"],
   specFailed: ["test = blah.then(function(){"],
@@ -1626,8 +1629,8 @@ addDefinition("javascript", {
 
 addDefinition("javascript", {
   type: "function",
-  pcre2Regexp: `class\\s*KEYWORD\\s*[\\(\\{]`,
-  emacsRegexp: `class\\s*JJJ\\s*[\\(\\{]`,
+  pcre2Regexp: String.raw`class\s*KEYWORD\s*[\(\{]`,
+  emacsRegexp: String.raw`class\s*JJJ\s*[\(\{]`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["class test(object) {", "class test{"],
   specFailed: [],
@@ -1635,8 +1638,8 @@ addDefinition("javascript", {
 
 addDefinition("javascript", {
   type: "function",
-  pcre2Regexp: `class\\s*KEYWORD\\s+extends`,
-  emacsRegexp: `class\\s*JJJ\\s+extends`,
+  pcre2Regexp: String.raw`class\s*KEYWORD\s+extends`,
+  emacsRegexp: String.raw`class\s*JJJ\s+extends`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["class test extends Component{"],
   specFailed: [],
@@ -1644,8 +1647,8 @@ addDefinition("javascript", {
 
 addDefinition("javascript", {
   type: "variable",
-  pcre2Regexp: `\\s*\\bKEYWORD\\s*=[^=\\n]+`,
-  emacsRegexp: `\\s*\\bJJJ\\s*=[^=\\n]+`,
+  pcre2Regexp: String.raw`\s*\bKEYWORD\s*=[^=\n]+`,
+  emacsRegexp: String.raw`\s*\bJJJ\s*=[^=\n]+`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["test = 1234", "const test = props =>"],
   specFailed: ["if (test === 1234)"],
@@ -1653,8 +1656,8 @@ addDefinition("javascript", {
 
 addDefinition("javascript", {
   type: "variable",
-  pcre2Regexp: `\\bfunction\\b[^\\(]*\\(\\s*[^\\)]*\\bKEYWORD\\b\\s*,?\\s*\\)?`,
-  emacsRegexp: `\\bfunction\\b[^\\(]*\\(\\s*[^\\)]*\\bJJJ\\b\\s*,?\\s*\\)?`,
+  pcre2Regexp: String.raw`\bfunction\b[^\(]*\(\s*[^\)]*\bKEYWORD\b\s*,?\s*\)?`,
+  emacsRegexp: String.raw`\bfunction\b[^\(]*\(\s*[^\)]*\bJJJ\b\s*,?\s*\)?`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "function (test)",
@@ -1676,8 +1679,8 @@ addDefinition("javascript", {
 
 addDefinition("javascript", {
   type: "function",
-  pcre2Regexp: `function\\s*KEYWORD\\s*\\(`,
-  emacsRegexp: `function\\s*JJJ\\s*\\(`,
+  pcre2Regexp: String.raw`function\s*KEYWORD\s*\(`,
+  emacsRegexp: String.raw`function\s*JJJ\s*\(`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["function test()", "function test ()"],
   specFailed: [],
@@ -1685,8 +1688,8 @@ addDefinition("javascript", {
 
 addDefinition("javascript", {
   type: "function",
-  pcre2Regexp: `\\bKEYWORD\\s*:\\s*function\\s*\\(`,
-  emacsRegexp: `\\bJJJ\\s*:\\s*function\\s*\\(`,
+  pcre2Regexp: String.raw`\bKEYWORD\s*:\s*function\s*\(`,
+  emacsRegexp: String.raw`\bJJJ\s*:\s*function\s*\(`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["test: function()"],
   specFailed: [],
@@ -1694,8 +1697,8 @@ addDefinition("javascript", {
 
 addDefinition("javascript", {
   type: "function",
-  pcre2Regexp: `\\bKEYWORD\\s*=\\s*function\\s*\\(`,
-  emacsRegexp: `\\bJJJ\\s*=\\s*function\\s*\\(`,
+  pcre2Regexp: String.raw`\bKEYWORD\s*=\s*function\s*\(`,
+  emacsRegexp: String.raw`\bJJJ\s*=\s*function\s*\(`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["test = function()"],
   specFailed: [],
@@ -1703,8 +1706,8 @@ addDefinition("javascript", {
 
 addDefinition("hcl", {
   type: "block",
-  pcre2Regexp: `(variable|output|module)\\s*\\"KEYWORD\\"\\s*\\{`,
-  emacsRegexp: `(variable|output|module)\\s*\\"JJJ\\"\\s*\\{`,
+  pcre2Regexp: String.raw`(variable|output|module)\s*\"KEYWORD\"\s*\{`,
+  emacsRegexp: String.raw`(variable|output|module)\s*\"JJJ\"\s*\{`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ['variable "test" {', 'output "test" {', 'module "test" {'],
   specFailed: [],
@@ -1712,8 +1715,8 @@ addDefinition("hcl", {
 
 addDefinition("hcl", {
   type: "block",
-  pcre2Regexp: `(data|resource)\\s*\\"\\w+\\"\\s*\\"KEYWORD\\"\\s*\\{`,
-  emacsRegexp: `(data|resource)\\s*\\"\\w+\\"\\s*\\"JJJ\\"\\s*\\{`,
+  pcre2Regexp: String.raw`(data|resource)\s*\"\w+\"\s*\"KEYWORD\"\s*\{`,
+  emacsRegexp: String.raw`(data|resource)\s*\"\w+\"\s*\"JJJ\"\s*\{`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     'data "openstack_images_image_v2" "test" {',
@@ -1724,8 +1727,8 @@ addDefinition("hcl", {
 
 addDefinition("typescript", {
   type: "function",
-  pcre2Regexp: `(service|factory)\\(['\\"]KEYWORD['\\"]`,
-  emacsRegexp: `(service|factory)\\(['\\"]JJJ['\\"]`,
+  pcre2Regexp: String.raw`(service|factory)\(['\"]KEYWORD['\"]`,
+  emacsRegexp: String.raw`(service|factory)\(['\"]JJJ['\"]`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "module.factory('test', [\"$rootScope\", function($rootScope) {",
@@ -1735,8 +1738,8 @@ addDefinition("typescript", {
 
 addDefinition("typescript", {
   type: "function",
-  pcre2Regexp: `\\bKEYWORD\\s*[=:]\\s*\\([^\\)]*\\)\\s+=>`,
-  emacsRegexp: `\\bJJJ\\s*[=:]\\s*\\([^\\)]*\\)\\s+=>`,
+  pcre2Regexp: String.raw`\bKEYWORD\s*[=:]\s*\([^\)]*\)\s+=>`,
+  emacsRegexp: String.raw`\bJJJ\s*[=:]\s*\([^\)]*\)\s+=>`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "const test = (foo) => ",
@@ -1748,8 +1751,8 @@ addDefinition("typescript", {
 
 addDefinition("typescript", {
   type: "function",
-  pcre2Regexp: `\\bKEYWORD\\s*\\([^()]*\\)\\s*[{]`,
-  emacsRegexp: `\\bJJJ\\s*\\([^()]*\\)\\s*[{]`,
+  pcre2Regexp: String.raw`\bKEYWORD\s*\([^()]*\)\s*[{]`,
+  emacsRegexp: String.raw`\bJJJ\s*\([^()]*\)\s*[{]`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["test(foo) {", "test (foo){", "test(foo){"],
   specFailed: ["test = blah.then(function(){"],
@@ -1757,8 +1760,8 @@ addDefinition("typescript", {
 
 addDefinition("typescript", {
   type: "function",
-  pcre2Regexp: `class\\s*KEYWORD\\s*[\\(\\{]`,
-  emacsRegexp: `class\\s*JJJ\\s*[\\(\\{]`,
+  pcre2Regexp: String.raw`class\s*KEYWORD\s*[\(\{]`,
+  emacsRegexp: String.raw`class\s*JJJ\s*[\(\{]`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["class test{"],
   specFailed: [],
@@ -1766,8 +1769,8 @@ addDefinition("typescript", {
 
 addDefinition("typescript", {
   type: "function",
-  pcre2Regexp: `class\\s*KEYWORD\\s+extends`,
-  emacsRegexp: `class\\s*JJJ\\s+extends`,
+  pcre2Regexp: String.raw`class\s*KEYWORD\s+extends`,
+  emacsRegexp: String.raw`class\s*JJJ\s+extends`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["class test extends Component{"],
   specFailed: [],
@@ -1775,8 +1778,8 @@ addDefinition("typescript", {
 
 addDefinition("typescript", {
   type: "function",
-  pcre2Regexp: `function\\s*KEYWORD\\s*\\(`,
-  emacsRegexp: `function\\s*JJJ\\s*\\(`,
+  pcre2Regexp: String.raw`function\s*KEYWORD\s*\(`,
+  emacsRegexp: String.raw`function\s*JJJ\s*\(`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["function test()", "function test ()"],
   specFailed: [],
@@ -1784,8 +1787,8 @@ addDefinition("typescript", {
 
 addDefinition("typescript", {
   type: "function",
-  pcre2Regexp: `\\bKEYWORD\\s*:\\s*function\\s*\\(`,
-  emacsRegexp: `\\bJJJ\\s*:\\s*function\\s*\\(`,
+  pcre2Regexp: String.raw`\bKEYWORD\s*:\s*function\s*\(`,
+  emacsRegexp: String.raw`\bJJJ\s*:\s*function\s*\(`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["test: function()"],
   specFailed: [],
@@ -1793,8 +1796,8 @@ addDefinition("typescript", {
 
 addDefinition("typescript", {
   type: "function",
-  pcre2Regexp: `\\bKEYWORD\\s*=\\s*function\\s*\\(`,
-  emacsRegexp: `\\bJJJ\\s*=\\s*function\\s*\\(`,
+  pcre2Regexp: String.raw`\bKEYWORD\s*=\s*function\s*\(`,
+  emacsRegexp: String.raw`\bJJJ\s*=\s*function\s*\(`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["test = function()"],
   specFailed: [],
@@ -1802,8 +1805,8 @@ addDefinition("typescript", {
 
 addDefinition("typescript", {
   type: "variable",
-  pcre2Regexp: `\\s*\\bKEYWORD\\s*=[^=\\n]+`,
-  emacsRegexp: `\\s*\\bJJJ\\s*=[^=\\n]+`,
+  pcre2Regexp: String.raw`\s*\bKEYWORD\s*=[^=\n]+`,
+  emacsRegexp: String.raw`\s*\bJJJ\s*=[^=\n]+`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["test = 1234", "const test = props =>"],
   specFailed: ["if (test === 1234)"],
@@ -1811,8 +1814,8 @@ addDefinition("typescript", {
 
 addDefinition("typescript", {
   type: "variable",
-  pcre2Regexp: `\\bfunction\\b[^\\(]*\\(\\s*[^\\)]*\\bKEYWORD\\b\\s*,?\\s*\\)?`,
-  emacsRegexp: `\\bfunction\\b[^\\(]*\\(\\s*[^\\)]*\\bJJJ\\b\\s*,?\\s*\\)?`,
+  pcre2Regexp: String.raw`\bfunction\b[^\(]*\(\s*[^\)]*\bKEYWORD\b\s*,?\s*\)?`,
+  emacsRegexp: String.raw`\bfunction\b[^\(]*\(\s*[^\)]*\bJJJ\b\s*,?\s*\)?`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "function (test)",
@@ -1834,8 +1837,9 @@ addDefinition("typescript", {
 
 addDefinition("julia", {
   type: "function",
-  pcre2Regexp: `(@noinline|@inline)?\\s*function\\s*KEYWORD(\\{[^\\}]*\\})?\\(`,
-  emacsRegexp: `(@noinline|@inline)?\\s*function\\s*JJJ(\\{[^\\}]*\\})?\\(`,
+  pcre2Regexp: String
+    .raw`(@noinline|@inline)?\s*function\s*KEYWORD(\{[^\}]*\})?\(`,
+  emacsRegexp: String.raw`(@noinline|@inline)?\s*function\s*JJJ(\{[^\}]*\})?\(`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "function test()",
@@ -1847,8 +1851,9 @@ addDefinition("julia", {
 
 addDefinition("julia", {
   type: "function",
-  pcre2Regexp: `(@noinline|@inline)?KEYWORD(\\{[^\\}]*\\})?\\([^\\)]*\\)s*=`,
-  emacsRegexp: `(@noinline|@inline)?JJJ(\\{[^\\}]*\\})?\\([^\\)]*\\)s*=`,
+  pcre2Regexp: String
+    .raw`(@noinline|@inline)?KEYWORD(\{[^\}]*\})?\([^\)]*\)s*=`,
+  emacsRegexp: String.raw`(@noinline|@inline)?JJJ(\{[^\}]*\})?\([^\)]*\)s*=`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "test(a)=1",
@@ -1861,8 +1866,8 @@ addDefinition("julia", {
 
 addDefinition("julia", {
   type: "function",
-  pcre2Regexp: `macro\\s*KEYWORD\\(`,
-  emacsRegexp: `macro\\s*JJJ\\(`,
+  pcre2Regexp: String.raw`macro\s*KEYWORD\(`,
+  emacsRegexp: String.raw`macro\s*JJJ\(`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["macro test(a)=1", " macro test(a,b)=1*8"],
   specFailed: [],
@@ -1870,8 +1875,8 @@ addDefinition("julia", {
 
 addDefinition("julia", {
   type: "variable",
-  pcre2Regexp: `const\\s+KEYWORD\\b`,
-  emacsRegexp: `const\\s+JJJ\\b`,
+  pcre2Regexp: String.raw`const\s+KEYWORD\b`,
+  emacsRegexp: String.raw`const\s+JJJ\b`,
   supports: ["ag", "rg"],
   specSuccess: ["const test = "],
   specFailed: [],
@@ -1879,8 +1884,8 @@ addDefinition("julia", {
 
 addDefinition("julia", {
   type: "type",
-  pcre2Regexp: `(mutable)?\\s*struct\\s*KEYWORD`,
-  emacsRegexp: `(mutable)?\\s*struct\\s*JJJ`,
+  pcre2Regexp: String.raw`(mutable)?\s*struct\s*KEYWORD`,
+  emacsRegexp: String.raw`(mutable)?\s*struct\s*JJJ`,
   supports: ["ag", "rg"],
   specSuccess: ["struct test"],
   specFailed: [],
@@ -1888,8 +1893,8 @@ addDefinition("julia", {
 
 addDefinition("julia", {
   type: "type",
-  pcre2Regexp: `(type|immutable|abstract)\\s*KEYWORD`,
-  emacsRegexp: `(type|immutable|abstract)\\s*JJJ`,
+  pcre2Regexp: String.raw`(type|immutable|abstract)\s*KEYWORD`,
+  emacsRegexp: String.raw`(type|immutable|abstract)\s*JJJ`,
   supports: ["ag", "rg"],
   specSuccess: ["type test", "immutable test", "abstract test <:Testable"],
   specFailed: [],
@@ -1897,24 +1902,24 @@ addDefinition("julia", {
 
 addDefinition("haskell", {
   type: "module",
-  pcre2Regexp: `^module\\s+KEYWORD\\s+`,
-  emacsRegexp: `^module\\s+JJJ\\s+`,
+  pcre2Regexp: String.raw`^module\s+KEYWORD\s+`,
+  emacsRegexp: String.raw`^module\s+JJJ\s+`,
   supports: ["rg", "ag"],
-  specSuccess: ["module Test (exportA, exportB) where"],
+  specSuccess: ["module test (exportA, exportB) where"],
   specFailed: [],
 });
 
 addDefinition("haskell", {
   type: "top level function",
-  pcre2Regexp: `^\\bKEYWORD(?!(\\s+::))\\s+((.|\\s)*?)=\\s+`,
-  emacsRegexp: `^\\bJJJ(?!(\\s+::))\\s+((.|\\s)*?)=\\s+`,
+  pcre2Regexp: String.raw`^\bKEYWORD(?!(\s+::))\s+((.|\s)*?)=\s+`,
+  emacsRegexp: String.raw`^\bJJJ(?!(\s+::))\s+((.|\s)*?)=\s+`,
   supports: ["rg", "ag"],
   specSuccess: [
     "test n = n * 2",
-    "test X{..} (Y a b c) \\n bcd \\n =\\n x * y",
-    "test ab cd e@Datatype {..} (Another thing, inTheRow) = \\n undefined",
+    "test X{..} (Y a b c) \n bcd \n =\n x * y",
+    "test ab cd e@Datatype {..} (Another thing, inTheRow) = \n undefined",
     "test = runRealBasedMode @ext @ctx identity identity",
-    "test unwrap wrap nr@Naoeu {..} (Action action, specSpecs) = \\n    undefined",
+    "test unwrap wrap nr@Naoeu {..} (Action action, specSpecs) = \n    undefined",
   ],
   specFailed: [
     "nottest n = n * 2",
@@ -1927,17 +1932,17 @@ addDefinition("haskell", {
 
 addDefinition("haskell", {
   type: "type-like",
-  pcre2Regexp:
-    `^\\s*((data(\\s+family)?)|(newtype)|(type(\\s+family)?))\\s+KEYWORD\\s+`,
-  emacsRegexp:
-    `^\\s*((data(\\s+family)?)|(newtype)|(type(\\s+family)?))\\s+JJJ\\s+`,
+  pcre2Regexp: String
+    .raw`^\s*((data(\s+family)?)|(newtype)|(type(\s+family)?))\s+KEYWORD\s+`,
+  emacsRegexp: String
+    .raw`^\s*((data(\s+family)?)|(newtype)|(type(\s+family)?))\s+JJJ\s+`,
   supports: ["rg", "ag"],
   specSuccess: [
-    "newtype Test a = Something { b :: Kek }",
-    "data Test a b = Somecase a | Othercase b",
-    "type family Test (x :: *) (xs :: [*]) :: Nat where",
-    "data family Test ",
-    "type Test = TestAlias",
+    "newtype test a = Something { b :: Kek }",
+    "data test a b = Somecase a | Othercase b",
+    "type family test (x :: *) (xs :: [*]) :: Nat where",
+    "data family test ",
+    "type test = TestAlias",
   ],
   specFailed: [
     "newtype NotTest a = NotTest (Not a)",
@@ -1947,59 +1952,60 @@ addDefinition("haskell", {
 
 addDefinition("haskell", {
   type: "(data)type constructor 1",
-  pcre2Regexp:
-    `(data|newtype)\\s{1,3}(?!KEYWORD\\s+)([^=]{1,40})=((\\s{0,3}KEYWORD\\s+)|([^=]{0,500}?((?<!(-- ))\\|\\s{0,3}KEYWORD\\s+)))`,
-  emacsRegexp:
-    `(data|newtype)\\s{1,3}(?!JJJ\\s+)([^=]{1,40})=((\\s{0,3}JJJ\\s+)|([^=]{0,500}?((?<!(-- ))\\|\\s{0,3}JJJ\\s+)))`,
+  pcre2Regexp: String
+    .raw`(data|newtype)\s{1,3}(?!KEYWORD\s+)([^=]{1,40})=((\s{0,3}KEYWORD\s+)|([^=]{0,500}?((?<!(-- ))\|\s{0,3}KEYWORD\s+)))`,
+  emacsRegexp: String
+    .raw`(data|newtype)\s{1,3}(?!JJJ\s+)([^=]{1,40})=((\s{0,3}JJJ\s+)|([^=]{0,500}?((?<!(-- ))\|\s{0,3}JJJ\s+)))`,
   supports: ["rg", "ag"],
   specSuccess: [
-    "data Something a = Test { b :: Kek }",
-    "data Mem a = TrueMem { b :: Kek } | Test (Mem Int) deriving Mda",
-    "newtype SafeTest a = Test (Kek a) deriving (YonedaEmbedding)",
+    "data Something a = test { b :: Kek }",
+    "data Mem a = TrueMem { b :: Kek } | test (Mem Int) deriving Mda",
+    "newtype SafeTest a = test (Kek a) deriving (YonedaEmbedding)",
   ],
   specFailed: ["data Test = Test { b :: Kek }"],
 });
 
 addDefinition("haskell", {
   type: "data/newtype record field",
-  pcre2Regexp:
-    `(data|newtype)([^=]*)=[^=]*?({([^=}]*?)(\\bKEYWORD)\\s+::[^=}]+})`,
-  emacsRegexp: `(data|newtype)([^=]*)=[^=]*?({([^=}]*?)(\\bJJJ)\\s+::[^=}]+})`,
+  pcre2Regexp: String
+    .raw`(data|newtype)([^=]*)=[^=]*?({([^=}]*?)(\bKEYWORD)\s+::[^=}]+})`,
+  emacsRegexp: String
+    .raw`(data|newtype)([^=]*)=[^=]*?({([^=}]*?)(\bJJJ)\s+::[^=}]+})`,
   supports: ["rg", "ag"],
   specSuccess: [
-    "data Mem = Mem { \\n mda :: A \\n  , test :: Kek \\n , \\n aoeu :: E \\n }",
-    "data Mem = Mem { \\n test :: A \\n  , mda :: Kek \\n , \\n aoeu :: E \\n }",
-    "data Mem = Mem { \\n mda :: A \\n  , aoeu :: Kek \\n , \\n test :: E \\n }",
+    "data Mem = Mem { \n mda :: A \n  , test :: Kek \n , \n aoeu :: E \n }",
+    "data Mem = Mem { \n test :: A \n  , mda :: Kek \n , \n aoeu :: E \n }",
+    "data Mem = Mem { \n mda :: A \n  , aoeu :: Kek \n , \n test :: E \n }",
     "data Mem = Mem { test :: Kek } deriving Mda",
-    "data Mem = Mem { \\n test :: Kek \\n } deriving Mda",
-    "newtype Mem = Mem { \\n test :: Kek \\n } deriving (Eq)",
-    "newtype Mem = Mem { -- | Some docs \\n test :: Kek -- ^ More docs } deriving Eq",
+    "data Mem = Mem { \n test :: Kek \n } deriving Mda",
+    "newtype Mem = Mem { \n test :: Kek \n } deriving (Eq)",
+    "newtype Mem = Mem { -- | Some docs \n test :: Kek -- ^ More docs } deriving Eq",
     "newtype Mem = Mem { test :: Kek } deriving (Eq,Monad)",
     "newtype NewMem = OldMem { test :: [Tx] }",
-    "newtype BlockHeaderList ssc = BHL\\n { test :: ([Aoeu a], [Ssss])\\n    } deriving (Eq)",
+    "newtype BlockHeaderList ssc = BHL\n { test :: ([Aoeu a], [Ssss])\n    } deriving (Eq)",
   ],
   specFailed: ["data Heh = Mda { sometest :: Kek, testsome :: Mem }"],
 });
 
 addDefinition("haskell", {
   type: "typeclass",
-  pcre2Regexp: `^class\\s+(.+=>\\s*)?KEYWORD\\s+`,
-  emacsRegexp: `^class\\s+(.+=>\\s*)?JJJ\\s+`,
+  pcre2Regexp: String.raw`^class\s+(.+=>\s*)?KEYWORD\s+`,
+  emacsRegexp: String.raw`^class\s+(.+=>\s*)?JJJ\s+`,
   supports: ["rg", "ag"],
   specSuccess: [
-    "class (Constr1 m, Constr 2) => Test (Kek a) where",
-    "class  Test  (Veryovka a)  where ",
+    "class (Constr1 m, Constr 2) => test (Kek a) where",
+    "class  test  (Veryovka a)  where ",
   ],
   specFailed: [
-    "class Test2 (Kek a) where",
+    "class test2 (Kek a) where",
     "class MakeTest (AoeuTest x y z) where",
   ],
 });
 
 addDefinition("ocaml", {
   type: "type",
-  pcre2Regexp: `^\\s*(and|type)\\s+.*\\bKEYWORD\\b`,
-  emacsRegexp: `^\\s*(and|type)\\s+.*\\bJJJ\\b`,
+  pcre2Regexp: String.raw`^\s*(and|type)\s+.*\bKEYWORD\b`,
+  emacsRegexp: String.raw`^\s*(and|type)\s+.*\bJJJ\b`,
   supports: ["ag", "rg"],
   specSuccess: [
     "type test =",
@@ -2012,8 +2018,8 @@ addDefinition("ocaml", {
 
 addDefinition("ocaml", {
   type: "variable",
-  pcre2Regexp: `let\\s+KEYWORD\\b`,
-  emacsRegexp: `let\\s+JJJ\\b`,
+  pcre2Regexp: String.raw`let\s+KEYWORD\b`,
+  emacsRegexp: String.raw`let\s+JJJ\b`,
   supports: ["ag", "rg"],
   specSuccess: ["let test =", "let test x y ="],
   specFailed: [],
@@ -2021,8 +2027,8 @@ addDefinition("ocaml", {
 
 addDefinition("ocaml", {
   type: "variable",
-  pcre2Regexp: `let\\s+rec\\s+KEYWORD\\b`,
-  emacsRegexp: `let\\s+rec\\s+JJJ\\b`,
+  pcre2Regexp: String.raw`let\s+rec\s+KEYWORD\b`,
+  emacsRegexp: String.raw`let\s+rec\s+JJJ\b`,
   supports: ["ag", "rg"],
   specSuccess: ["let rec test =", "let rec  test x y ="],
   specFailed: [],
@@ -2030,8 +2036,8 @@ addDefinition("ocaml", {
 
 addDefinition("ocaml", {
   type: "variable",
-  pcre2Regexp: `\\s*val\\s*\\bKEYWORD\\b\\s*`,
-  emacsRegexp: `\\s*val\\s*\\bJJJ\\b\\s*`,
+  pcre2Regexp: String.raw`\s*val\s*\bKEYWORD\b\s*`,
+  emacsRegexp: String.raw`\s*val\s*\bJJJ\b\s*`,
   supports: ["ag", "rg"],
   specSuccess: ["val test"],
   specFailed: [],
@@ -2039,8 +2045,8 @@ addDefinition("ocaml", {
 
 addDefinition("ocaml", {
   type: "module",
-  pcre2Regexp: `^\\s*module\\s*\\bKEYWORD\\b`,
-  emacsRegexp: `^\\s*module\\s*\\bJJJ\\b`,
+  pcre2Regexp: String.raw`^\s*module\s*\bKEYWORD\b`,
+  emacsRegexp: String.raw`^\s*module\s*\bJJJ\b`,
   supports: ["ag", "rg"],
   specSuccess: ["module test ="],
   specFailed: [],
@@ -2048,8 +2054,8 @@ addDefinition("ocaml", {
 
 addDefinition("ocaml", {
   type: "module",
-  pcre2Regexp: `^\\s*module\\s*type\\s*\\bKEYWORD\\b`,
-  emacsRegexp: `^\\s*module\\s*type\\s*\\bJJJ\\b`,
+  pcre2Regexp: String.raw`^\s*module\s*type\s*\bKEYWORD\b`,
+  emacsRegexp: String.raw`^\s*module\s*type\s*\bJJJ\b`,
   supports: ["ag", "rg"],
   specSuccess: ["module type test ="],
   specFailed: [],
@@ -2057,8 +2063,8 @@ addDefinition("ocaml", {
 
 addDefinition("lua", {
   type: "variable",
-  pcre2Regexp: `\\s*\\bKEYWORD\\s*=[^=\\n]+`,
-  emacsRegexp: `\\s*\\bJJJ\\s*=[^=\\n]+`,
+  pcre2Regexp: String.raw`\s*\bKEYWORD\s*=[^=\n]+`,
+  emacsRegexp: String.raw`\s*\bJJJ\s*=[^=\n]+`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["test = 1234"],
   specFailed: ["if test === 1234"],
@@ -2066,8 +2072,8 @@ addDefinition("lua", {
 
 addDefinition("lua", {
   type: "variable",
-  pcre2Regexp: `\\bfunction\\b[^\\(]*\\(\\s*[^\\)]*\\bKEYWORD\\b\\s*,?\\s*\\)?`,
-  emacsRegexp: `\\bfunction\\b[^\\(]*\\(\\s*[^\\)]*\\bJJJ\\b\\s*,?\\s*\\)?`,
+  pcre2Regexp: String.raw`\bfunction\b[^\(]*\(\s*[^\)]*\bKEYWORD\b\s*,?\s*\)?`,
+  emacsRegexp: String.raw`\bfunction\b[^\(]*\(\s*[^\)]*\bJJJ\b\s*,?\s*\)?`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "function (test)",
@@ -2089,8 +2095,8 @@ addDefinition("lua", {
 
 addDefinition("lua", {
   type: "function",
-  pcre2Regexp: `function\\s*KEYWORD\\s*\\(`,
-  emacsRegexp: `function\\s*JJJ\\s*\\(`,
+  pcre2Regexp: String.raw`function\s*KEYWORD\s*\(`,
+  emacsRegexp: String.raw`function\s*JJJ\s*\(`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["function test()", "function test ()"],
   specFailed: [],
@@ -2098,8 +2104,8 @@ addDefinition("lua", {
 
 addDefinition("lua", {
   type: "function",
-  pcre2Regexp: `function\\s*.+[.:]KEYWORD\\s*\\(`,
-  emacsRegexp: `function\\s*.+[.:]JJJ\\s*\\(`,
+  pcre2Regexp: String.raw`function\s*.+[.:]KEYWORD\s*\(`,
+  emacsRegexp: String.raw`function\s*.+[.:]JJJ\s*\(`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "function MyClass.test()",
@@ -2112,8 +2118,8 @@ addDefinition("lua", {
 
 addDefinition("lua", {
   type: "function",
-  pcre2Regexp: `\\bKEYWORD\\s*=\\s*function\\s*\\(`,
-  emacsRegexp: `\\bJJJ\\s*=\\s*function\\s*\\(`,
+  pcre2Regexp: String.raw`\bKEYWORD\s*=\s*function\s*\(`,
+  emacsRegexp: String.raw`\bJJJ\s*=\s*function\s*\(`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["test = function()"],
   specFailed: [],
@@ -2121,8 +2127,8 @@ addDefinition("lua", {
 
 addDefinition("lua", {
   type: "function",
-  pcre2Regexp: `\\b.+\\.KEYWORD\\s*=\\s*function\\s*\\(`,
-  emacsRegexp: `\\b.+\\.JJJ\\s*=\\s*function\\s*\\(`,
+  pcre2Regexp: String.raw`\b.+\.KEYWORD\s*=\s*function\s*\(`,
+  emacsRegexp: String.raw`\b.+\.JJJ\s*=\s*function\s*\(`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["MyClass.test = function()"],
   specFailed: [],
@@ -2130,10 +2136,10 @@ addDefinition("lua", {
 
 addDefinition("rust", {
   type: "variable",
-  pcre2Regexp:
-    `\\blet\\s+(\\([^=\\n]*)?(muts+)?KEYWORD([^=\\n]*\\))?(:\\s*[^=\\n]+)?\\s*=\\s*[^=\\n]+`,
-  emacsRegexp:
-    `\\blet\\s+(\\([^=\\n]*)?(muts+)?JJJ([^=\\n]*\\))?(:\\s*[^=\\n]+)?\\s*=\\s*[^=\\n]+`,
+  pcre2Regexp: String
+    .raw`\blet\s+(\([^=\n]*)?(mut\s+)?KEYWORD([^=\n]*\))?(:\s*[^=\n]+)?\s*=\s*[^=\n]+`,
+  emacsRegexp: String
+    .raw`\blet\s+(\([^=\n]*)?(muts+)?JJJ([^=\n]*\))?(:\s*[^=\n]+)?\s*=\s*[^=\n]+`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "let test = 1234;",
@@ -2150,8 +2156,8 @@ addDefinition("rust", {
 
 addDefinition("rust", {
   type: "variable",
-  pcre2Regexp: `\\bconst\\s+KEYWORD:\\s*[^=\\n]+\\s*=[^=\\n]+`,
-  emacsRegexp: `\\bconst\\s+JJJ:\\s*[^=\\n]+\\s*=[^=\\n]+`,
+  pcre2Regexp: String.raw`\bconst\s+KEYWORD:\s*[^=\n]+\s*=[^=\n]+`,
+  emacsRegexp: String.raw`\bconst\s+JJJ:\s*[^=\n]+\s*=[^=\n]+`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["const test: u32 = 1234;"],
   specFailed: [],
@@ -2159,8 +2165,8 @@ addDefinition("rust", {
 
 addDefinition("rust", {
   type: "variable",
-  pcre2Regexp: `\\bstatic\\s+(mut\\s+)?KEYWORD:\\s*[^=\\n]+\\s*=[^=\\n]+`,
-  emacsRegexp: `\\bstatic\\s+(mut\\s+)?JJJ:\\s*[^=\\n]+\\s*=[^=\\n]+`,
+  pcre2Regexp: String.raw`\bstatic\s+(mut\s+)?KEYWORD:\s*[^=\n]+\s*=[^=\n]+`,
+  emacsRegexp: String.raw`\bstatic\s+(mut\s+)?JJJ:\s*[^=\n]+\s*=[^=\n]+`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["static test: u32 = 1234;", "static mut test: u32 = 1234;"],
   specFailed: [],
@@ -2168,9 +2174,9 @@ addDefinition("rust", {
 
 addDefinition("rust", {
   type: "variable",
-  pcre2Regexp:
-    `\\bfn\\s+.+\\s*\\((.+,\\s+)?KEYWORD:\\s*[^=\\n]+\\s*(,\\s*.+)*\\)`,
-  emacsRegexp: `\\bfn\\s+.+\\s*\\((.+,\\s+)?JJJ:\\s*[^=\\n]+\\s*(,\\s*.+)*\\)`,
+  pcre2Regexp: String
+    .raw`\bfn\s+.+\s*\((.+,\s+)?KEYWORD:\s*[^=\n]+\s*(,\s*.+)*\)`,
+  emacsRegexp: String.raw`\bfn\s+.+\s*\((.+,\s+)?JJJ:\s*[^=\n]+\s*(,\s*.+)*\)`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "fn abc(test: u32) -> u32 {",
@@ -2182,10 +2188,10 @@ addDefinition("rust", {
 
 addDefinition("rust", {
   type: "variable",
-  pcre2Regexp:
-    `(if|while)\\s+let\\s+([^=\\n]+)?(mut\\s+)?KEYWORD([^=\\n\\(]+)?\\s*=\\s*[^=\\n]+`,
-  emacsRegexp:
-    `(if|while)\\s+let\\s+([^=\\n]+)?(mut\\s+)?JJJ([^=\\n\\(]+)?\\s*=\\s*[^=\\n]+`,
+  pcre2Regexp: String
+    .raw`(if|while)\s+let\s+([^=\n]+)?(mut\s+)?KEYWORD([^=\n\(]+)?\s*=\s*[^=\n]+`,
+  emacsRegexp: String
+    .raw`(if|while)\s+let\s+([^=\n]+)?(mut\s+)?JJJ([^=\n\(]+)?\s*=\s*[^=\n]+`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "if let Some(test) = abc() {",
@@ -2206,9 +2212,10 @@ addDefinition("rust", {
 
 addDefinition("rust", {
   type: "variable",
-  pcre2Regexp:
-    `struct\\s+[^\\n{]+[{][^}]*(\\s*KEYWORD\\s*:\\s*[^\\n},]+)[^}]*}`,
-  emacsRegexp: `struct\\s+[^\\n{]+[{][^}]*(\\s*JJJ\\s*:\\s*[^\\n},]+)[^}]*}`,
+  pcre2Regexp: String
+    .raw`struct\s+[^\n{]+[{][^}]*(\s*KEYWORD\s*:\s*[^\n},]+)[^}]*}`,
+  emacsRegexp: String
+    .raw`struct\s+[^\n{]+[{][^}]*(\s*JJJ\s*:\s*[^\n},]+)[^}]*}`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "struct Foo { abc: u32, test: Vec<String>, b: PathBuf }",
@@ -2217,14 +2224,14 @@ addDefinition("rust", {
   ],
   specFailed: [
     "struct Foo { abc: u32, b: Vec<String> }",
-    "/// ... construct the equivalent ...\\nfn abc() {\\n",
+    "/// ... construct the equivalent ...\nfn abc() {\n",
   ],
 });
 
 addDefinition("rust", {
   type: "variable",
-  pcre2Regexp: `enum\\s+[^\\n{]+\\s*[{][^}]*\\bKEYWORD\\b[^}]*}`,
-  emacsRegexp: `enum\\s+[^\\n{]+\\s*[{][^}]*\\bJJJ\\b[^}]*}`,
+  pcre2Regexp: String.raw`enum\s+[^\n{]+\s*[{][^}]*\bKEYWORD\b[^}]*}`,
+  emacsRegexp: String.raw`enum\s+[^\n{]+\s*[{][^}]*\bJJJ\b[^}]*}`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "enum Foo { VariantA, test, VariantB(u32) }",
@@ -2237,8 +2244,8 @@ addDefinition("rust", {
 
 addDefinition("rust", {
   type: "function",
-  pcre2Regexp: `\\bfn\\s+KEYWORD\\s*\\(`,
-  emacsRegexp: `\\bfn\\s+JJJ\\s*\\(`,
+  pcre2Regexp: String.raw`\bfn\s+KEYWORD\s*\(`,
+  emacsRegexp: String.raw`\bfn\s+JJJ\s*\(`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["fn test(asdf: u32)", "fn test()", "pub fn test()"],
   specFailed: [],
@@ -2246,8 +2253,8 @@ addDefinition("rust", {
 
 addDefinition("rust", {
   type: "function",
-  pcre2Regexp: `\\bmacro_rules!\\s+KEYWORD`,
-  emacsRegexp: `\\bmacro_rules!\\s+JJJ`,
+  pcre2Regexp: String.raw`\bmacro_rules!\s+KEYWORD`,
+  emacsRegexp: String.raw`\bmacro_rules!\s+JJJ`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["macro_rules! test"],
   specFailed: [],
@@ -2255,8 +2262,8 @@ addDefinition("rust", {
 
 addDefinition("rust", {
   type: "type",
-  pcre2Regexp: `struct\\s+KEYWORD\\s*[{\\(]?`,
-  emacsRegexp: `struct\\s+JJJ\\s*[{\\(]?`,
+  pcre2Regexp: String.raw`struct\s+KEYWORD\s*[{\(]?`,
+  emacsRegexp: String.raw`struct\s+JJJ\s*[{\(]?`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "struct test(u32, u32)",
@@ -2268,8 +2275,8 @@ addDefinition("rust", {
 
 addDefinition("rust", {
   type: "type",
-  pcre2Regexp: `trait\\s+KEYWORD\\s*[{]?`,
-  emacsRegexp: `trait\\s+JJJ\\s*[{]?`,
+  pcre2Regexp: String.raw`trait\s+KEYWORD\s*[{]?`,
+  emacsRegexp: String.raw`trait\s+JJJ\s*[{]?`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["trait test;", "trait test { fn abc() -> u32; }"],
   specFailed: [],
@@ -2277,8 +2284,8 @@ addDefinition("rust", {
 
 addDefinition("rust", {
   type: "type",
-  pcre2Regexp: `\\btype\\s+KEYWORD([^=\\n]+)?\\s*=[^=\\n]+;`,
-  emacsRegexp: `\\btype\\s+JJJ([^=\\n]+)?\\s*=[^=\\n]+;`,
+  pcre2Regexp: String.raw`\btype\s+KEYWORD([^=\n]+)?\s*=[^=\n]+;`,
+  emacsRegexp: String.raw`\btype\s+JJJ([^=\n]+)?\s*=[^=\n]+;`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "type test<T> = Rc<RefCell<T>>;",
@@ -2289,8 +2296,8 @@ addDefinition("rust", {
 
 addDefinition("rust", {
   type: "type",
-  pcre2Regexp: `impl\\s+((\\w+::)*\\w+\\s+for\\s+)?(\\w+::)*KEYWORD\\s+[{]?`,
-  emacsRegexp: `impl\\s+((\\w+::)*\\w+\\s+for\\s+)?(\\w+::)*JJJ\\s+[{]?`,
+  pcre2Regexp: String.raw`impl\s+((\w+::)*\w+\s+for\s+)?(\w+::)*KEYWORD\s+[{]?`,
+  emacsRegexp: String.raw`impl\s+((\w+::)*\w+\s+for\s+)?(\w+::)*JJJ\s+[{]?`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "impl test {",
@@ -2303,8 +2310,8 @@ addDefinition("rust", {
 
 addDefinition("rust", {
   type: "type",
-  pcre2Regexp: `mod\\s+KEYWORD\\s*[{]?`,
-  emacsRegexp: `mod\\s+JJJ\\s*[{]?`,
+  pcre2Regexp: String.raw`mod\s+KEYWORD\s*[{]?`,
+  emacsRegexp: String.raw`mod\s+JJJ\s*[{]?`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["mod test;", "pub mod test {"],
   specFailed: [],
@@ -2312,8 +2319,8 @@ addDefinition("rust", {
 
 addDefinition("elixir", {
   type: "function",
-  pcre2Regexp: `\\bdef(p)?\\s+KEYWORD\\s*[ ,\\(]`,
-  emacsRegexp: `\\bdef(p)?\\s+JJJ\\s*[ ,\\(]`,
+  pcre2Regexp: String.raw`\bdef(p)?\s+KEYWORD\s*[ ,\(]`,
+  emacsRegexp: String.raw`\bdef(p)?\s+JJJ\s*[ ,\(]`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "def test do",
@@ -2330,8 +2337,8 @@ addDefinition("elixir", {
 
 addDefinition("elixir", {
   type: "variable",
-  pcre2Regexp: `\\s*KEYWORD\\s*=[^=\\n]+`,
-  emacsRegexp: `\\s*JJJ\\s*=[^=\\n]+`,
+  pcre2Regexp: String.raw`\s*KEYWORD\s*=[^=\n]+`,
+  emacsRegexp: String.raw`\s*JJJ\s*=[^=\n]+`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["test = 1234"],
   specFailed: ["if test == 1234"],
@@ -2339,8 +2346,8 @@ addDefinition("elixir", {
 
 addDefinition("elixir", {
   type: "module",
-  pcre2Regexp: `defmodule\\s+(\\w+\\.)*KEYWORD\\s+`,
-  emacsRegexp: `defmodule\\s+(\\w+\\.)*JJJ\\s+`,
+  pcre2Regexp: String.raw`defmodule\s+(\w+\.)*KEYWORD\s+`,
+  emacsRegexp: String.raw`defmodule\s+(\w+\.)*JJJ\s+`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["defmodule test do", "defmodule Foo.Bar.test do"],
   specFailed: [],
@@ -2348,8 +2355,8 @@ addDefinition("elixir", {
 
 addDefinition("elixir", {
   type: "module",
-  pcre2Regexp: `defprotocol\\s+(\\w+\\.)*KEYWORD\\s+`,
-  emacsRegexp: `defprotocol\\s+(\\w+\\.)*JJJ\\s+`,
+  pcre2Regexp: String.raw`defprotocol\s+(\w+\.)*KEYWORD\s+`,
+  emacsRegexp: String.raw`defprotocol\s+(\w+\.)*JJJ\s+`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["defprotocol test do", "defprotocol Foo.Bar.test do"],
   specFailed: [],
@@ -2357,8 +2364,8 @@ addDefinition("elixir", {
 
 addDefinition("erlang", {
   type: "function",
-  pcre2Regexp: `^KEYWORD\\b\\s*\\(`,
-  emacsRegexp: `^JJJ\\b\\s*\\(`,
+  pcre2Regexp: String.raw`^KEYWORD\b\s*\(`,
+  emacsRegexp: String.raw`^JJJ\b\s*\(`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "test() ->",
@@ -2372,8 +2379,8 @@ addDefinition("erlang", {
 
 addDefinition("erlang", {
   type: "variable",
-  pcre2Regexp: `\\s*KEYWORD\\s*=[^:=\\n]+`,
-  emacsRegexp: `\\s*JJJ\\s*=[^:=\\n]+`,
+  pcre2Regexp: String.raw`\s*KEYWORD\s*=[^:=\n]+`,
+  emacsRegexp: String.raw`\s*JJJ\s*=[^:=\n]+`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["test = 1234"],
   specFailed: ["if test =:= 1234", "if test == 1234"],
@@ -2381,8 +2388,8 @@ addDefinition("erlang", {
 
 addDefinition("erlang", {
   type: "module",
-  pcre2Regexp: `^-module\\(KEYWORD\\)`,
-  emacsRegexp: `^-module\\(JJJ\\)`,
+  pcre2Regexp: String.raw`^-module\(KEYWORD\)`,
+  emacsRegexp: String.raw`^-module\(JJJ\)`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["-module(test)."],
   specFailed: [],
@@ -2390,8 +2397,8 @@ addDefinition("erlang", {
 
 addDefinition("scss", {
   type: "function",
-  pcre2Regexp: `@mixin\\sKEYWORD\\b\\s*\\(`,
-  emacsRegexp: `@mixin\\sJJJ\\b\\s*\\(`,
+  pcre2Regexp: String.raw`@mixin\sKEYWORD\b\s*\(`,
+  emacsRegexp: String.raw`@mixin\sJJJ\b\s*\(`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["@mixin test()"],
   specFailed: [],
@@ -2399,8 +2406,8 @@ addDefinition("scss", {
 
 addDefinition("scss", {
   type: "function",
-  pcre2Regexp: `@function\\sKEYWORD\\b\\s*\\(`,
-  emacsRegexp: `@function\\sJJJ\\b\\s*\\(`,
+  pcre2Regexp: String.raw`@function\sKEYWORD\b\s*\(`,
+  emacsRegexp: String.raw`@function\sJJJ\b\s*\(`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["@function test()"],
   specFailed: [],
@@ -2408,8 +2415,8 @@ addDefinition("scss", {
 
 addDefinition("scss", {
   type: "variable",
-  pcre2Regexp: `KEYWORD\\s*:\\s*`,
-  emacsRegexp: `JJJ\\s*:\\s*`,
+  pcre2Regexp: String.raw`KEYWORD\s*:\s*`,
+  emacsRegexp: String.raw`JJJ\s*:\s*`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["test  :"],
   specFailed: [],
@@ -2417,8 +2424,8 @@ addDefinition("scss", {
 
 addDefinition("sml", {
   type: "type",
-  pcre2Regexp: `\\s*(data)?type\\s+.*\\bKEYWORD\\b`,
-  emacsRegexp: `\\s*(data)?type\\s+.*\\bJJJ\\b`,
+  pcre2Regexp: String.raw`\s*(data)?type\s+.*\bKEYWORD\b`,
+  emacsRegexp: String.raw`\s*(data)?type\s+.*\bJJJ\b`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "datatype test =",
@@ -2434,8 +2441,8 @@ addDefinition("sml", {
 
 addDefinition("sml", {
   type: "variable",
-  pcre2Regexp: `\\s*val\\s+\\bKEYWORD\\b`,
-  emacsRegexp: `\\s*val\\s+\\bJJJ\\b`,
+  pcre2Regexp: String.raw`\s*val\s+\bKEYWORD\b`,
+  emacsRegexp: String.raw`\s*val\s+\bJJJ\b`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["val test =", "val test=", "val test : bool"],
   specFailed: [],
@@ -2443,8 +2450,8 @@ addDefinition("sml", {
 
 addDefinition("sml", {
   type: "function",
-  pcre2Regexp: `\\s*fun\\s+\\bKEYWORD\\b.*\\s*=`,
-  emacsRegexp: `\\s*fun\\s+\\bJJJ\\b.*\\s*=`,
+  pcre2Regexp: String.raw`\s*fun\s+\bKEYWORD\b.*\s*=`,
+  emacsRegexp: String.raw`\s*fun\s+\bJJJ\b.*\s*=`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "fun test list =",
@@ -2458,8 +2465,8 @@ addDefinition("sml", {
 
 addDefinition("sml", {
   type: "module",
-  pcre2Regexp: `\\s*(structure|signature|functor)\\s+\\bKEYWORD\\b`,
-  emacsRegexp: `\\s*(structure|signature|functor)\\s+\\bJJJ\\b`,
+  pcre2Regexp: String.raw`\s*(structure|signature|functor)\s+\bKEYWORD\b`,
+  emacsRegexp: String.raw`\s*(structure|signature|functor)\s+\bJJJ\b`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "structure test =",
@@ -2473,10 +2480,10 @@ addDefinition("sml", {
 
 addDefinition("sql", {
   type: "function",
-  pcre2Regexp:
-    `(CREATE|create)\\s+(.+?\\s+)?(FUNCTION|function|PROCEDURE|procedure)\\s+KEYWORD\\s*\\(`,
-  emacsRegexp:
-    `(CREATE|create)\\s+(.+?\\s+)?(FUNCTION|function|PROCEDURE|procedure)\\s+JJJ\\s*\\(`,
+  pcre2Regexp: String
+    .raw`(CREATE|create)\s+(.+?\s+)?(FUNCTION|function|PROCEDURE|procedure)\s+KEYWORD\s*\(`,
+  emacsRegexp: String
+    .raw`(CREATE|create)\s+(.+?\s+)?(FUNCTION|function|PROCEDURE|procedure)\s+JJJ\s*\(`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "CREATE FUNCTION test(i INT) RETURNS INT",
@@ -2489,10 +2496,10 @@ addDefinition("sql", {
 
 addDefinition("sql", {
   type: "table",
-  pcre2Regexp:
-    `(CREATE|create)\\s+(.+?\\s+)?(TABLE|table)(\\s+(IF NOT EXISTS|if not exists))?\\s+KEYWORD\\b`,
-  emacsRegexp:
-    `(CREATE|create)\\s+(.+?\\s+)?(TABLE|table)(\\s+(IF NOT EXISTS|if not exists))?\\s+JJJ\\b`,
+  pcre2Regexp: String
+    .raw`(CREATE|create)\s+(.+?\s+)?(TABLE|table)(\s+(IF NOT EXISTS|if not exists))?\s+KEYWORD\b`,
+  emacsRegexp: String
+    .raw`(CREATE|create)\s+(.+?\s+)?(TABLE|table)(\s+(IF NOT EXISTS|if not exists))?\s+JJJ\b`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "CREATE TABLE test (",
@@ -2505,8 +2512,8 @@ addDefinition("sql", {
 
 addDefinition("sql", {
   type: "view",
-  pcre2Regexp: `(CREATE|create)\\s+(.+?\\s+)?(VIEW|view)\\s+KEYWORD\\b`,
-  emacsRegexp: `(CREATE|create)\\s+(.+?\\s+)?(VIEW|view)\\s+JJJ\\b`,
+  pcre2Regexp: String.raw`(CREATE|create)\s+(.+?\s+)?(VIEW|view)\s+KEYWORD\b`,
+  emacsRegexp: String.raw`(CREATE|create)\s+(.+?\s+)?(VIEW|view)\s+JJJ\b`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "CREATE VIEW test (",
@@ -2518,8 +2525,8 @@ addDefinition("sql", {
 
 addDefinition("sql", {
   type: "type",
-  pcre2Regexp: `(CREATE|create)\\s+(.+?\\s+)?(TYPE|type)\\s+KEYWORD\\b`,
-  emacsRegexp: `(CREATE|create)\\s+(.+?\\s+)?(TYPE|type)\\s+JJJ\\b`,
+  pcre2Regexp: String.raw`(CREATE|create)\s+(.+?\s+)?(TYPE|type)\s+KEYWORD\b`,
+  emacsRegexp: String.raw`(CREATE|create)\s+(.+?\s+)?(TYPE|type)\s+JJJ\b`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "CREATE TYPE test",
@@ -2531,8 +2538,8 @@ addDefinition("sql", {
 
 addDefinition("systemverilog", {
   type: "type",
-  pcre2Regexp: `\\s*class\\s+\\bKEYWORD\\b`,
-  emacsRegexp: `\\s*class\\s+\\bJJJ\\b`,
+  pcre2Regexp: String.raw`\s*class\s+\bKEYWORD\b`,
+  emacsRegexp: String.raw`\s*class\s+\bJJJ\b`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "virtual class test;",
@@ -2549,8 +2556,8 @@ addDefinition("systemverilog", {
 
 addDefinition("systemverilog", {
   type: "type",
-  pcre2Regexp: `\\s*task\\s+\\bKEYWORD\\b`,
-  emacsRegexp: `\\s*task\\s+\\bJJJ\\b`,
+  pcre2Regexp: String.raw`\s*task\s+\bKEYWORD\b`,
+  emacsRegexp: String.raw`\s*task\s+\bJJJ\b`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["task test (", "task test("],
   specFailed: ["task testing (", "task test2("],
@@ -2558,8 +2565,8 @@ addDefinition("systemverilog", {
 
 addDefinition("systemverilog", {
   type: "type",
-  pcre2Regexp: `\\s*\\bKEYWORD\\b\\s*=`,
-  emacsRegexp: `\\s*\\bJJJ\\b\\s*=`,
+  pcre2Regexp: String.raw`\s*\bKEYWORD\b\s*=`,
+  emacsRegexp: String.raw`\s*\bJJJ\b\s*=`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["assign test =", "assign test=", "int test =", "int test="],
   specFailed: ["assign testing =", "assign test2="],
@@ -2567,8 +2574,8 @@ addDefinition("systemverilog", {
 
 addDefinition("systemverilog", {
   type: "function",
-  pcre2Regexp: `function\\s[^\\s]+\\s*\\bKEYWORD\\b`,
-  emacsRegexp: `function\\s[^\\s]+\\s*\\bJJJ\\b`,
+  pcre2Regexp: String.raw`function\s[^\s]+\s*\bKEYWORD\b`,
+  emacsRegexp: String.raw`function\s[^\s]+\s*\bJJJ\b`,
   supports: ["ag", "rg", "git-grep"],
   specSuccess: ["function Matrix test ;", "function Matrix test;"],
   specFailed: ["function test blah"],
@@ -2576,8 +2583,8 @@ addDefinition("systemverilog", {
 
 addDefinition("systemverilog", {
   type: "function",
-  pcre2Regexp: `^\\s*[^\\s]*\\s*[^\\s]+\\s+\\bKEYWORD\\b`,
-  emacsRegexp: `^\\s*[^\\s]*\\s*[^\\s]+\\s+\\bJJJ\\b`,
+  pcre2Regexp: String.raw`^\s*[^\s]*\s*[^\s]+\s+\bKEYWORD\b`,
+  emacsRegexp: String.raw`^\s*[^\s]*\s*[^\s]+\s+\bJJJ\b`,
   supports: ["ag", "rg", "git-grep"],
   specSuccess: [
     "some_class_name test",
@@ -2590,8 +2597,8 @@ addDefinition("systemverilog", {
 
 addDefinition("vhdl", {
   type: "type",
-  pcre2Regexp: `\\s*type\\s+\\bKEYWORD\\b`,
-  emacsRegexp: `\\s*type\\s+\\bJJJ\\b`,
+  pcre2Regexp: String.raw`\s*type\s+\bKEYWORD\b`,
+  emacsRegexp: String.raw`\s*type\s+\bJJJ\b`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["type test is", "type test  is"],
   specFailed: ["type testing is", "type test2  is"],
@@ -2599,8 +2606,8 @@ addDefinition("vhdl", {
 
 addDefinition("vhdl", {
   type: "type",
-  pcre2Regexp: `\\s*constant\\s+\\bKEYWORD\\b`,
-  emacsRegexp: `\\s*constant\\s+\\bJJJ\\b`,
+  pcre2Regexp: String.raw`\s*constant\s+\bKEYWORD\b`,
+  emacsRegexp: String.raw`\s*constant\s+\bJJJ\b`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["constant test :", "constant test:"],
   specFailed: ["constant testing ", "constant test2:"],
@@ -2608,8 +2615,8 @@ addDefinition("vhdl", {
 
 addDefinition("vhdl", {
   type: "function",
-  pcre2Regexp: `function\\s*\\"?KEYWORD\\"?\\s*\\(`,
-  emacsRegexp: `function\\s*\\"?JJJ\\"?\\s*\\(`,
+  pcre2Regexp: String.raw`function\s*\"?KEYWORD\"?\s*\(`,
+  emacsRegexp: String.raw`function\s*\"?JJJ\"?\s*\(`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "function test(signal)",
@@ -2621,72 +2628,73 @@ addDefinition("vhdl", {
 
 addDefinition("tex", {
   type: "command",
-  pcre2Regexp: `\\\\.*newcommand\\*?\\s*\\{\\s*(\\\\)KEYWORD\\s*}`,
-  emacsRegexp: `\\\\.*newcommand\\*?\\s*\\{\\s*(\\\\)JJJ\\s*}`,
+  pcre2Regexp: String.raw`\\\\.*newcommand\*?\s*\{\s*(\\\\)KEYWORD\s*}`,
+  emacsRegexp: String.raw`\\\\.*newcommand\*?\s*\{\s*(\\\\)JJJ\s*}`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
-    "\\\\newcommand{\\\\test}",
-    "\\\\renewcommand{\\\\test}",
-    "\\\\renewcommand*{\\\\test}",
-    "\\\\newcommand*{\\\\test}",
-    "\\\\renewcommand{ \\\\test }",
+    String.raw`\\newcommand{\\test}`,
+    String.raw`\\renewcommand{\\test}`,
+    String.raw`\\renewcommand*{\\test}`,
+    String.raw`\\newcommand*{\\test}`,
+    String.raw`\\renewcommand{ \\test }`,
   ],
-  specFailed: ["\\\\test", "test"],
+  specFailed: [String.raw`\\test`, "test"],
 });
 
 addDefinition("tex", {
   type: "command",
-  pcre2Regexp: `\\\\.*newcommand\\*?\\s*(\\\\)KEYWORD($|[^a-zA-Z0-9\\?\\*-])`,
-  emacsRegexp: `\\\\.*newcommand\\*?\\s*(\\\\)JJJ\\j`,
+  pcre2Regexp: String
+    .raw`\\\\.*newcommand\*?\s*(\\\\)KEYWORD($|[^a-zA-Z0-9\?\*-])`,
+  emacsRegexp: String.raw`\\\\.*newcommand\*?\s*(\\\\)JJJ\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
-    "\\\\newcommand\\\\test {}",
-    "\\\\renewcommand\\\\test{}",
-    "\\\\newcommand \\\\test",
+    String.raw`\\newcommand\\test {}`,
+    String.raw`\\renewcommand\\test{}`,
+    String.raw`\\newcommand \\test`,
   ],
-  specFailed: ["\\\\test", "test"],
+  specFailed: [String.raw`\\test`, "test"],
 });
 
 addDefinition("tex", {
   type: "length",
-  pcre2Regexp: `\\\\(s)etlength\\s*\\{\\s*(\\\\)KEYWORD\\s*}`,
-  emacsRegexp: `\\\\(s)etlength\\s*\\{\\s*(\\\\)JJJ\\s*}`,
+  pcre2Regexp: String.raw`\\\\(s)etlength\s*\{\s*(\\\\)KEYWORD\s*}`,
+  emacsRegexp: String.raw`\\\\(s)etlength\s*\{\s*(\\\\)JJJ\s*}`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
-    "\\\\setlength { \\\\test}",
-    "\\\\setlength{\\\\test}",
-    "\\\\setlength{\\\\test}{morecommands}",
+    String.raw`\\setlength { \\test}`,
+    String.raw`\\setlength{\\test}`,
+    String.raw`\\setlength{\\test}{morecommands}`,
   ],
-  specFailed: ["\\\\test", "test"],
+  specFailed: [String.raw`\\test`, "test"],
 });
 
 addDefinition("tex", {
   type: "counter",
-  pcre2Regexp: `\\\\newcounter\\{\\s*KEYWORD\\s*}`,
-  emacsRegexp: `\\\\newcounter\\{\\s*JJJ\\s*}`,
+  pcre2Regexp: String.raw`\\\\newcounter\{\s*KEYWORD\s*}`,
+  emacsRegexp: String.raw`\\\\newcounter\{\s*JJJ\s*}`,
   supports: ["ag", "grep", "rg", "git-grep"],
-  specSuccess: ["\\\\newcounter{test}"],
-  specFailed: ["\\\\test", "test"],
+  specSuccess: [String.raw`\\newcounter{test}`],
+  specFailed: [String.raw`\\test`, "test"],
 });
 
 addDefinition("tex", {
   type: "environment",
-  pcre2Regexp: `\\\\.*newenvironment\\s*\\{\\s*KEYWORD\\s*}`,
-  emacsRegexp: `\\\\.*newenvironment\\s*\\{\\s*JJJ\\s*}`,
+  pcre2Regexp: String.raw`\\\\.*newenvironment\s*\{\s*KEYWORD\s*}`,
+  emacsRegexp: String.raw`\\\\.*newenvironment\s*\{\s*JJJ\s*}`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
-    "\\\\newenvironment{test}",
-    "\\\\newenvironment {test}{morecommands}",
-    "\\\\lstnewenvironment{test}",
-    "\\\\newenvironment {test}",
+    String.raw`\\newenvironment{test}`,
+    String.raw`\\newenvironment {test}{morecommands}`,
+    String.raw`\\lstnewenvironment{test}`,
+    String.raw`\\newenvironment {test}`,
   ],
-  specFailed: ["\\\\test", "test"],
+  specFailed: [String.raw`\\test`, "test"],
 });
 
 addDefinition("pascal", {
   type: "function",
-  pcre2Regexp: `\\bfunction\\s+KEYWORD\\b`,
-  emacsRegexp: `\\bfunction\\s+JJJ\\b`,
+  pcre2Regexp: String.raw`\bfunction\s+KEYWORD\b`,
+  emacsRegexp: String.raw`\bfunction\s+JJJ\b`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["  function test : "],
   specFailed: [],
@@ -2694,8 +2702,8 @@ addDefinition("pascal", {
 
 addDefinition("pascal", {
   type: "function",
-  pcre2Regexp: `\\bprocedure\\s+KEYWORD\\b`,
-  emacsRegexp: `\\bprocedure\\s+JJJ\\b`,
+  pcre2Regexp: String.raw`\bprocedure\s+KEYWORD\b`,
+  emacsRegexp: String.raw`\bprocedure\s+JJJ\b`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["  procedure test ; "],
   specFailed: [],
@@ -2703,8 +2711,8 @@ addDefinition("pascal", {
 
 addDefinition("fsharp", {
   type: "variable",
-  pcre2Regexp: `let\\s+KEYWORD\\b.*\\=`,
-  emacsRegexp: `let\\s+JJJ\\b.*\\=`,
+  pcre2Regexp: String.raw`let\s+KEYWORD\b.*\=`,
+  emacsRegexp: String.raw`let\s+JJJ\b.*\=`,
   supports: ["ag", "grep", "git-grep"],
   specSuccess: [
     "let test = 1234",
@@ -2720,8 +2728,8 @@ addDefinition("fsharp", {
 
 addDefinition("fsharp", {
   type: "interface",
-  pcre2Regexp: `member(\\b.+\\.|\\s+)KEYWORD\\b.*\\=`,
-  emacsRegexp: `member(\\b.+\\.|\\s+)JJJ\\b.*\\=`,
+  pcre2Regexp: String.raw`member(\b.+\.|\s+)KEYWORD\b.*\=`,
+  emacsRegexp: String.raw`member(\b.+\.|\s+)JJJ\b.*\=`,
   supports: ["ag", "grep", "git-grep"],
   specSuccess: ["member test = 1234", "member this.test = 1234"],
   specFailed: ["member testnot = 1234", "member this.testnot = 1234"],
@@ -2729,8 +2737,8 @@ addDefinition("fsharp", {
 
 addDefinition("fsharp", {
   type: "type",
-  pcre2Regexp: `type\\s+KEYWORD\\b.*\\=`,
-  emacsRegexp: `type\\s+JJJ\\b.*\\=`,
+  pcre2Regexp: String.raw`type\s+KEYWORD\b.*\=`,
+  emacsRegexp: String.raw`type\s+JJJ\b.*\=`,
   supports: ["ag", "grep", "git-grep"],
   specSuccess: ["type test = 1234"],
   specFailed: ["type testnot = 1234"],
@@ -2738,8 +2746,8 @@ addDefinition("fsharp", {
 
 addDefinition("kotlin", {
   type: "function",
-  pcre2Regexp: `fun\\s*(<[^>]*>)?\\s*KEYWORD\\s*\\(`,
-  emacsRegexp: `fun\\s*(<[^>]*>)?\\s*JJJ\\s*\\(`,
+  pcre2Regexp: String.raw`fun\s*(<[^>]*>)?\s*KEYWORD\s*\(`,
+  emacsRegexp: String.raw`fun\s*(<[^>]*>)?\s*JJJ\s*\(`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["fun test()", "fun <T> test()"],
   specFailed: [],
@@ -2747,8 +2755,8 @@ addDefinition("kotlin", {
 
 addDefinition("kotlin", {
   type: "variable",
-  pcre2Regexp: `(val|var)\\s*KEYWORD\\b`,
-  emacsRegexp: `(val|var)\\s*JJJ\\b`,
+  pcre2Regexp: String.raw`(val|var)\s*KEYWORD\b`,
+  emacsRegexp: String.raw`(val|var)\s*JJJ\b`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["val test ", "var test"],
   specFailed: ["val testval", "var testvar"],
@@ -2756,8 +2764,8 @@ addDefinition("kotlin", {
 
 addDefinition("kotlin", {
   type: "type",
-  pcre2Regexp: `(class|interface)\\s*KEYWORD\\b`,
-  emacsRegexp: `(class|interface)\\s*JJJ\\b`,
+  pcre2Regexp: String.raw`(class|interface)\s*KEYWORD\b`,
+  emacsRegexp: String.raw`(class|interface)\s*JJJ\b`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["class test", "class test : SomeInterface", "interface test"],
   specFailed: [],
@@ -2765,8 +2773,8 @@ addDefinition("kotlin", {
 
 addDefinition("zig", {
   type: "function",
-  pcre2Regexp: `fn\\s+KEYWORD\\b`,
-  emacsRegexp: `fn\\s+JJJ\\b`,
+  pcre2Regexp: String.raw`fn\s+KEYWORD\b`,
+  emacsRegexp: String.raw`fn\s+JJJ\b`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "fn test() void {",
@@ -2781,8 +2789,8 @@ addDefinition("zig", {
 
 addDefinition("zig", {
   type: "variable",
-  pcre2Regexp: `(var|const)\\s+KEYWORD\\b`,
-  emacsRegexp: `(var|const)\\s+JJJ\\b`,
+  pcre2Regexp: String.raw`(var|const)\s+KEYWORD\b`,
+  emacsRegexp: String.raw`(var|const)\s+JJJ\b`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "const test: i32 = 3;",
@@ -2794,8 +2802,8 @@ addDefinition("zig", {
 
 addDefinition("protobuf", {
   type: "message",
-  pcre2Regexp: `message\\s+KEYWORD\\s*\\{`,
-  emacsRegexp: `message\\s+JJJ\\s*\\{`,
+  pcre2Regexp: String.raw`message\s+KEYWORD\s*\{`,
+  emacsRegexp: String.raw`message\s+JJJ\s*\{`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["message test{", "message test {"],
   specFailed: [],
@@ -2803,8 +2811,8 @@ addDefinition("protobuf", {
 
 addDefinition("protobuf", {
   type: "enum",
-  pcre2Regexp: `enum\\s+KEYWORD\\s*\\{`,
-  emacsRegexp: `enum\\s+JJJ\\s*\\{`,
+  pcre2Regexp: String.raw`enum\s+KEYWORD\s*\{`,
+  emacsRegexp: String.raw`enum\s+JJJ\s*\{`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["enum test{", "enum test {"],
   specFailed: [],
@@ -2812,8 +2820,8 @@ addDefinition("protobuf", {
 
 addDefinition("apex", {
   type: "function",
-  pcre2Regexp: `^\\s*(?:[\\w\\[\\]]+\\s+){1,3}KEYWORD\\s*\\(`,
-  emacsRegexp: `^\\s*(?:[\\w\\[\\]]+\\s+){1,3}JJJ\\s*\\(`,
+  pcre2Regexp: String.raw`^\s*(?:[\w\[\]]+\s+){1,3}KEYWORD\s*\(`,
+  emacsRegexp: String.raw`^\s*(?:[\w\[\]]+\s+){1,3}JJJ\s*\(`,
   supports: ["ag", "rg"],
   specSuccess: [
     "int test()",
@@ -2835,8 +2843,8 @@ addDefinition("apex", {
 
 addDefinition("apex", {
   type: "variable",
-  pcre2Regexp: `\\s*\\bKEYWORD\\s*=[^=\\n)]+`,
-  emacsRegexp: `\\s*\\bJJJ\\s*=[^=\\n)]+`,
+  pcre2Regexp: String.raw`\s*\bKEYWORD\s*=[^=\n)]+`,
+  emacsRegexp: String.raw`\s*\bJJJ\s*=[^=\n)]+`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["int test = 1234"],
   specFailed: ["if test == 1234:", "int nottest = 44"],
@@ -2844,8 +2852,8 @@ addDefinition("apex", {
 
 addDefinition("apex", {
   type: "type",
-  pcre2Regexp: `(class|interface)\\s*KEYWORD\\b`,
-  emacsRegexp: `(class|interface)\\s*JJJ\\b`,
+  pcre2Regexp: String.raw`(class|interface)\s*KEYWORD\b`,
+  emacsRegexp: String.raw`(class|interface)\s*JJJ\b`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: ["class test:", "public class test implements Something"],
   specFailed: ["class testnot:", "public class testnot implements Something"],
