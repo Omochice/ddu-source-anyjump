@@ -2621,8 +2621,8 @@ addDefinition("vhdl", {
 
 addDefinition("tex", {
   type: "command",
-  pcre2Regexp: `\\\\.*newcommand\\*?\\s*\\{\\s*(\\\\)KEYWORD\\s*}`,
-  emacsRegexp: `\\\\.*newcommand\\*?\\s*\\{\\s*(\\\\)JJJ\\s*}`,
+  pcre2Regexp: `\\\\\\\\.*newcommand\\*?\\s*\\{\\s*(\\\\\\\\)KEYWORD\\s*}`,
+  emacsRegexp: `\\\\\\\\.*newcommand\\*?\\s*\\{\\s*(\\\\\\\\)JJJ\\s*}`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "\\\\newcommand{\\\\test}",
@@ -2636,8 +2636,8 @@ addDefinition("tex", {
 
 addDefinition("tex", {
   type: "command",
-  pcre2Regexp: `\\\\.*newcommand\\*?\\s*(\\\\)KEYWORD($|[^a-zA-Z0-9\\?\\*-])`,
-  emacsRegexp: `\\\\.*newcommand\\*?\\s*(\\\\)JJJ\\j`,
+  pcre2Regexp: `\\\\\\\\.*newcommand\\*?\\s*(\\\\\\\\)KEYWORD($|[^a-zA-Z0-9\\?\\*-])`,
+  emacsRegexp: `\\\\\\\\.*newcommand\\*?\\s*(\\\\\\\\)JJJ\\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "\\\\newcommand\\\\test {}",
@@ -2649,8 +2649,8 @@ addDefinition("tex", {
 
 addDefinition("tex", {
   type: "length",
-  pcre2Regexp: `\\\\(s)etlength\\s*\\{\\s*(\\\\)KEYWORD\\s*}`,
-  emacsRegexp: `\\\\(s)etlength\\s*\\{\\s*(\\\\)JJJ\\s*}`,
+  pcre2Regexp: `\\\\\\\\(s)etlength\\s*\\{\\s*(\\\\\\\\)KEYWORD\\s*}`,
+  emacsRegexp: `\\\\\\\\(s)etlength\\s*\\{\\s*(\\\\\\\\)JJJ\\s*}`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "\\\\setlength { \\\\test}",
