@@ -2131,7 +2131,7 @@ addDefinition("lua", {
 addDefinition("rust", {
   type: "variable",
   pcre2Regexp:
-    `\\blet\\s+(\\([^=\\n]*)?(muts+)?KEYWORD([^=\\n]*\\))?(:\\s*[^=\\n]+)?\\s*=\\s*[^=\\n]+`,
+    `\\blet\\s+(\\([^=\\n]*)?(mut\\s+)?KEYWORD([^=\\n]*\\))?(:\\s*[^=\\n]+)?\\s*=\\s*[^=\\n]+`,
   emacsRegexp:
     `\\blet\\s+(\\([^=\\n]*)?(muts+)?JJJ([^=\\n]*\\))?(:\\s*[^=\\n]+)?\\s*=\\s*[^=\\n]+`,
   supports: ["ag", "grep", "rg", "git-grep"],
@@ -2217,7 +2217,7 @@ addDefinition("rust", {
   ],
   specFailed: [
     "struct Foo { abc: u32, b: Vec<String> }",
-    "/// ... construct the equivalent ...\\nfn abc() {\\n",
+    "/// ... construct the equivalent ...\nfn abc() {\n",
   ],
 });
 
