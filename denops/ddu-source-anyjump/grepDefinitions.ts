@@ -850,8 +850,8 @@ addDefinition("python", {
   pcre2Regexp: `def\\s*KEYWORD\\b\\s*\\(`,
   emacsRegexp: `def\\s*JJJ\\b\\s*\\(`,
   supports: ["ag", "grep", "rg", "git-grep"],
-  specSuccess: ["\\tdef test(asdf)", "def test()"],
-  specFailed: ["\\tdef testnot(asdf)", "def testnot()"],
+  specSuccess: ["\tdef test(asdf)", "def test()"],
+  specFailed: ["\tdef testnot(asdf)", "def testnot()"],
 });
 
 addDefinition("python", {
@@ -878,11 +878,11 @@ addDefinition("matlab", {
   emacsRegexp: `^\\s*function\\s*[^=]+\\s*=\\s*JJJ\\b`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
-    "\\tfunction y = test(asdf)",
+    "\tfunction y = test(asdf)",
     "function x = test()",
     "function [x, losses] = test(A, y, lambda, method, qtile)",
   ],
-  specFailed: ["\\tfunction testnot(asdf)", "function testnot()"],
+  specFailed: ["\tfunction testnot(asdf)", "function testnot()"],
 });
 
 addDefinition("matlab", {
