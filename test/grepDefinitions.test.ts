@@ -20,7 +20,7 @@ for (const [lang, definition] of definitions) {
       });
       await t.step("should NOT match", async (t) => {
         for (const spec of def.specFailed) {
-          await t.step(`test for '${spec}'`, () => {
+          await t.step(spec, () => {
             assertNotMatch(spec, pattern);
           });
         }
