@@ -1900,7 +1900,7 @@ addDefinition("haskell", {
   pcre2Regexp: `^module\\s+KEYWORD\\s+`,
   emacsRegexp: `^module\\s+JJJ\\s+`,
   supports: ["rg", "ag"],
-  specSuccess: ["module Test (exportA, exportB) where"],
+  specSuccess: ["module test (exportA, exportB) where"],
   specFailed: [],
 });
 
@@ -1933,11 +1933,11 @@ addDefinition("haskell", {
     `^\\s*((data(\\s+family)?)|(newtype)|(type(\\s+family)?))\\s+JJJ\\s+`,
   supports: ["rg", "ag"],
   specSuccess: [
-    "newtype Test a = Something { b :: Kek }",
-    "data Test a b = Somecase a | Othercase b",
-    "type family Test (x :: *) (xs :: [*]) :: Nat where",
-    "data family Test ",
-    "type Test = TestAlias",
+    "newtype test a = Something { b :: Kek }",
+    "data test a b = Somecase a | Othercase b",
+    "type family test (x :: *) (xs :: [*]) :: Nat where",
+    "data family test ",
+    "type test = TestAlias",
   ],
   specFailed: [
     "newtype NotTest a = NotTest (Not a)",
@@ -1953,9 +1953,9 @@ addDefinition("haskell", {
     `(data|newtype)\\s{1,3}(?!JJJ\\s+)([^=]{1,40})=((\\s{0,3}JJJ\\s+)|([^=]{0,500}?((?<!(-- ))\\|\\s{0,3}JJJ\\s+)))`,
   supports: ["rg", "ag"],
   specSuccess: [
-    "data Something a = Test { b :: Kek }",
-    "data Mem a = TrueMem { b :: Kek } | Test (Mem Int) deriving Mda",
-    "newtype SafeTest a = Test (Kek a) deriving (YonedaEmbedding)",
+    "data Something a = test { b :: Kek }",
+    "data Mem a = TrueMem { b :: Kek } | test (Mem Int) deriving Mda",
+    "newtype SafeTest a = test (Kek a) deriving (YonedaEmbedding)",
   ],
   specFailed: ["data Test = Test { b :: Kek }"],
 });
@@ -1987,11 +1987,11 @@ addDefinition("haskell", {
   emacsRegexp: `^class\\s+(.+=>\\s*)?JJJ\\s+`,
   supports: ["rg", "ag"],
   specSuccess: [
-    "class (Constr1 m, Constr 2) => Test (Kek a) where",
-    "class  Test  (Veryovka a)  where ",
+    "class (Constr1 m, Constr 2) => test (Kek a) where",
+    "class  test  (Veryovka a)  where ",
   ],
   specFailed: [
-    "class Test2 (Kek a) where",
+    "class test2 (Kek a) where",
     "class MakeTest (AoeuTest x y z) where",
   ],
 });
