@@ -915,14 +915,14 @@ addDefinition("nim", {
   emacsRegexp: `(proc|func|macro|template)\\s*\`?JJJ\`?\\b\\*?\\s*\\(`,
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
-    "\\tproc test(asdf)",
+    "\tproc test(asdf)",
     "proc test()",
     "func test()",
     "macro test()",
     "template test()",
     "proc test*()",
   ],
-  specFailed: ["\\tproc testnot(asdf)", "proc testnot()"],
+  specFailed: ["\tproc testnot(asdf)", "proc testnot()"],
 });
 
 addDefinition("nim", {
