@@ -48,15 +48,15 @@ addDefinition("elisp", {
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     `(defun test (blah)`,
-    `(defun test\\n`,
+    `(defun test\n`,
     `(cl-defun test (blah)`,
-    `(cl-defun test\\n`,
+    `(cl-defun test\n`,
   ],
   specFailed: [
     `(defun test-asdf (blah)`,
-    `(defun test-blah\\n`,
+    `(defun test-blah\n`,
     `(cl-defun test-asdf (blah)`,
-    `(cl-defun test-blah\\n`,
+    `(cl-defun test-blah\n`,
     `(defun tester (blah)`,
     `(defun test? (blah)`,
     `(defun test- (blah)`,
@@ -68,10 +68,10 @@ addDefinition("elisp", {
   pcre2Regexp: String.raw`\(defmacro\s+KEYWORD($|[^a-zA-Z0-9\?\*-])`,
   emacsRegexp: String.raw`\(defmacro\s+JJJ\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
-  specSuccess: [`(defmacro test (blah)`, `(defmacro test\\n`],
+  specSuccess: [`(defmacro test (blah)`, `(defmacro test\n`],
   specFailed: [
     `(defmacro test-asdf (blah)`,
-    `(defmacro test-blah\\n`,
+    `(defmacro test-blah\n`,
     `(defmacro tester (blah)`,
     `(defmacro test? (blah)`,
     `(defmacro test- (blah)`,
@@ -83,7 +83,7 @@ addDefinition("elisp", {
   pcre2Regexp: String.raw`\(defvar\b\s*KEYWORD($|[^a-zA-Z0-9\?\*-])`,
   emacsRegexp: String.raw`\(defvar\b\s*JJJ\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
-  specSuccess: ["(defvar test ", "(defvar test\\n"],
+  specSuccess: ["(defvar test ", "(defvar test\n"],
   specFailed: ["(defvar tester", "(defvar test?", "(defvar test-"],
 });
 
@@ -92,7 +92,7 @@ addDefinition("elisp", {
   pcre2Regexp: String.raw`\(defcustom\b\s*KEYWORD($|[^a-zA-Z0-9\?\*-])`,
   emacsRegexp: String.raw`\(defcustom\b\s*JJJ\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
-  specSuccess: ["(defcustom test ", "(defcustom test\\n"],
+  specSuccess: ["(defcustom test ", "(defcustom test\n"],
   specFailed: ["(defcustom tester", "(defcustom test?", "(defcustom test-"],
 });
 
@@ -142,10 +142,10 @@ addDefinition("commonlisp", {
   pcre2Regexp: String.raw`\(defun\s+KEYWORD($|[^a-zA-Z0-9\?\*-])`,
   emacsRegexp: String.raw`\(defun\s+JJJ\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
-  specSuccess: ["(defun test (blah)", "(defun test\\n"],
+  specSuccess: ["(defun test (blah)", "(defun test\n"],
   specFailed: [
     "(defun test-asdf (blah)",
-    "(defun test-blah\\n",
+    "(defun test-blah\n",
     "(defun tester (blah)",
     "(defun test? (blah)",
     "(defun test- (blah)",
@@ -157,7 +157,7 @@ addDefinition("commonlisp", {
   pcre2Regexp: String.raw`\(defparameter\b\s*KEYWORD($|[^a-zA-Z0-9\?\*-])`,
   emacsRegexp: String.raw`\(defparameter\b\s*JJJ\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
-  specSuccess: ["(defparameter test ", "(defparameter test\\n"],
+  specSuccess: ["(defparameter test ", "(defparameter test\n"],
   specFailed: [
     "(defparameter tester",
     "(defparameter test?",
@@ -170,7 +170,7 @@ addDefinition("racket", {
   pcre2Regexp: String.raw`\(define\s+\(\s*KEYWORD($|[^a-zA-Z0-9\?\*-])`,
   emacsRegexp: String.raw`\(define\s+\(\s*JJJ\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
-  specSuccess: ["(define (test blah)", "(define (test\\n"],
+  specSuccess: ["(define (test blah)", "(define (test\n"],
   specFailed: [
     "(define test blah",
     "(define (test-asdf blah)",
@@ -183,7 +183,7 @@ addDefinition("racket", {
   pcre2Regexp: String.raw`\(define\s+KEYWORD\s*\(\s*lambda`,
   emacsRegexp: String.raw`\(define\s+JJJ\s*\(\s*lambda`,
   supports: ["ag", "grep", "rg", "git-grep"],
-  specSuccess: ["(define test (lambda (blah", "(define test (lambda\\n"],
+  specSuccess: ["(define test (lambda (blah", "(define test (lambda\n"],
   specFailed: [
     "(define test blah",
     "(define test-asdf (lambda (blah)",
@@ -199,7 +199,7 @@ addDefinition("racket", {
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "(let test ((blah foo) (bar bas))",
-    "(let test\\n",
+    "(let test\n",
     "(let test [(foo",
   ],
   specFailed: ["(let ((test blah"],
@@ -210,7 +210,7 @@ addDefinition("racket", {
   pcre2Regexp: String.raw`\(define\s+KEYWORD($|[^a-zA-Z0-9\?\*-])`,
   emacsRegexp: String.raw`\(define\s+JJJ\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
-  specSuccess: ["(define test ", "(define test\\n"],
+  specSuccess: ["(define test ", "(define test\n"],
   specFailed: ["(define (test"],
 });
 
@@ -263,7 +263,7 @@ addDefinition("scheme", {
   pcre2Regexp: String.raw`\(define\s+\(\s*KEYWORD($|[^a-zA-Z0-9\?\*-])`,
   emacsRegexp: String.raw`\(define\s+\(\s*JJJ\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
-  specSuccess: ["(define (test blah)", "(define (test\\n"],
+  specSuccess: ["(define (test blah)", "(define (test\n"],
   specFailed: [
     "(define test blah",
     "(define (test-asdf blah)",
@@ -276,7 +276,7 @@ addDefinition("scheme", {
   pcre2Regexp: String.raw`\(define\s+KEYWORD\s*\(\s*lambda`,
   emacsRegexp: String.raw`\(define\s+JJJ\s*\(\s*lambda`,
   supports: ["ag", "grep", "rg", "git-grep"],
-  specSuccess: ["(define test (lambda (blah", "(define test (lambda\\n"],
+  specSuccess: ["(define test (lambda (blah", "(define test (lambda\n"],
   specFailed: [
     "(define test blah",
     "(define test-asdf (lambda (blah)",
@@ -292,7 +292,7 @@ addDefinition("scheme", {
   supports: ["ag", "grep", "rg", "git-grep"],
   specSuccess: [
     "(let test ((blah foo) (bar bas))",
-    "(let test\\n",
+    "(let test\n",
     "(let test [(foo",
   ],
   specFailed: ["(let ((test blah"],
@@ -303,7 +303,7 @@ addDefinition("scheme", {
   pcre2Regexp: String.raw`\(define\s+KEYWORD($|[^a-zA-Z0-9\?\*-])`,
   emacsRegexp: String.raw`\(define\s+JJJ\j`,
   supports: ["ag", "grep", "rg", "git-grep"],
-  specSuccess: ["(define test ", "(define test\\n"],
+  specSuccess: ["(define test ", "(define test\n"],
   specFailed: ["(define (test"],
 });
 
