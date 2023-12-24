@@ -59,7 +59,10 @@ export function search(
     cwd: option.cwd,
   });
 
-  return ResultAsync.fromPromise(proc.output(), () => new Error("hi"))
+  return ResultAsync.fromPromise(
+    proc.output(),
+    (e) => new Error("Failed to execute ripgrep", { cause: e }),
+  )
     .andThen((commandOutput) =>
       okAsync(
         decode(commandOutput.stdout)
