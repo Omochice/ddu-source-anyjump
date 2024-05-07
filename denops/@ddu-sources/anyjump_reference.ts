@@ -6,7 +6,7 @@ import {
 } from "https://deno.land/x/ddu_vim@v3.10.3/types.ts";
 import { Denops, fn, vars } from "https://deno.land/x/ddu_vim@v3.10.3/deps.ts";
 import { ActionData } from "https://deno.land/x/ddu_kind_file@v0.7.1/file.ts";
-import { echoerr } from "https://deno.land/x/denops_std@v6.4.0/helper/mod.ts";
+import { echoerr } from "https://deno.land/x/denops_std@v6.4.1/helper/mod.ts";
 import { ensure, is } from "https://deno.land/x/unknownutil@v3.18.0/mod.ts";
 import { search } from "../ddu-source-anyjump/references.ts";
 import { convertMatch } from "../ddu-source-anyjump/convert.ts";
