@@ -1,7 +1,4 @@
-import {
-  assertMatch,
-  assertNotMatch,
-} from "https://deno.land/std@0.210.0/assert/mod.ts";
+import { assertMatch, assertNotMatch } from "jsr:@std/assert@0.210.0";
 import { definitions } from "../denops/ddu-source-anyjump/grepDefinitions.ts";
 import { REGEX_KEYWORD } from "../denops/ddu-source-anyjump/ripgrep.ts";
 
