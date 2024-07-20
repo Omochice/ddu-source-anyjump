@@ -8,7 +8,7 @@ import {
 } from "./ripgrep.ts";
 import { convertLanguageName } from "./langMap.ts";
 import { decode } from "./decode.ts";
-import { okAsync, ResultAsync } from "npm:neverthrow@6.2.2";
+import { okAsync, ResultAsync } from "npm:neverthrow@7.0.0";
 
 export function search(
   lang: string,
