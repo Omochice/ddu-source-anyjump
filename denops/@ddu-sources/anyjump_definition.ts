@@ -5,8 +5,8 @@ import {
   type SourceOptions,
 } from "jsr:@shougo/ddu-vim@5.0.0/types";
 import type { Denops } from "jsr:@denops/std@7.0.0";
-import * as fn from "jsr:@denops/std@7.0.0/function";
-import * as vars from "jsr:@denops/std@7.0.0/variable";
+import { expand, getcwd } from "jsr:@denops/std@7.0.0/function";
+import { localOptions } from "jsr:@denops/std@7.0.0/variable";
 import type { ActionData } from "jsr:@shougo/ddu-kind-file@0.8.0";
 import { echoerr } from "jsr:@denops/std@7.0.0/helper";
 import { ensure, is } from "jsr:@core/unknownutil@3.18.1";
@@ -26,9 +26,9 @@ export class Source extends BaseSource<Params> {
   #filetype = "";
 
   async onInit(args: { denops: Denops }): Promise<void> {
-    this.#cword = ensure(await fn.expand(args.denops, "<cword>"), is.String);
-    this.#cwd = await fn.getcwd(args.denops);
-    this.#filetype = await vars.lo.get(args.denops, "filetype");
+    this.#cword = ensure(await expand(args.denops, "<cword>"), is.String);
+    this.#cwd = await getcwd(args.denops);
+    this.#filetype = await localOptions.get(args.denops, "filetype");
   }
 
   gather(args: {
