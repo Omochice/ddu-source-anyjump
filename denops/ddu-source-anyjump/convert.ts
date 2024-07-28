@@ -1,7 +1,7 @@
-import { Item } from "https://deno.land/x/ddu_vim@v4.2.0/types.ts";
-import { ActionData } from "https://deno.land/x/ddu_kind_file@v0.7.1/file.ts";
+import type { Item } from "jsr:@shougo/ddu-vim@5.0.0/types";
+import type { ActionData } from "jsr:@shougo/ddu-kind-file@0.8.0";
 import { resolve } from "jsr:@std/path@1.0.2";
-import { type Match } from "./ripgrep.ts";
+import type { Match } from "./ripgrep.ts";
 
 /**
  * Get length of UTF8 string
