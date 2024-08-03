@@ -1,4 +1,4 @@
-name: Check deno codes
+name: Check deno code
 
 on: workflow_call
 
