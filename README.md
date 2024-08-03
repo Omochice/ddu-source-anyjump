@@ -1,32 +1,32 @@
-# ddu-source-anyjump 
+# ddu-source-anyjump
 
 Source for non-LSP oriented definition|reference list.
 
-Based on https://github.com/pechorin/any-jump.vim.
+Based on <https://github.com/pechorin/any-jump.vim>.
 
-## Contents 
+## Contents
 
 - [ddu-source-anyjump-installation](ddu-source-anyjump-installation)
 - [ddu-source-anyjump-dependencies](ddu-source-anyjump-dependencies)
 - [ddu-source-anyjump-examples](ddu-source-anyjump-examples)
 - [ddu-source-anyjump-params](ddu-source-anyjump-params)
 
-## Installation 
+## Installation
 
 Use your favorite plugin manager or other.
 
-## Dependencies 
+## Dependencies
 
 ddu.vim and denops.vim are required.
 
-- https://github.com/Shougo/ddu.vim
-- https://github.com/vim-denops/denops.vim
-- https://github.com/BurntSushi/ripgrep
-- https://github.com/Shougo/ddu-kind-file
+- <https://github.com/Shougo/ddu.vim>
+- <https://github.com/vim-denops/denops.vim>
+- <https://github.com/BurntSushi/ripgrep>
+- <https://github.com/Shougo/ddu-kind-file>
 
 Need to set `rg` in your PATH.
 
-## Examples 
+## Examples
 
 Configuration:
 
@@ -74,17 +74,17 @@ call ddu#start(#{
     \ })
 ```
 
-## Params 
+## Params
 
 ### `anyjump_definition`
 
-- `highlights` 
+- `highlights`
 
 Highlight groups for path, lineNr and search word.
 
-Default: "Normal" for path and lineNr.
-Default: "Search" for word.
-- `removeCommentsFromResults` 
+Default: "Normal" for path and lineNr. Default: "Search" for word.
+
+- `removeCommentsFromResults`
 
 Remove comments line from search results.
 
@@ -92,15 +92,18 @@ Default: `true`
 
 ### `anyjump_reference`
 
-- `highlights` 
+- `highlights`
 
-see [ddu-source-anyjump_definition-param-highlights](ddu-source-anyjump_definition-param-highlights).
-- `removeCommentsFromResults` 
+see
+[ddu-source-anyjump_definition-param-highlights](ddu-source-anyjump_definition-param-highlights).
 
-see [ddu-source-anyjump_definition-param-removeCommentsFromResults](ddu-source-anyjump_definition-param-removeCommentsFromResults).
-- `onlyCurrentFiletype` 
+- `removeCommentsFromResults`
+
+see
+[ddu-source-anyjump_definition-param-removeCommentsFromResults](ddu-source-anyjump_definition-param-removeCommentsFromResults).
+
+- `onlyCurrentFiletype`
 
 Search references only for current file type.
 
 Default: `false`
-
