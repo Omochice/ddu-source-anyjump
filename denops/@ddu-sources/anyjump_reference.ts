@@ -9,7 +9,7 @@ import { expand, getcwd } from "jsr:@denops/std@7.0.3/function";
 import { localOptions } from "jsr:@denops/std@7.0.3/variable";
 import type { ActionData } from "jsr:@shougo/ddu-kind-file@0.8.0";
 import { echoerr } from "jsr:@denops/std@7.0.3/helper";
-import { ensure, is } from "jsr:@core/unknownutil@4.0.3";
+import { ensure, is } from "jsr:@core/unknownutil@4.2.0";
 import { search } from "../ddu-source-anyjump/references.ts";
 import { convertMatch } from "../ddu-source-anyjump/convert.ts";
 import type { HighlightGroup } from "../ddu-source-anyjump/params.ts";
