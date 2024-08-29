@@ -10,7 +10,7 @@ import {
 } from "./ripgrep.ts";
 import { convertLanguageName } from "./langMap.ts";
 import { decode } from "./decode.ts";
-import { errAsync, okAsync, ResultAsync } from "npm:neverthrow@7.0.1";
+import { errAsync, okAsync, ResultAsync } from "npm:neverthrow@7.1.0";
 
 /**
  * Search definitions by ripgrep
