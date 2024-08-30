@@ -7,7 +7,7 @@ import {
 import type { Denops } from "jsr:@denops/std@7.1.1";
 import { expand, getcwd } from "jsr:@denops/std@7.1.1/function";
 import { localOptions } from "jsr:@denops/std@7.1.1/variable";
-import type { ActionData } from "jsr:@shougo/ddu-kind-file@0.8.0";
+import type { ActionData } from "jsr:@shougo/ddu-kind-file@0.9.0";
 import { echoerr } from "jsr:@denops/std@7.1.1/helper";
 import { ensure, is } from "jsr:@core/unknownutil@4.3.0";
 import { search } from "../ddu-source-anyjump/references.ts";
