@@ -4,11 +4,11 @@ import {
   type Item,
   type SourceOptions,
 } from "jsr:@shougo/ddu-vim@5.0.0/types";
-import type { Denops } from "jsr:@denops/std@7.1.1";
-import { expand, getcwd } from "jsr:@denops/std@7.1.1/function";
-import { localOptions } from "jsr:@denops/std@7.1.1/variable";
+import type { Denops } from "jsr:@denops/std@7.2.0";
+import { expand, getcwd } from "jsr:@denops/std@7.2.0/function";
+import { localOptions } from "jsr:@denops/std@7.2.0/variable";
 import type { ActionData } from "jsr:@shougo/ddu-kind-file@0.9.0";
-import { echoerr } from "jsr:@denops/std@7.1.1/helper";
+import { echoerr } from "jsr:@denops/std@7.2.0/helper";
 import { ensure, is } from "jsr:@core/unknownutil@4.3.0";
 import { search } from "../ddu-source-anyjump/definitions.ts";
 import { convertMatch } from "../ddu-source-anyjump/convert.ts";
