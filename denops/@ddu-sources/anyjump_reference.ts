@@ -3,7 +3,7 @@ import {
   type DduOptions,
   type Item,
   type SourceOptions,
-} from "jsr:@shougo/ddu-vim@5.0.0/types";
+} from "jsr:@shougo/ddu-vim@6.2.0/types";
 import type { Denops } from "jsr:@denops/std@7.2.0";
 import { expand, getcwd } from "jsr:@denops/std@7.2.0/function";
 import { localOptions } from "jsr:@denops/std@7.2.0/variable";

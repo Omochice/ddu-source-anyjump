@@ -1,4 +1,4 @@
-import type { Item } from "jsr:@shougo/ddu-vim@5.0.0/types";
+import type { Item } from "jsr:@shougo/ddu-vim@6.2.0/types";
 import type { ActionData } from "jsr:@shougo/ddu-kind-file@0.9.0";
 import { resolve } from "jsr:@std/path@1.0.6";
 import type { Match } from "./ripgrep.ts";
