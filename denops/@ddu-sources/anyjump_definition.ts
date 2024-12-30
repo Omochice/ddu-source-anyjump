@@ -20,12 +20,12 @@ type Params = {
 };
 
 export class Source extends BaseSource<Params> {
-  kind = "file";
+  override kind = "file";
   #cword = "";
   #cwd = "";
   #filetype = "";
 
-  async onInit(args: { denops: Denops }): Promise<void> {
+  override async onInit(args: { denops: Denops }): Promise<void> {
     this.#cword = ensure(await expand(args.denops, "<cword>"), is.String);
     this.#cwd = await getcwd(args.denops);
     this.#filetype = await localOptions.get(args.denops, "filetype");
