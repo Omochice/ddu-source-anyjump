@@ -1,5 +1,5 @@
 import { describe, it } from "jsr:@std/testing@1.0.17/bdd";
-import { expect } from "jsr:@std/expect@1.0.17";
+import { expect } from "jsr:@std/expect@1.0.18";
 import { definitions } from "./grepDefinitions.ts";
 import { REGEX_KEYWORD } from "./ripgrep.ts";
 
