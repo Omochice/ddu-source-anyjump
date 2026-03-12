@@ -1,7 +1,8 @@
 {
-  $schema: "https://docs.renovatebot.com/renovate-schema.json",
-  extends: [
-    "github>Omochice/personal-renovate-config",
-    "github>Omochice/renovate-config:deno",
-  ],
+    $schema: "https://docs.renovatebot.com/renovate-schema.json",
+    extends: [
+        "github>Omochice/personal-renovate-config#v1.13.3",
+        "github>Omochice/personal-renovate-config:nix#v1.13.3",
+        "github>Omochice/renovate-config:deno#v4.1.0",
+    ],
 }
