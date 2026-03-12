@@ -1,5 +1,5 @@
 ---
-name: ddu-souce-anyjump
+name: ddu-source-anyjump
 description: anyjump source for ddu.vim
 --
 

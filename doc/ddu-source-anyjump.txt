@@ -1,4 +1,4 @@
-*ddu-souce-anyjump.txt*                            anyjump source for ddu.vim
+*ddu-source-anyjump.txt*                            anyjump source for ddu.vim
 =============================================================================
 ddu-source-anyjump ~
                                                          *ddu-source-anyjump*
