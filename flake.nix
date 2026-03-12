@@ -48,6 +48,11 @@
               global.length = 0;
               # keep-sorted end
             };
+            typosConfig = (pkgs.formats.toml { }).generate "typos.toml" {
+              # keep-sorted start
+              default.extend-words.noet = "noet";
+              # keep-sorted end
+            };
           in
           {
             settings.global.excludes = [
@@ -72,6 +77,10 @@
               formatjson5.enable = true;
               keep-sorted.enable = true;
               nixfmt.enable = true;
+              typos = {
+                enable = true;
+                configFile = toString typosConfig;
+              };
               yamlfmt = {
                 enable = true;
                 settings = {
