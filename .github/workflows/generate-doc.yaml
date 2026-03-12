@@ -21,7 +21,7 @@ jobs:
           filters: |
             pod:
               - README.pod
-              - .github/workflows/doc.yml
+              - .github/workflows/doc.yaml
   generate-document:
     needs: path-filter
     if: needs.path-filter.outputs.pod == 'true'
