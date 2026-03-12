@@ -112,14 +112,15 @@
             ghalint
             zizmor
           ];
+          deno = [ pkgs.deno ];
+          renovate = [ pkgs.renovate ];
           # keep-sorted end
-          default =
-            with pkgs;
-            [
-              deno
-              treefmt.config.build.wrapper
-            ]
-            ++ actions;
+          default = [
+            treefmt.config.build.wrapper
+          ]
+          ++ actions
+          ++ deno
+          ++ renovate;
         };
       in
       {
@@ -130,6 +131,14 @@
             ghalint run
             zizmor .github
           '' [ (runAs "check-action" devPackages.actions) ];
+          check-renovate-config = pkgs.lib.pipe ''
+            renovate-config-validator renovate.json5
+          '' [ (runAs "check-renovate-config" devPackages.renovate) ];
+          check-deno = pkgs.lib.pipe ''
+            deno task fmt:check
+            deno task check
+            deno task lint
+          '' [ (runAs "check-deno" devPackages.deno) ];
         };
         checks = {
           formatting = treefmt.config.build.check self;

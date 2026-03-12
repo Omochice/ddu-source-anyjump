@@ -67,7 +67,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: check actions
-        run: nix run .#check-actions
+        run: nix run .#check-action
   check-deno:
     needs: path-filter
     if: needs.path-filter.outputs.deno == 'true' || needs.path-filter.outputs.flake == 'true'
