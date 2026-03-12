@@ -50,7 +50,7 @@ export function getRgIgnoreSpecifier(option?: Option) {
  * Validate is input ripgrep match object
  *
  * @param input validation target
- * @return Wheather is input matched
+ * @return Whether is input matched
  */
 export const validate = $object({
   type: $const("match"),

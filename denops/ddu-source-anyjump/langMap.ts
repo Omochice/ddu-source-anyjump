@@ -9,7 +9,7 @@ const langMap = new Map([
 /**
  * Convert language name
  *
- * @param language langage name
+ * @param language language name
  * @return converted
  */
 export function convertLanguageName(language: string): string {
