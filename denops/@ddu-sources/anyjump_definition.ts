@@ -2,8 +2,8 @@ import type {
   DduOptions,
   Item,
   SourceOptions,
-} from "jsr:@shougo/ddu-vim@11.2.0/types";
-import { BaseSource } from "jsr:@shougo/ddu-vim@11.2.0/source";
+} from "jsr:@shougo/ddu-vim@11.3.0/types";
+import { BaseSource } from "jsr:@shougo/ddu-vim@11.3.0/source";
 import type { Denops } from "jsr:@denops/std@8.2.0";
 import { expand, getcwd } from "jsr:@denops/std@8.2.0/function";
 import { localOptions } from "jsr:@denops/std@8.2.0/variable";
