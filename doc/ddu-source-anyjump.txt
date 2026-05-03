@@ -10,7 +10,6 @@ Based on https://github.com/pechorin/any-jump.vim.
 Contents ~
                                                 *ddu-source-anyjump-contents*
 
-- ddu-source-anyjump-installation	|ddu-source-anyjump-installation|
 - ddu-source-anyjump-dependencies	|ddu-source-anyjump-dependencies|
 - ddu-source-anyjump-params		|ddu-source-anyjump-params|
 
