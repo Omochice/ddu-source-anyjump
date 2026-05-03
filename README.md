@@ -67,4 +67,4 @@ call ddu#start(#{
     \ })
 ```
 
-See [help file](./doc/ddu-source-anyjump.txt) more.
+See the [help file](./doc/ddu-source-anyjump.txt) for more details.
